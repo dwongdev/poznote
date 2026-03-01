@@ -342,6 +342,12 @@
                     if (tagInput) tagInput.value = '';
                 }
                 break;
+            case 'close-user-settings-info-modal':
+                const userSettingsModal = document.getElementById('userSettingsInfoModal');
+                if (userSettingsModal) {
+                    userSettingsModal.style.display = 'none';
+                }
+                break;
 
             // Note actions with noteId
             case 'toggle-favorite':

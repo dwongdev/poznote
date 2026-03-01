@@ -706,7 +706,7 @@
         "font_size": {
             "title": "Tamanho da Fonte",
             "note_label": "Conteúdo da nota (px):",
-            "sidebar_label": "Notas e pastas (px):",
+            "sidebar_label": "Barra lateral (px):",
             "default_value": "{{size}} px é o valor Padrão",
             "preview": "Pré-visualização"
         },
@@ -765,6 +765,10 @@
             "delete_description": "Todas as notas e pastas serão excluídas permanentemente e não podem ser recuperadas.",
             "delete_placeholder": "Digite o nome do espaço de trabalho para confirmar",
             "delete_button": "Excluir"
+        },
+        "user_settings_info": {
+            "title": "Configurações da conta",
+            "message": "Para alterar sua senha, editar seu email, nome de usuário ou OIDC Subject (UUID), entre em contato com o administrador desta instância Poznote."
         },
         "create": {
             "title_in_folder": "Criar em {{folder}}",
@@ -1996,5 +2000,9 @@
             "open_all": "Abrir tudo",
             "close": "Fechar"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "Espaços de trabalho",
+        "logout": "Sair"
     }
 }

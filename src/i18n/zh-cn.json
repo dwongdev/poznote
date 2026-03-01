@@ -710,7 +710,7 @@
         "font_size": {
             "title": "字体大小",
             "note_label": "笔记内容 (px):",
-            "sidebar_label": "笔记和文件夹 (px):",
+            "sidebar_label": "侧边栏 (px):",
             "default_value": "{{size}} 像素是默认值",
             "preview": "预览"
         },
@@ -780,6 +780,10 @@
             "delete_description": "所有笔记和文件夹将被永久删除且无法恢复。",
             "delete_placeholder": "输入工作区名称以确认",
             "delete_button": "删除工作区"
+        },
+        "user_settings_info": {
+            "title": "账户设置",
+            "message": "要更改密码、修改电子邮件、用户名或 OIDC Subject (UUID)，请联系此 Poznote 实例的管理员。"
         },
         "create": {
             "title_in_folder": "在 {{folder}} 中创建",
@@ -2107,5 +2111,9 @@
             "open_all": "全部打开",
             "close": "关闭"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "工作区",
+        "logout": "退出登录"
     }
 }

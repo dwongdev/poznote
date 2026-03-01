@@ -367,14 +367,16 @@ body.dark-mode #fontSizeModal .modal-footer .btn-primary:hover {
 
 html[data-theme='dark'] #fontSizeModal .modal-footer .btn-cancel,
 body.dark-mode #fontSizeModal .modal-footer .btn-cancel {
-    background-color: var(--dm-surface);
-    color: var(--dm-text);
-    border-color: var(--dm-border);
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-color: #dc3545 !important;
 }
 
 html[data-theme='dark'] #fontSizeModal .modal-footer .btn-cancel:hover,
 body.dark-mode #fontSizeModal .modal-footer .btn-cancel:hover {
-    background-color: #333;
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+    opacity: 1 !important;
 }
 
 /* ============================================

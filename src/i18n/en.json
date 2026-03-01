@@ -100,8 +100,9 @@
         },
         "badges": {
             "font_size_default": "default ({{size}}px)",
-            "note_font_size": "Note: {{size}}px",
-            "sidebar_font_size": "Sidebar: {{size}}px"
+            "note_font_size": "N: {{size}}px",
+            "sidebar_font_size": "S: {{size}}px",
+            "code_block_font_size": "C: {{size}}px"
         }
     },
     "tasklist": {
@@ -259,7 +260,8 @@
         "font_size": {
             "title": "Font Size",
             "note_label": "Note content (px):",
-            "sidebar_label": "Notes and folders (px):",
+            "sidebar_label": "Sidebar (px):",
+            "code_block_label": "Code blocks (px):",
             "default_value": "{{size}} px is the Default value",
             "preview": "Preview"
         },
@@ -329,6 +331,10 @@
             "delete_description": "All notes and folders will be permanently deleted and cannot be recovered.",
             "delete_placeholder": "Type workspace name to confirm",
             "delete_button": "Delete workspace"
+        },
+        "user_settings_info": {
+            "title": "Account Settings",
+            "message": "To change your password, edit your email, username, or OIDC Subject (UUID), please contact the administrator of this Poznote instance."
         },
         "create": {
             "title_in_folder": "Create in {{folder}}",
@@ -1570,5 +1576,9 @@
             "open_all": "Open All",
             "close": "Close"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "Workspaces",
+        "logout": "Logout"
     }
 }

@@ -62,6 +62,10 @@
                     <label for="sidebarFontSizeInput"><?php echo t_h('modals.font_size.sidebar_label'); ?></label>
                     <input type="number" id="sidebarFontSizeInput" min="10" max="32" step="1" value="13">
                 </div>
+                <div class="font-size-row">
+                    <label for="codeBlockFontSizeInput"><?php echo t_h('modals.font_size.code_block_label'); ?></label>
+                    <input type="number" id="codeBlockFontSizeInput" min="10" max="32" step="1" value="15">
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -849,6 +853,21 @@
         <div class="modal-buttons">
             <button type="button" class="btn-cancel" id="cancelBackgroundBtn"><?php echo t_h('common.cancel'); ?></button>
             <button type="button" class="btn-primary" id="saveBackgroundBtn"><?php echo t_h('common.save'); ?></button>
+        </div>
+    </div>
+</div>
+
+<!-- User Settings Info Modal (for non-admin users) -->
+<div id="userSettingsInfoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><?php echo t_h('modals.user_settings_info.title', [], 'Account Settings'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <p><?php echo t_h('modals.user_settings_info.message', [], 'To change your password, edit your email, username, or OIDC Subject (UUID), please contact the administrator of this Poznote instance.'); ?></p>
+        </div>
+        <div class="modal-buttons">
+            <button type="button" class="btn-primary" data-action="close-user-settings-info-modal"><?php echo t_h('common.ok'); ?></button>
         </div>
     </div>
 </div>

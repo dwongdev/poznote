@@ -707,7 +707,7 @@
         "font_size": {
             "title": "Schriftgröße",
             "note_label": "Notizinhalt (px):",
-            "sidebar_label": "Notizen und Ordner (px):",
+            "sidebar_label": "Seitenleiste (px):",
             "default_value": "{{size}} px ist der Standardwert",
             "preview": "Vorschau"
         },
@@ -766,6 +766,10 @@
             "delete_description": "Alle Notizen und Ordner werden dauerhaft gelöscht und können nicht wiederhergestellt werden.",
             "delete_placeholder": "Arbeitsbereichsnamen eingeben, um zu bestätigen",
             "delete_button": "Arbeitsbereich löschen"
+        },
+        "user_settings_info": {
+            "title": "Kontoeinstellungen",
+            "message": "Um Ihr Passwort zu ändern, Ihre E-Mail, Ihren Benutzernamen oder Ihr OIDC-Subject (UUID) zu bearbeiten, wenden Sie sich bitte an den Administrator dieser Poznote-Instanz."
         },
         "create": {
             "title_in_folder": "Erstellen in {{folder}}",
@@ -1992,5 +1996,9 @@
             "open_all": "Alle öffnen",
             "close": "Schließen"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "Arbeitsbereiche",
+        "logout": "Abmelden"
     }
 }

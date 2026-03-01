@@ -159,13 +159,14 @@
 }
 
 .modal-buttons button.btn-cancel {
-    background-color: #f8f9fa;
-    color: #333;
-    border: 1px solid #ddd;
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
 }
 
 .modal-buttons button.btn-cancel:hover {
-    background-color: #e9ecef;
+    background-color: #c82333;
+    border-color: #bd2130;
 }
 
 .modal-buttons button.btn-success {
@@ -310,6 +311,18 @@
 
 .modal-footer .btn:hover {
     opacity: 0.9;
+}
+
+.modal-footer .btn-cancel {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: 1px solid #dc3545 !important;
+}
+
+.modal-footer .btn-cancel:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+    opacity: 1 !important;
 }
 
 /* ============================================
