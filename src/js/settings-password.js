@@ -51,10 +51,17 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             const data = await response.json();
-            
+
             if (data.success) {
-                // Password verified - reload page to access settings
-                window.location.reload();
+                // Password verified - check if there's a redirect URL from API
+                const redirectUrl = data.redirect_url || passwordForm.dataset.redirectUrl;
+                if (redirectUrl && redirectUrl.trim() !== '') {
+                    // Redirect to the original requested page
+                    window.location.href = redirectUrl;
+                } else {
+                    // No redirect URL - reload to access settings
+                    window.location.reload();
+                }
             } else {
                 // Invalid password - show error and reset form
                 showError(data.error || 'Invalid password');

@@ -68,17 +68,17 @@ if (defined('SETTINGS_PASSWORD') && SETTINGS_PASSWORD !== '') {
                     <p class="settings-subtitle"><?php echo t_h('settings.password.heading', [], 'Settings Protected', $currentLang); ?></p>
                 </div>
                 
-                <form id="settings-password-form">
+                <form id="settings-password-form" data-redirect-url="<?php echo isset($_SESSION['settings_redirect_after_auth']) ? htmlspecialchars($_SESSION['settings_redirect_after_auth'], ENT_QUOTES, 'UTF-8') : ''; ?>">
                     <div class="form-group">
                         <input type="password" id="settings-password-input" placeholder="<?php echo t_h('settings.password.placeholder', [], 'Enter password', $currentLang); ?>" required autofocus autocomplete="off">
                         <div id="settings-password-error" class="error"></div>
                     </div>
-                    
+
                     <button type="submit" id="settings-password-submit" class="login-button">
                         <?php echo t_h('settings.password.submit', [], 'Access Settings', $currentLang); ?>
                     </button>
                     <button type="button" id="settings-password-cancel" class="login-button cancel-button">
-                        <?php echo t_h('settings.password.cancel', [], 'Back to Home', $currentLang); ?>
+                        <?php echo t_h('settings.password.cancel', [], 'Back to Notes', $currentLang); ?>
                     </button>
                 </form>
             </div>

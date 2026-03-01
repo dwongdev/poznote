@@ -50,7 +50,7 @@
             "heading": "Settings Protected",
             "placeholder": "Enter password",
             "submit": "Access Settings",
-            "cancel": "Go to Home"
+            "cancel": "Back to Notes"
         },
         "cards": {
             "workspaces": "Workspaces",

@@ -156,7 +156,14 @@ class SystemController {
         if (hash_equals($configuredPassword, $password)) {
             // Set session flag
             $_SESSION['settings_authenticated'] = true;
-            return ['success' => true, 'valid' => true];
+
+            // Get redirect URL if it exists (will be used by client-side)
+            $redirectUrl = $_SESSION['settings_redirect_after_auth'] ?? '';
+
+            // Clean up redirect URL from session now that authentication succeeded
+            unset($_SESSION['settings_redirect_after_auth']);
+
+            return ['success' => true, 'valid' => true, 'redirect_url' => $redirectUrl];
         } else {
             http_response_code(401);
             return ['success' => false, 'valid' => false, 'error' => 'Invalid password'];
