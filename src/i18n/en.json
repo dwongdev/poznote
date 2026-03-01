@@ -332,6 +332,10 @@
             "delete_placeholder": "Type workspace name to confirm",
             "delete_button": "Delete workspace"
         },
+        "user_settings_info": {
+            "title": "Account Settings",
+            "message": "To change your password, edit your email, username, or OIDC Subject (UUID), please contact the administrator of this Poznote instance."
+        },
         "create": {
             "title_in_folder": "Create in {{folder}}",
             "folder_fallback": "folder",
@@ -1572,5 +1576,9 @@
             "open_all": "Open All",
             "close": "Close"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "Workspaces",
+        "logout": "Logout"
     }
 }

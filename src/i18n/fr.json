@@ -795,6 +795,10 @@
             "delete_placeholder": "Tapez le nom de l’espace de travail pour confirmer",
             "delete_button": "Supprimer"
         },
+        "user_settings_info": {
+            "title": "Paramètres du compte",
+            "message": "Pour changer votre mot de passe, modifier votre email, nom d’utilisateur ou OIDC Subject (UUID), veuillez contacter l’administrateur de cette instance Poznote."
+        },
         "create": {
             "title_in_folder": "Créer dans {{folder}}",
             "folder_fallback": "dossier",
@@ -2150,5 +2154,9 @@
             "open_all": "Tout ouvrir",
             "close": "Fermer"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "Espaces de travail",
+        "logout": "Déconnexion"
     }
 }

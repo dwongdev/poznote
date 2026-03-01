@@ -781,6 +781,10 @@
             "delete_placeholder": "输入工作区名称以确认",
             "delete_button": "删除工作区"
         },
+        "user_settings_info": {
+            "title": "账户设置",
+            "message": "要更改密码、修改电子邮件、用户名或 OIDC Subject (UUID)，请联系此 Poznote 实例的管理员。"
+        },
         "create": {
             "title_in_folder": "在 {{folder}} 中创建",
             "folder_fallback": "文件夹",
@@ -2107,5 +2111,9 @@
             "open_all": "全部打开",
             "close": "关闭"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "工作区",
+        "logout": "退出登录"
     }
 }

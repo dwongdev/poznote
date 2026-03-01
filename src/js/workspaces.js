@@ -161,7 +161,7 @@ function displayWorkspaceMenu(menu, workspaces, username) {
 
     // Add username at the top if available
     if (username) {
-        menuHtml += '<div class="workspace-menu-item workspace-menu-username">';
+        menuHtml += '<div class="workspace-menu-item workspace-menu-username" data-action="user-settings">';
         menuHtml += '<i class="lucide lucide-user"></i>';
         menuHtml += '<span>' + username.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') + '</span>';
         menuHtml += '</div>';
@@ -201,6 +201,21 @@ function displayWorkspaceMenu(menu, workspaces, username) {
         menuHtml += '</div>';
     }
 
+    // Add divider before action items
+    menuHtml += '<div class="workspace-menu-divider"></div>';
+
+    // Add "Workspaces" menu item
+    menuHtml += '<div class="workspace-menu-item" data-action="goto-workspaces">';
+    menuHtml += '<i class="lucide lucide-settings"></i>';
+    menuHtml += '<span>' + wsTr('workspace_menu.workspaces', {}, 'Workspaces') + '</span>';
+    menuHtml += '</div>';
+
+    // Add "Logout" menu item
+    menuHtml += '<div class="workspace-menu-item" data-action="logout">';
+    menuHtml += '<i class="lucide lucide-log-out"></i>';
+    menuHtml += '<span>' + wsTr('workspace_menu.logout', {}, 'Logout') + '</span>';
+    menuHtml += '</div>';
+
     menu.innerHTML = menuHtml;
 
     // Add event listeners using delegation
@@ -209,6 +224,28 @@ function displayWorkspaceMenu(menu, workspaces, username) {
             switchToWorkspace(this.getAttribute('data-workspace-name'));
         });
     });
+
+    // Add event listener for username click
+    var usernameItem = menu.querySelector('.workspace-menu-username');
+    if (usernameItem) {
+        usernameItem.addEventListener('click', handleUsernameClick);
+    }
+
+    // Add event listener for Workspaces item
+    var workspacesItem = menu.querySelector('[data-action="goto-workspaces"]');
+    if (workspacesItem) {
+        workspacesItem.addEventListener('click', function () {
+            window.location.href = 'workspaces.php';
+        });
+    }
+
+    // Add event listener for Logout item
+    var logoutItem = menu.querySelector('[data-action="logout"]');
+    if (logoutItem) {
+        logoutItem.addEventListener('click', function () {
+            window.location.href = 'logout.php';
+        });
+    }
 }
 
 function switchToWorkspace(workspaceName) {
@@ -261,6 +298,33 @@ function switchToWorkspace(workspaceName) {
 
     history.pushState({ workspace: workspaceName }, '', url.toString());
     refreshLeftColumnForWorkspace(workspaceName);
+}
+
+function handleUsernameClick() {
+    closeWorkspaceMenus();
+
+    // Check if user is admin (from page config)
+    var isAdmin = false;
+    try {
+        var configData = document.getElementById('page-config-data');
+        if (configData) {
+            var config = JSON.parse(configData.textContent);
+            isAdmin = config.isAdmin || false;
+        }
+    } catch (e) {
+        console.error('Error reading page config:', e);
+    }
+
+    if (isAdmin) {
+        // Redirect to users.php for admin
+        window.location.href = 'admin/users.php';
+    } else {
+        // Show modal for non-admin users
+        var modal = document.getElementById('userSettingsInfoModal');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
 }
 
 function closeWorkspaceMenus() {

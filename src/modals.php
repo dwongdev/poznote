@@ -857,6 +857,21 @@
     </div>
 </div>
 
+<!-- User Settings Info Modal (for non-admin users) -->
+<div id="userSettingsInfoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><?php echo t_h('modals.user_settings_info.title', [], 'Account Settings'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <p><?php echo t_h('modals.user_settings_info.message', [], 'To change your password, edit your email, username, or OIDC Subject (UUID), please contact the administrator of this Poznote instance.'); ?></p>
+        </div>
+        <div class="modal-buttons">
+            <button type="button" class="btn-primary" data-action="close-user-settings-info-modal"><?php echo t_h('common.ok'); ?></button>
+        </div>
+    </div>
+</div>
+
 <!-- Note Tags Modal -->
 <div id="tagsModal" class="modal">
     <div class="modal-content">

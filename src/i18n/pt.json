@@ -766,6 +766,10 @@
             "delete_placeholder": "Digite o nome do espaço de trabalho para confirmar",
             "delete_button": "Excluir"
         },
+        "user_settings_info": {
+            "title": "Configurações da conta",
+            "message": "Para alterar sua senha, editar seu email, nome de usuário ou OIDC Subject (UUID), entre em contato com o administrador desta instância Poznote."
+        },
         "create": {
             "title_in_folder": "Criar em {{folder}}",
             "folder_fallback": "pasta",
@@ -1996,5 +2000,9 @@
             "open_all": "Abrir tudo",
             "close": "Fechar"
         }
+    },
+    "workspace_menu": {
+        "workspaces": "Espaços de trabalho",
+        "logout": "Sair"
     }
 }
