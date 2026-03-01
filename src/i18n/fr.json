@@ -315,7 +315,7 @@
             "heading": "Accès Protégé",
             "placeholder": "Entrez le mot de passe",
             "submit": "Accéder aux Paramètres",
-            "cancel": "Retour à l'accueil"
+            "cancel": "Retour aux Notes"
         },
         "sections": {
             "account_display": "Compte & Affichage",
