@@ -62,6 +62,10 @@
                     <label for="sidebarFontSizeInput"><?php echo t_h('modals.font_size.sidebar_label'); ?></label>
                     <input type="number" id="sidebarFontSizeInput" min="10" max="32" step="1" value="13">
                 </div>
+                <div class="font-size-row">
+                    <label for="codeBlockFontSizeInput"><?php echo t_h('modals.font_size.code_block_label'); ?></label>
+                    <input type="number" id="codeBlockFontSizeInput" min="10" max="32" step="1" value="15">
+                </div>
             </div>
         </div>
         <div class="modal-footer">

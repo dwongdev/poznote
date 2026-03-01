@@ -707,7 +707,7 @@
         "font_size": {
             "title": "Schriftgröße",
             "note_label": "Notizinhalt (px):",
-            "sidebar_label": "Notizen und Ordner (px):",
+            "sidebar_label": "Seitenleiste (px):",
             "default_value": "{{size}} px ist der Standardwert",
             "preview": "Vorschau"
         },

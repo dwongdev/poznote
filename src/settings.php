@@ -345,6 +345,7 @@ if ($isAdmin) {
                     <div>
                         <span id="font-size-badge" class="setting-status"><?php echo t_h('common.loading'); ?></span>
                         <span id="sidebar-font-size-badge" class="setting-status"><?php echo t_h('common.loading'); ?></span>
+                        <span id="code-block-font-size-badge" class="setting-status"><?php echo t_h('common.loading'); ?></span>
                     </div>
                 </div>
             </div>

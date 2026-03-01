@@ -707,7 +707,7 @@
         "font_size": {
             "title": "Tamaño de fuente",
             "note_label": "Contenido de la nota (px):",
-            "sidebar_label": "Notas y carpetas (px):",
+            "sidebar_label": "Barra lateral (px):",
             "default_value": "{{size}} px es el valor predeterminado",
             "preview": "Vista previa"
         },

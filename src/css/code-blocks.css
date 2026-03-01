@@ -22,8 +22,7 @@ pre.code-block,
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
     overflow-x: auto;
-    font-size: var(--note-font-size, 15px) !important;
-    /* same font size as note text */
+    font-size: var(--code-block-font-size, 15px) !important;
     position: relative;
     max-width: 100%;
 }
@@ -105,6 +104,7 @@ code {
     padding: 2px 4px;
     border-radius: 3px;
     color: #333;
+    font-size: var(--code-block-font-size, 15px) !important;
 }
 
 /* Code inside pre blocks should not have background */
@@ -113,6 +113,7 @@ pre code,
     background-color: transparent !important;
     padding: 0 !important;
     border-radius: 0 !important;
+    font-size: inherit !important;
 }
 
 /* Force same font for all elements with inline styles in code blocks */
@@ -259,8 +260,7 @@ code *[style*="color"],
 .noteentry div[style*='monospace'] b,
 .noteentry div[style*='monospace'] strong {
     font-family: "Segoe UI Mono", "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "Courier New", monospace !important;
-    font-size: var(--note-font-size, 15px) !important;
-    /* same font size as note text */
+    font-size: var(--code-block-font-size, 15px) !important;
     font-style: normal !important;
     font-weight: normal !important;
     white-space: pre-wrap !important;

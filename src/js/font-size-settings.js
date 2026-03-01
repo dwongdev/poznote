@@ -13,11 +13,12 @@ function showNoteFontSizePrompt() {
     const modal = document.getElementById('fontSizeModal');
     const fontSizeInput = document.getElementById('fontSizeInput');
     const sidebarFontSizeInput = document.getElementById('sidebarFontSizeInput');
+    const codeBlockFontSizeInput = document.getElementById('codeBlockFontSizeInput');
     const closeFontSizeBtn = document.getElementById('closeFontSizeModal');
     const cancelFontSizeBtn = document.getElementById('cancelFontSizeBtn');
     const saveFontSizeBtn = document.getElementById('saveFontSizeBtn');
 
-    if (!modal || !fontSizeInput || !sidebarFontSizeInput) {
+    if (!modal || !fontSizeInput || !sidebarFontSizeInput || !codeBlockFontSizeInput) {
         return;
     }
 
@@ -84,22 +85,32 @@ function loadCurrentFontSizes() {
         sidebarFontSizeInput.value = sidebarFontSize;
         updateFontSizePreview();
     }
+
+    // Load code block font size from localStorage
+    const codeBlockFontSize = localStorage.getItem('code_block_font_size') || '15';
+    const codeBlockFontSizeInput = document.getElementById('codeBlockFontSizeInput');
+    if (codeBlockFontSizeInput) {
+        codeBlockFontSizeInput.value = codeBlockFontSize;
+        updateFontSizePreview();
+    }
 }
 
 // Function to save font size settings
 function saveFontSize() {
     const fontSizeInput = document.getElementById('fontSizeInput');
     const sidebarFontSizeInput = document.getElementById('sidebarFontSizeInput');
+    const codeBlockFontSizeInput = document.getElementById('codeBlockFontSizeInput');
 
-    if (!fontSizeInput || !sidebarFontSizeInput) {
+    if (!fontSizeInput || !sidebarFontSizeInput || !codeBlockFontSizeInput) {
         return;
     }
 
     const fontSize = fontSizeInput.value;
     const sidebarFontSize = sidebarFontSizeInput.value;
+    const codeBlockFontSize = codeBlockFontSizeInput.value;
 
     // Validate inputs
-    if (fontSize < 10 || fontSize > 32 || sidebarFontSize < 10 || sidebarFontSize > 32) {
+    if (fontSize < 10 || fontSize > 32 || sidebarFontSize < 10 || sidebarFontSize > 32 || codeBlockFontSize < 10 || codeBlockFontSize > 32) {
         safeShowNotification('Font size must be between 10 and 32 pixels', 'error');
         return;
     }
@@ -108,15 +119,18 @@ function saveFontSize() {
         // Save to localStorage instead of database
         localStorage.setItem('note_font_size', fontSize);
         localStorage.setItem('sidebar_font_size', sidebarFontSize);
+        localStorage.setItem('code_block_font_size', codeBlockFontSize);
 
         closeFontSizeModal();
 
         // Apply changes immediately to the UI
         const noteSize = fontSize + 'px';
         const sidebarSize = sidebarFontSize + 'px';
+        const codeBlockSize = codeBlockFontSize + 'px';
 
         document.documentElement.style.setProperty('--note-font-size', noteSize);
         document.documentElement.style.setProperty('--sidebar-font-size', sidebarSize);
+        document.documentElement.style.setProperty('--code-block-font-size', codeBlockSize);
 
         // Direct application as fallback for existing elements
         document.querySelectorAll('.noteentry').forEach(el => el.style.fontSize = noteSize);
@@ -140,6 +154,9 @@ function applyFontSizeToNotes() {
 
     const sidebarFontSize = localStorage.getItem('sidebar_font_size') || '13';
     document.documentElement.style.setProperty('--sidebar-font-size', sidebarFontSize + 'px');
+
+    const codeBlockFontSize = localStorage.getItem('code_block_font_size') || '15';
+    document.documentElement.style.setProperty('--code-block-font-size', codeBlockFontSize + 'px');
 }
 
 // Function to apply font size on page load
@@ -155,11 +172,12 @@ function initFontSizeSettings() {
     const fontSizeModal = document.getElementById('fontSizeModal');
     const fontSizeInput = document.getElementById('fontSizeInput');
     const sidebarFontSizeInput = document.getElementById('sidebarFontSizeInput');
+    const codeBlockFontSizeInput = document.getElementById('codeBlockFontSizeInput');
     const closeFontSizeBtn = document.getElementById('closeFontSizeModal');
     const cancelFontSizeBtn = document.getElementById('cancelFontSizeBtn');
     const saveFontSizeBtn = document.getElementById('saveFontSizeBtn');
 
-    if (!fontSizeModal || !fontSizeInput || !sidebarFontSizeInput || !cancelFontSizeBtn || !saveFontSizeBtn) {
+    if (!fontSizeModal || !fontSizeInput || !sidebarFontSizeInput || !codeBlockFontSizeInput || !cancelFontSizeBtn || !saveFontSizeBtn) {
         return;
     }
 
@@ -173,6 +191,7 @@ function initFontSizeSettings() {
 
         fontSizeInput.addEventListener('input', updateFontSizePreview);
         sidebarFontSizeInput.addEventListener('input', updateFontSizePreview);
+        codeBlockFontSizeInput.addEventListener('input', updateFontSizePreview);
 
         fontSizeModal.setAttribute('data-initialized', 'true');
     }

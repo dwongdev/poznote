@@ -710,7 +710,7 @@
         "font_size": {
             "title": "字体大小",
             "note_label": "笔记内容 (px):",
-            "sidebar_label": "笔记和文件夹 (px):",
+            "sidebar_label": "侧边栏 (px):",
             "default_value": "{{size}} 像素是默认值",
             "preview": "预览"
         },
