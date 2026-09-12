@@ -571,6 +571,71 @@
         });
     }
 
+    // Phones open the panel like the note outline (js/outline-panel.js): a
+    // right-to-left swipe on the journal slides it in, a left-to-right swipe
+    // on the panel slides it out. Same distances as there.
+    var SWIPE_MIN_DISTANCE_PX = 80;
+    var SWIPE_MAX_VERTICAL_PX = 100;
+
+    // A swipe that starts in something scrolling sideways (a wide table or
+    // code block of an entry) belongs to that scroller.
+    function isInHorizontalScroller(target, root) {
+        var current = target instanceof Element ? target : null;
+        while (current && current !== root) {
+            var overflowX = window.getComputedStyle(current).overflowX;
+            if ((overflowX === 'auto' || overflowX === 'scroll') && current.scrollWidth > current.clientWidth + 1) {
+                return true;
+            }
+            current = current.parentElement;
+        }
+        return false;
+    }
+
+    function initOutlineSwipe() {
+        var startX = 0;
+        var startY = 0;
+        var tracking = false;
+
+        document.addEventListener('touchstart', function (e) {
+            tracking = false;
+            if (!isMobileLayout() || viewMode !== 'journal' || e.touches.length !== 1) return;
+            var root = e.target.closest ? e.target.closest('.diary-journal') : null;
+            if (!root || isInHorizontalScroller(e.target, root)) return;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            tracking = true;
+        }, { passive: true });
+
+        document.addEventListener('touchend', function (e) {
+            if (!tracking) return;
+            tracking = false;
+            var dx = startX - e.changedTouches[0].clientX;
+            var dy = Math.abs(startY - e.changedTouches[0].clientY);
+            if (dx > SWIPE_MIN_DISTANCE_PX && dy < SWIPE_MAX_VERTICAL_PX &&
+                !document.body.classList.contains('outline-mobile-open')) {
+                setMobileOutlineOpen(true);
+                scheduleOutlineActive();
+            }
+        }, { passive: true });
+
+        var panel = document.getElementById('outline-panel');
+        if (!panel) return;
+        var panelStartX = 0;
+        var panelStartY = 0;
+        panel.addEventListener('touchstart', function (e) {
+            panelStartX = e.touches[0].clientX;
+            panelStartY = e.touches[0].clientY;
+        }, { passive: true });
+        panel.addEventListener('touchend', function (e) {
+            var dx = e.changedTouches[0].clientX - panelStartX;
+            var dy = Math.abs(e.changedTouches[0].clientY - panelStartY);
+            if (dx > SWIPE_MIN_DISTANCE_PX && dy < SWIPE_MAX_VERTICAL_PX &&
+                document.body.classList.contains('outline-mobile-open')) {
+                setMobileOutlineOpen(false);
+            }
+        }, { passive: true });
+    }
+
     function initOutline() {
         var nav = document.getElementById('diaryOutlineNav');
         if (!nav) return;
@@ -585,13 +650,14 @@
 
         var toggleBtn = document.getElementById('toggleOutlineBtn');
         if (toggleBtn) toggleBtn.addEventListener('click', toggleOutlinePanel);
-        document.querySelectorAll('.diary-outline .outline-close-btn, #diaryOutlineMobileBtn').forEach(function (btn) {
+        document.querySelectorAll('.diary-outline .outline-close-btn').forEach(function (btn) {
             btn.addEventListener('click', toggleOutlinePanel);
         });
         var backdrop = document.getElementById('outlineMobileBackdrop');
         if (backdrop) backdrop.addEventListener('click', function () { setMobileOutlineOpen(false); });
 
         initOutlineResize();
+        initOutlineSwipe();
 
         window.addEventListener('scroll', scheduleOutlineActive, { passive: true });
         window.addEventListener('resize', scheduleOutlineActive);
@@ -710,26 +776,30 @@
 
     // --- New diary ---
 
-    function openNewDiaryModal() {
+    // Name prompt shared by "New diary" and "Rename". opts.submit(name) returns
+    // a promise resolving to the URL to load, or rejecting with the message to
+    // show under the input.
+    function openDiaryNameModal(opts) {
         var overlay = document.createElement('div');
         overlay.className = 'modal-overlay diary-new-modal-overlay';
         overlay.innerHTML =
             '<div class="modal-dialog diary-new-modal">' +
-                '<div class="modal-header"><h3 class="modal-title">' + esc(txt.newDiaryTitle || 'Create a new diary') + '</h3></div>' +
+                '<div class="modal-header"><h3 class="modal-title">' + esc(opts.title) + '</h3></div>' +
                 '<div class="modal-body">' +
                     '<input type="text" class="diary-new-input" maxlength="255" placeholder="' + esc(txt.newDiaryPlaceholder || 'Diary name') + '" autocomplete="off">' +
                     '<p class="diary-new-error initially-hidden"></p>' +
                 '</div>' +
                 '<div class="modal-footer">' +
                     '<button type="button" class="btn btn-secondary" data-action="close-modal">' + esc(txt.cancel || 'Cancel') + '</button>' +
-                    '<button type="button" class="btn btn-primary" data-action="create-diary">' + esc(txt.create || 'Create') + '</button>' +
+                    '<button type="button" class="btn btn-primary" data-action="submit-diary-name">' + esc(opts.confirmText) + '</button>' +
                 '</div>' +
             '</div>';
         document.body.appendChild(overlay);
 
         var input = overlay.querySelector('.diary-new-input');
         var errorEl = overlay.querySelector('.diary-new-error');
-        var createBtn = overlay.querySelector('[data-action="create-diary"]');
+        var submitBtn = overlay.querySelector('[data-action="submit-diary-name"]');
+        input.value = opts.value || '';
 
         function close() { overlay.remove(); }
 
@@ -744,27 +814,16 @@
                 input.focus();
                 return;
             }
-            createBtn.disabled = true;
-            fetch('api/v1/diary/diaries.php', {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-                body: JSON.stringify({ name: name, workspace: data.workspace })
-            })
-                .then(function (response) { return response.json(); })
-                .then(function (result) {
-                    if (result.success && result.diary) {
-                        var url = 'diary.php?diary=' + encodeURIComponent(result.diary.id);
-                        if (data.pageWorkspace) url += '&workspace=' + encodeURIComponent(data.pageWorkspace);
-                        window.location.href = url;
-                    } else {
-                        createBtn.disabled = false;
-                        showModalError(result.error || txt.newDiaryError || 'Could not create the diary.');
-                    }
-                })
+            if (name === (opts.value || '')) {
+                close();
+                return;
+            }
+            submitBtn.disabled = true;
+            opts.submit(name)
+                .then(function (url) { window.location.href = url; })
                 .catch(function (err) {
-                    createBtn.disabled = false;
-                    showModalError((txt.newDiaryError || 'Could not create the diary.') + ' ' + err.message);
+                    submitBtn.disabled = false;
+                    showModalError(err.message);
                 });
         }
 
@@ -772,12 +831,141 @@
             if (e.target === overlay) close();
         });
         overlay.querySelector('[data-action="close-modal"]').addEventListener('click', close);
-        createBtn.addEventListener('click', submit);
+        submitBtn.addEventListener('click', submit);
         input.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') submit();
             if (e.key === 'Escape') close();
         });
         input.focus();
+        input.select();
+    }
+
+    function diaryPageUrl(diaryId) {
+        var url = 'diary.php?diary=' + encodeURIComponent(diaryId);
+        if (data.pageWorkspace) url += '&workspace=' + encodeURIComponent(data.pageWorkspace);
+        return url;
+    }
+
+    function openNewDiaryModal() {
+        var fallback = txt.newDiaryError || 'Could not create the diary.';
+        openDiaryNameModal({
+            title: txt.newDiaryTitle || 'Create a new diary',
+            confirmText: txt.create || 'Create',
+            submit: function (name) {
+                return fetch('api/v1/diary/diaries.php', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                    body: JSON.stringify({ name: name, workspace: data.workspace })
+                })
+                    .then(function (response) { return response.json(); })
+                    .then(function (result) {
+                        if (result.success && result.diary) return diaryPageUrl(result.diary.id);
+                        throw new Error(result.error || fallback);
+                    }, function (err) {
+                        throw new Error(fallback + ' ' + err.message);
+                    });
+            }
+        });
+    }
+
+    // A diary is a root folder: renaming it is the tree's folder rename, and
+    // its entries keep their place (they hang off the folder id).
+    function openRenameDiaryModal(pill) {
+        var diaryId = parseInt(pill.getAttribute('data-diary-id'), 10);
+        var fallback = txt.renameDiaryError || 'Could not rename the diary.';
+        openDiaryNameModal({
+            title: txt.renameDiaryTitle || 'Rename diary',
+            value: pill.getAttribute('data-diary-name') || '',
+            confirmText: txt.renameLabel || 'Rename',
+            submit: function (name) {
+                // Same forbidden characters as a new diary (api/v1/diary/diaries.php):
+                // the name is also a segment of the Diary/YYYY/MM path.
+                var forbidden = name.match(/[/\\:*?"<>|]/);
+                if (forbidden) {
+                    return Promise.reject(new Error(fallback + ' ' + forbidden[0]));
+                }
+                return fetch('api/v1/folders/' + encodeURIComponent(diaryId), {
+                    method: 'PATCH',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                    body: JSON.stringify({ name: name, workspace: data.workspace })
+                })
+                    .then(function (response) {
+                        return response.json().catch(function () { return {}; }).then(function (result) {
+                            if (!response.ok || !result.success) {
+                                throw new Error(result.error || result.message || fallback);
+                            }
+                            return diaryPageUrl(diaryId);
+                        });
+                    });
+            }
+        });
+    }
+
+    // --- Diary pill context menu (desktop) ---
+
+    var diaryContextMenu = null;
+
+    function closeDiaryContextMenu() {
+        if (diaryContextMenu) {
+            diaryContextMenu.remove();
+            diaryContextMenu = null;
+        }
+    }
+
+    function openDiaryContextMenu(pill, x, y) {
+        closeDiaryContextMenu();
+        var menu = document.createElement('div');
+        menu.className = 'diary-context-menu';
+        menu.setAttribute('role', 'menu');
+        menu.innerHTML =
+            '<button type="button" class="diary-context-menu-item" role="menuitem" data-action="rename">' +
+                '<i class="lucide lucide-pencil"></i> ' + esc(txt.renameLabel || 'Rename') +
+            '</button>' +
+            '<button type="button" class="diary-context-menu-item danger" role="menuitem" data-action="delete">' +
+                '<i class="lucide lucide-trash-2"></i> ' + esc(txt.deleteLabel || 'Delete') +
+            '</button>';
+        document.body.appendChild(menu);
+        diaryContextMenu = menu;
+
+        // Opens at the pointer, pulled back inside the window
+        var rect = menu.getBoundingClientRect();
+        menu.style.left = Math.max(8, Math.min(x, window.innerWidth - rect.width - 8)) + 'px';
+        menu.style.top = Math.max(8, Math.min(y, window.innerHeight - rect.height - 8)) + 'px';
+
+        menu.addEventListener('click', function (e) {
+            var item = e.target.closest('.diary-context-menu-item');
+            if (!item) return;
+            closeDiaryContextMenu();
+            if (item.getAttribute('data-action') === 'rename') {
+                openRenameDiaryModal(pill);
+            } else {
+                deleteDiary(pill);
+            }
+        });
+        var first = menu.querySelector('.diary-context-menu-item');
+        if (first) first.focus();
+    }
+
+    function initDiaryContextMenu() {
+        var switcher = document.querySelector('.diary-switcher');
+        if (!switcher) return;
+        switcher.addEventListener('contextmenu', function (e) {
+            var pill = e.target.closest('.diary-switch-btn');
+            // Phones keep their long-press and the pill's own delete button
+            if (!pill || isMobileLayout()) return;
+            e.preventDefault();
+            openDiaryContextMenu(pill, e.clientX, e.clientY);
+        });
+        document.addEventListener('mousedown', function (e) {
+            if (diaryContextMenu && !diaryContextMenu.contains(e.target)) closeDiaryContextMenu();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeDiaryContextMenu();
+        });
+        window.addEventListener('scroll', closeDiaryContextMenu, { passive: true });
+        window.addEventListener('resize', closeDiaryContextMenu);
     }
 
     // --- Move a journal entry to the trash ---
@@ -831,8 +1019,15 @@
                 .then(function () {
                     removeNoteFromList(notes, noteId);
                     delete journalBodies[noteId];
-                    // "Today's entry" must create the day's note again
-                    if (noteId === data.todayNoteId) data.todayNoteId = null;
+                    // The day has no entry any more: the button creates one again
+                    if (noteId === data.todayNoteId) {
+                        data.todayNoteId = null;
+                        var todayBtn = document.getElementById('diaryTodayBtn');
+                        var todayLabel = todayBtn && todayBtn.querySelector('.diary-today-label');
+                        var todayIcon = todayBtn && todayBtn.querySelector('.lucide');
+                        if (todayLabel) todayLabel.textContent = txt.todayCreate || "Create today's entry";
+                        if (todayIcon) todayIcon.className = 'lucide lucide-calendar-plus';
+                    }
 
                     if (notes.length === 0) {
                         // Last entry gone: the server renders the empty diary's invitation
@@ -932,6 +1127,8 @@
                 if (btn) trashJournalEntry(btn);
             });
         }
+
+        initDiaryContextMenu();
 
         document.querySelectorAll('.diary-switch-delete').forEach(function (btn) {
             btn.addEventListener('click', function () { deleteDiary(btn); });

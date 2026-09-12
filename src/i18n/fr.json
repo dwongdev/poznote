@@ -4621,10 +4621,10 @@
   },
   "diary": {
     "title": "Journal",
-    "today_button": "Note du jour",
-    "today_button_title": "Ouvrir la note du jour (la créer si besoin)",
+    "today_button_go": "Aller à la note du jour",
+    "today_button_create": "Créer la note du jour",
     "today_badge": "Aujourd'hui",
-    "empty": "Aucune note de journal pour le moment. Cliquez sur « Note du jour » pour écrire la première. Elle sera rangée dans {{folder}}.",
+    "empty": "Aucune note de journal pour le moment. Cliquez sur « Créer la note du jour » pour écrire la première. Elle sera rangée dans {{folder}}.",
     "create_error": "Impossible de créer la note du jour.",
     "create_card_title": "Note de journal",
     "folder_name": "Journal",
@@ -4641,7 +4641,9 @@
     "delete_error": "Impossible de supprimer le journal.",
     "journal_trash": "Mettre à la corbeille",
     "journal_trash_confirm": "Mettre « {{title}} » à la corbeille ?",
-    "journal_trash_error": "Impossible de mettre cette note à la corbeille."
+    "journal_trash_error": "Impossible de mettre cette note à la corbeille.",
+    "rename_title": "Renommer le journal",
+    "rename_error": "Impossible de renommer le journal."
   },
   "new_user_email": {
     "subject": "Nouvel utilisateur Poznote : {{user}}",

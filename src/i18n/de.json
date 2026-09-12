@@ -4516,10 +4516,10 @@
   },
   "diary": {
     "title": "Tagebuch",
-    "today_button": "Heutiger Eintrag",
-    "today_button_title": "Heutigen Eintrag öffnen (bei Bedarf erstellen)",
+    "today_button_go": "Zum heutigen Eintrag",
+    "today_button_create": "Heutigen Eintrag erstellen",
     "today_badge": "Heute",
-    "empty": "Noch keine Tagebucheinträge. Klicken Sie auf \"Heutiger Eintrag\", um den ersten zu schreiben. Er wird in {{folder}} gespeichert.",
+    "empty": "Noch keine Tagebucheinträge. Klicken Sie auf \"Heutigen Eintrag erstellen\", um den ersten zu schreiben. Er wird in {{folder}} gespeichert.",
     "create_error": "Der Tagebucheintrag konnte nicht erstellt werden.",
     "create_card_title": "Tagebucheintrag",
     "folder_name": "Tagebuch",
@@ -4536,7 +4536,9 @@
     "delete_error": "Das Tagebuch konnte nicht gelöscht werden.",
     "journal_trash": "In den Papierkorb",
     "journal_trash_confirm": "„{{title}}“ in den Papierkorb verschieben?",
-    "journal_trash_error": "Dieser Eintrag konnte nicht in den Papierkorb verschoben werden."
+    "journal_trash_error": "Dieser Eintrag konnte nicht in den Papierkorb verschoben werden.",
+    "rename_title": "Tagebuch umbenennen",
+    "rename_error": "Das Tagebuch konnte nicht umbenannt werden."
   },
   "new_user_email": {
     "subject": "Neuer Poznote-Benutzer: {{user}}",

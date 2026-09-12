@@ -4616,10 +4616,10 @@
   },
   "diary": {
     "title": "日记",
-    "today_button": "今日日记",
-    "today_button_title": "打开今天的日记（如不存在则创建）",
+    "today_button_go": "前往今日日记",
+    "today_button_create": "创建今日日记",
     "today_badge": "今天",
-    "empty": "还没有日记条目。点击\"今日日记\"来写第一篇，它将保存在 {{folder}} 中。",
+    "empty": "还没有日记条目。点击\"创建今日日记\"来写第一篇，它将保存在 {{folder}} 中。",
     "create_error": "无法创建日记条目。",
     "create_card_title": "日记条目",
     "folder_name": "日记",
@@ -4636,7 +4636,9 @@
     "delete_error": "无法删除日记。",
     "journal_trash": "移到回收站",
     "journal_trash_confirm": "将“{{title}}”移到回收站？",
-    "journal_trash_error": "无法将这篇日记移到回收站。"
+    "journal_trash_error": "无法将这篇日记移到回收站。",
+    "rename_title": "重命名日记",
+    "rename_error": "无法重命名日记。"
   },
   "new_user_email": {
     "subject": "新的 Poznote 用户：{{user}}",

@@ -644,7 +644,7 @@ Poznote unterstützt zwei Hauptformate für Notizen, die jeweils auf unterschied
 &nbsp;
 
 *   **Verwendung:** Schreiben Sie wie in einem Tagebuch eine Notiz pro Tag, über ein eigenes Tagebuch-Board.
-*   **Arbeitsablauf:** Die Schaltfläche „Heutiger Eintrag“ öffnet die Notiz des heutigen Tages und legt sie bei Bedarf an. Sie trägt das aktuelle Datum als Titel und wird automatisch in einer Ordnerstruktur `Diary/YYYY/MM` abgelegt.
+*   **Arbeitsablauf:** Die Schaltfläche „Heutigen Eintrag erstellen“ legt die Notiz des heutigen Tages an (sobald sie existiert, heißt sie „Zum heutigen Eintrag“). Sie trägt das aktuelle Datum als Titel und wird automatisch in einer Ordnerstruktur `Diary/YYYY/MM` abgelegt.
 *   **Board-Ansicht:** Einträge werden als Karten angezeigt, nach Monat gruppiert und die neuesten zuerst, mit einem Filter, um frühere Einträge schnell zu finden.
 *   **Journalansicht:** Die Schriftrollen-Schaltfläche neben den Ansichtseinstellungen wechselt zu einer einzigen Lesespalte: jeder Eintrag mit seinem vollständigen Inhalt, die neuesten zuerst, nachgeladen beim Scrollen. Der Filter wirkt auch hier.
 *   **Format:** Neue Einträge werden als HTML- oder Markdown-Notizen angelegt, je nach der Einstellung „Format der Tagebucheinträge“ unter **Einstellungen > Verhalten**.

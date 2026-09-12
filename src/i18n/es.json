@@ -4517,10 +4517,10 @@
   },
   "diary": {
     "title": "Diario",
-    "today_button": "Entrada de hoy",
-    "today_button_title": "Abrir la entrada de hoy (crearla si es necesario)",
+    "today_button_go": "Ir a la entrada de hoy",
+    "today_button_create": "Crear la entrada de hoy",
     "today_badge": "Hoy",
-    "empty": "Aún no hay entradas de diario. Haz clic en \"Entrada de hoy\" para escribir la primera. Se guardará en {{folder}}.",
+    "empty": "Aún no hay entradas de diario. Haz clic en \"Crear la entrada de hoy\" para escribir la primera. Se guardará en {{folder}}.",
     "create_error": "No se pudo crear la entrada del diario.",
     "create_card_title": "Entrada de diario",
     "folder_name": "Diario",
@@ -4537,7 +4537,9 @@
     "delete_error": "No se pudo eliminar el diario.",
     "journal_trash": "Mover a la papelera",
     "journal_trash_confirm": "¿Mover «{{title}}» a la papelera?",
-    "journal_trash_error": "No se pudo mover esta entrada a la papelera."
+    "journal_trash_error": "No se pudo mover esta entrada a la papelera.",
+    "rename_title": "Renombrar diario",
+    "rename_error": "No se pudo renombrar el diario."
   },
   "new_user_email": {
     "subject": "Nuevo usuario de Poznote: {{user}}",

@@ -178,16 +178,21 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 					<i class="lucide lucide-plus"></i>
 					<?php echo t_h('diary.new_button', [], 'New diary'); ?>
 				</button>
-				<button type="button" id="diaryTodayBtn" class="btn btn-primary" title="<?php echo t_h('diary.today_button_title', [], "Open today's entry (create it if needed)"); ?>">
-					<i class="lucide lucide-calendar-plus"></i>
-					<?php echo t_h('diary.today_button', [], "Today's entry"); ?>
+				<?php // Named after what it will do: open the day's entry, or create it. js/diary-page.js renames it when that entry is trashed. ?>
+				<button type="button" id="diaryTodayBtn" class="btn btn-primary">
+					<i class="lucide <?php echo $todayNoteId !== null ? 'lucide-calendar' : 'lucide-calendar-plus'; ?>"></i>
+					<span class="diary-today-label"><?php echo $todayNoteId !== null
+						? t_h('diary.today_button_go', [], "Go to today's entry")
+						: t_h('diary.today_button_create', [], "Create today's entry"); ?></span>
 				</button>
 			</div>
-			<?php if (count($diaryRoots) > 1): ?>
+			<?php if (!empty($diaryRoots)): ?>
+			<?php // One pill per diary, even a lone one, so its name is always shown. Right-click (desktop) renames or deletes it. ?>
 			<nav class="diary-switcher">
 				<?php foreach ($diaryRoots as $root): ?>
 				<?php $rootNameAttr = htmlspecialchars($root['name'], ENT_QUOTES, 'UTF-8'); ?>
-				<div class="diary-switch-btn<?php echo ($selectedDiary !== null && $root['id'] === $selectedDiary['id']) ? ' diary-switch-active' : ''; ?>">
+				<div class="diary-switch-btn<?php echo ($selectedDiary !== null && $root['id'] === $selectedDiary['id']) ? ' diary-switch-active' : ''; ?>"
+					data-diary-id="<?php echo (int)$root['id']; ?>" data-diary-name="<?php echo $rootNameAttr; ?>">
 					<a class="diary-switch-link" href="<?php echo htmlspecialchars(diaryBuildSwitchUrl($pageWorkspace, $root['id']), ENT_QUOTES, 'UTF-8'); ?>">
 						<i class="lucide lucide-book-open"></i>
 						<?php echo $rootNameAttr; ?>
@@ -203,10 +208,6 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 			<div class="board-filter-row">
 			<button type="button" id="diaryJournalToggle" class="board-view-btn diary-journal-toggle" aria-pressed="false" title="<?php echo t_h('diary.journal_view', [], 'Journal view'); ?>">
 				<i class="lucide lucide-scroll"></i>
-			</button>
-			<?php // Phones have no edge handle: the dates panel opens from here instead. ?>
-			<button type="button" id="diaryOutlineMobileBtn" class="board-view-btn diary-outline-mobile-btn" title="<?php echo t_h('common.outline.title', [], 'Outline'); ?>">
-				<i class="lucide lucide-list"></i>
 			</button>
 			<?php renderBoardViewMenu('diary'); ?>
 			<div id="dashboardTopbarFilter" class="dashboard-topbar-filter">
@@ -272,6 +273,7 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 		txt: {
 			createError: <?php echo json_encode(t('diary.create_error', [], 'Could not create the diary entry.')); ?>,
 			today: <?php echo json_encode(t('diary.today_badge', [], 'Today')); ?>,
+			todayCreate: <?php echo json_encode(t('diary.today_button_create', [], "Create today's entry")); ?>,
 			newDiaryTitle: <?php echo json_encode(t('diary.new_modal_title', [], 'Create a new diary')); ?>,
 			newDiaryPlaceholder: <?php echo json_encode(t('diary.new_name_placeholder', [], 'Diary name')); ?>,
 			newDiaryError: <?php echo json_encode(t('diary.new_create_error', [], 'Could not create the diary.')); ?>,
@@ -279,6 +281,9 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 			deleteDiaryConfirm: <?php echo json_encode(t('diary.delete_confirm', [], 'Delete the diary "{{name}}"? Its folders are removed and all its entries are moved to the trash.')); ?>,
 			deleteDiaryError: <?php echo json_encode(t('diary.delete_error', [], 'Could not delete the diary.')); ?>,
 			deleteLabel: <?php echo json_encode(t('common.delete', [], 'Delete')); ?>,
+			renameLabel: <?php echo json_encode(t('common.rename', [], 'Rename')); ?>,
+			renameDiaryTitle: <?php echo json_encode(t('diary.rename_title', [], 'Rename diary')); ?>,
+			renameDiaryError: <?php echo json_encode(t('diary.rename_error', [], 'Could not rename the diary.')); ?>,
 			journalOpen: <?php echo json_encode(t('diary.journal_open', [], 'Open the note')); ?>,
 			journalTrash: <?php echo json_encode(t('diary.journal_trash', [], 'Move to trash')); ?>,
 			journalTrashConfirm: <?php echo json_encode(t('diary.journal_trash_confirm', [], 'Move "{{title}}" to the trash?')); ?>,
