@@ -776,7 +776,7 @@ function buildIconGridItem(iconClass) {
  * Setup color picker
  */
 function setupColorPicker(currentColor) {
-    const colorOptions = document.querySelectorAll('.folder-color-option');
+    const colorOptions = document.querySelectorAll('#folderIconModal .folder-color-option');
 
     colorOptions.forEach(option => {
         const color = option.getAttribute('data-color');
@@ -796,7 +796,7 @@ function setupColorPicker(currentColor) {
         option.parentNode.replaceChild(newOption, option);
 
         newOption.addEventListener('click', function () {
-            document.querySelectorAll('.folder-color-option').forEach(opt => {
+            document.querySelectorAll('#folderIconModal .folder-color-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             newOption.classList.add('selected');

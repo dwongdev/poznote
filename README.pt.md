@@ -675,7 +675,7 @@ Em **Configurações > Tela**, você pode configurar:
 - **Cores das notas:** escolha a paleta oferecida ao colorir uma nota
 - **Ícones por tipo de nota:** dê às listas de tarefas e às notas Markdown um ícone próprio na lista de notas
 - **Escala de ícones do índice:** redimensione os ícones do índice de notas
-- **Ordem da barra de ícones:** reordene os botões da barra de ícones à esquerda
+- **Ordem da barra de ícones:** reordene os botões da barra de ícones à esquerda e altere a sua cor (um clique direito num botão da barra também abre o seletor de cor)
 - **Largura do conteúdo da nota:** controle a largura máxima da área do editor de notas
 - **Pré-visualizações de anexos:** exiba os anexos como pré-visualizações dentro da nota
 - **Borda padrão de imagem:** emoldure as imagens inseridas sem adicionar espaçamento interno

@@ -675,7 +675,7 @@ Dans **Paramètres > Affichage**, vous pouvez configurer :
 - **Couleurs des notes :** choisissez la palette proposée pour colorer une note
 - **Icônes par type de note :** donnez aux listes de tâches et aux notes Markdown leur propre icône dans la liste des notes
 - **Taille des icônes (Index) :** redimensionnez les icônes de l'index des notes
-- **Ordre de la barre d'icônes :** réorganisez les boutons de la barre d'icônes de gauche
+- **Ordre de la barre d'icônes :** réorganisez les boutons de la barre d'icônes de gauche et changez leur couleur (un clic droit sur un bouton de la barre ouvre aussi le choix de couleur)
 - **Largeur du contenu de la note :** définissez la largeur maximale de la zone d'édition des notes
 - **Aperçus des pièces jointes :** affichez les pièces jointes sous forme d'aperçus dans la note
 - **Bordure par défaut des images :** encadrez les images insérées sans ajouter de marge intérieure

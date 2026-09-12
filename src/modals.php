@@ -1562,13 +1562,11 @@ include __DIR__ . '/modals/tag_folder_notes_modal.php';
 $iconSidebarOrderItems = $GLOBALS['poznoteIconSidebarOrderableItems'] ?? [];
 
 // A separator row: the list carries them among the entries (icon_sidebar.php
-// draws a line in the rail at each), and they drag and move like any entry.
+// draws a line in the rail at each), and they drag like any entry.
 // Its data-entry-id is the token poznoteGetIconSidebarOrder() reads, so the
 // list's ids are the saved order as is. Rendered by a closure so the
 // <template> js/settings-page.js clones for "Add separator" is the same markup.
 $iconSidebarOrderDividerRow = static function (): string {
-    $moveUp = t_h('modals.icon_sidebar_order.move_up', [], 'Move up');
-    $moveDown = t_h('modals.icon_sidebar_order.move_down', [], 'Move down');
     $remove = t_h('modals.icon_sidebar_order.remove_divider', [], 'Remove separator');
     $token = htmlspecialchars(defined('POZNOTE_ICON_SIDEBAR_DIVIDER') ? POZNOTE_ICON_SIDEBAR_DIVIDER : 'divider', ENT_QUOTES, 'UTF-8');
     return '<li class="icon-sidebar-order-item icon-sidebar-order-divider" data-entry-id="' . $token . '">'
@@ -1576,10 +1574,8 @@ $iconSidebarOrderDividerRow = static function (): string {
         . '<span class="icon-sidebar-order-divider-line" aria-hidden="true"></span>'
         . '<span class="icon-sidebar-order-divider-label">' . t_h('modals.icon_sidebar_order.divider', [], 'Separator') . '</span>'
         . '<span class="icon-sidebar-order-divider-line" aria-hidden="true"></span>'
-        . '<span class="icon-sidebar-order-moves">'
-        . '<button type="button" class="icon-sidebar-order-move" data-move="up" title="' . $moveUp . '" aria-label="' . $moveUp . '"><i class="lucide lucide-chevron-up"></i></button>'
-        . '<button type="button" class="icon-sidebar-order-move" data-move="down" title="' . $moveDown . '" aria-label="' . $moveDown . '"><i class="lucide lucide-chevron-down"></i></button>'
-        . '<button type="button" class="icon-sidebar-order-move icon-sidebar-order-remove" data-remove-divider title="' . $remove . '" aria-label="' . $remove . '"><i class="lucide lucide-x"></i></button>'
+        . '<span class="icon-sidebar-order-actions">'
+        . '<button type="button" class="icon-sidebar-order-action icon-sidebar-order-remove" data-remove-divider title="' . $remove . '" aria-label="' . $remove . '"><i class="lucide lucide-x"></i></button>'
         . '</span>'
         . '</li>';
 };
@@ -1591,7 +1587,7 @@ $iconSidebarOrderDividerRow = static function (): string {
             <h3><?php echo t_h('modals.icon_sidebar_order.title', [], 'Icon sidebar order'); ?></h3>
         </div>
         <div class="modal-body">
-            <p class="ui-custom-description"><?php echo t_h('modals.icon_sidebar_order.description', [], 'Drag the entries to change the order of the buttons in the icon sidebar. Separators draw a thin line between two groups of buttons. The account buttons at the bottom of the sidebar stay in place.'); ?></p>
+            <p class="ui-custom-description"><?php echo t_h('modals.icon_sidebar_order.description', [], 'Drag the entries to change the order of the buttons in the icon sidebar. Separators draw a thin line between two groups of buttons. The account buttons at the bottom of the sidebar stay in place. Click an icon to change its color. You can also right-click any button directly in the sidebar.'); ?></p>
             <ul class="icon-sidebar-order-list" id="iconSidebarOrderList">
             <?php foreach ($iconSidebarOrderItems as $iconSidebarOrderItem): ?>
                 <?php if (!empty($iconSidebarOrderItem['divider'])): ?>
@@ -1600,12 +1596,8 @@ $iconSidebarOrderDividerRow = static function (): string {
                 <?php endif; ?>
                 <li class="icon-sidebar-order-item" data-entry-id="<?php echo htmlspecialchars($iconSidebarOrderItem['id'], ENT_QUOTES, 'UTF-8'); ?>">
                     <span class="icon-sidebar-order-handle" aria-hidden="true"><i class="lucide lucide-grip-vertical"></i></span>
-                    <i class="lucide <?php echo htmlspecialchars($iconSidebarOrderItem['icon'], ENT_QUOTES, 'UTF-8'); ?> icon-sidebar-order-icon"></i>
+                    <button type="button" class="icon-sidebar-order-icon-btn" data-change-color title="<?php echo t_h('modals.icon_sidebar_order.change_color', [], 'Change icon color'); ?>" aria-label="<?php echo t_h('modals.icon_sidebar_order.change_color', [], 'Change icon color'); ?>"><?php echo poznoteRenderIconSidebarIcon($iconSidebarOrderItem['icon'], $iconSidebarOrderItem['id'], 'icon-sidebar-order-icon'); ?></button>
                     <span class="icon-sidebar-order-label"><?php echo htmlspecialchars($iconSidebarOrderItem['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></span>
-                    <span class="icon-sidebar-order-moves">
-                        <button type="button" class="icon-sidebar-order-move" data-move="up" title="<?php echo t_h('modals.icon_sidebar_order.move_up', [], 'Move up'); ?>" aria-label="<?php echo t_h('modals.icon_sidebar_order.move_up', [], 'Move up'); ?>"><i class="lucide lucide-chevron-up"></i></button>
-                        <button type="button" class="icon-sidebar-order-move" data-move="down" title="<?php echo t_h('modals.icon_sidebar_order.move_down', [], 'Move down'); ?>" aria-label="<?php echo t_h('modals.icon_sidebar_order.move_down', [], 'Move down'); ?>"><i class="lucide lucide-chevron-down"></i></button>
-                    </span>
                 </li>
             <?php endforeach; ?>
             </ul>

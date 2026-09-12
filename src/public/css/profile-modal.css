@@ -1,19 +1,20 @@
 /**
- * My Profile modal and the logout confirmation (js/profile.js)
+ * The icon rail's own modals: My Profile and the logout confirmation
+ * (js/profile.js), and the colour of a rail icon (js/icon-sidebar-colors.js).
  *
- * Both are opened from the icon rail, which is on nearly every page, while
+ * All three are opened from the icon rail, which is on nearly every page, while
  * css/modals/base.css is only loaded by about half of them. Everything here is
- * therefore scoped to those two ids and self-contained: it restates the
+ * therefore scoped to those ids and self-contained: it restates the
  * standard modal look (same values as css/modals/base.css and
  * css/dark-mode/modals.css) so the dialogs are identical whether or not the
  * host page ships the modal stylesheets. The ids keep the specificity above
  * those sheets on the pages that do load them, and stop these rules from
  * reaching anything else.
  *
- * Loaded by icon_sidebar.php alongside js/profile.js.
+ * Loaded by icon_sidebar.php alongside js/profile.js and js/icon-sidebar-colors.js.
  */
 
-:is(#editProfileModal, #confirmLogoutModal) {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) {
     display: none;
     position: fixed;
     left: 0;
@@ -29,7 +30,7 @@
     background-color: rgba(var(--pz-shadow-rgb), 0.4);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-content {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-content {
     width: 90%;
     max-width: var(--modal-max-width, 420px);
     margin: 0 auto;
@@ -44,26 +45,26 @@
     overflow-x: hidden;
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-content h3 {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-content h3 {
     margin: 0 0 15px 0;
     color: var(--pz-text);
     font-size: 18px;
     font-weight: var(--pz-weight-semibold);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .text-small-muted {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .text-small-muted {
     margin-top: 8px;
     color: var(--pz-text-muted);
     font-size: 14px;
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .form-group label {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .form-group label {
     display: block;
     margin-bottom: 6px;
     font-weight: var(--pz-weight-semibold);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) input {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) input {
     max-width: 100%;
     margin-top: 10px;
     margin-bottom: 15px;
@@ -77,12 +78,12 @@
     box-sizing: border-box;
 }
 
-:is(#editProfileModal, #confirmLogoutModal) input:focus {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) input:focus {
     outline: none;
     border-color: var(--pz-accent);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
@@ -91,7 +92,7 @@
     margin-top: 22px;
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons button {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button {
     padding: 8px 14px;
     border: none;
     border-radius: var(--pz-radius-sm);
@@ -101,54 +102,180 @@
     transition: background-color 0.2s;
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-primary {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-primary {
     background-color: var(--pz-accent);
     color: var(--pz-text-inverse);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-primary:hover {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-primary:hover {
     background-color: var(--pz-accent-hover);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-danger {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-danger {
     background-color: var(--pz-danger);
     color: var(--pz-text-inverse);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-danger:hover {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-danger:hover {
     background-color: var(--pz-danger-hover);
 }
 
 /* Grey "Cancel", used by the logout confirmation. .btn-cancel is only styled
    inside .modal-buttons by the shared sheets, which half the host pages skip. */
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-cancel {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-cancel {
     background-color: var(--pz-surface-sunken);
     color: var(--pz-text);
 }
 
-:is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-cancel:hover {
+:is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-cancel:hover {
     background-color: var(--pz-surface-sunken);
 }
 
 /* Dark mode. Every host page loads css/dark-mode/variables.css, so the tokens
    are always defined; both theme hooks are needed, as elsewhere. */
-html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal) {
+html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) {
     background-color: rgba(var(--pz-shadow-rgb), 0.8);
 }
 
-html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal) .modal-content {
+html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-content {
     background-color: var(--dm-content-bg);
 }
 
-html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal) input {
+html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) input {
     background-color: var(--dm-surface);
     border-color: var(--dm-border);
 }
 
-html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-cancel {
+html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-cancel {
     background-color: var(--dm-surface);
 }
 
-html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal) .modal-buttons button.btn-cancel:hover {
+html[data-theme='dark'] :is(#editProfileModal, #confirmLogoutModal, #iconSidebarColorModal) .modal-buttons button.btn-cancel:hover {
     background-color: var(--dm-border);
+}
+
+/* ============================================
+   Icon colour modal (icon_sidebar.php)
+   ============================================ */
+
+/* Above the Icon Sidebar Order modal it can be opened from, which comes later
+   in the page and shares base.css's z-index. */
+#iconSidebarColorModal {
+    z-index: 10001 !important;
+}
+
+#iconSidebarColorModal .modal-content {
+    max-width: 600px;
+}
+
+#iconSidebarColorModal .modal-content h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#iconSidebarColorModal h3 .lucide {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--pz-text-subtle);
+    background-color: currentColor;
+    transform: none;
+}
+
+/* The palette of modals/icon_color_options.php, restated from
+   css/folder-icon-modal.css, which only the notes and folders pages load. */
+#iconSidebarColorModal .folder-color-picker {
+    display: grid;
+    grid-template-columns: repeat(11, minmax(0, 36px));
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: var(--pz-surface);
+    border: 1px solid var(--pz-border);
+    border-radius: var(--pz-radius-lg);
+}
+
+#iconSidebarColorModal .folder-color-option {
+    position: relative;
+    width: 100%;
+    max-width: 36px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#iconSidebarColorModal .folder-color-option:hover {
+    transform: scale(1.1);
+}
+
+#iconSidebarColorModal .folder-color-option.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--pz-text-inverse);
+    font-size: 18px;
+    font-weight: var(--pz-weight-bold);
+    text-shadow: 0 0 3px rgba(var(--pz-shadow-rgb), 0.5);
+}
+
+#iconSidebarColorModal .folder-color-option.selected .folder-color-default::after {
+    color: var(--pz-text);
+}
+
+#iconSidebarColorModal .folder-color-swatch {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--pz-radius);
+    border: 2px solid var(--pz-border);
+    transition: all 0.2s ease;
+}
+
+#iconSidebarColorModal .folder-color-option:hover .folder-color-swatch {
+    border-color: var(--pz-accent);
+    box-shadow: 0 0 0 3px rgba(var(--pz-accent-rgb), 0.1);
+}
+
+#iconSidebarColorModal .folder-color-option.selected .folder-color-swatch {
+    border-color: var(--pz-accent);
+    box-shadow: 0 0 0 3px rgba(var(--pz-accent-rgb), 0.2);
+}
+
+#iconSidebarColorModal .folder-color-default {
+    background: linear-gradient(135deg, var(--pz-surface-sunken) 25%, transparent 25%, transparent 75%, var(--pz-surface-sunken) 75%, var(--pz-surface-sunken)),
+                linear-gradient(135deg, var(--pz-surface-sunken) 25%, var(--pz-surface) 25%, var(--pz-surface) 75%, var(--pz-surface-sunken) 75%, var(--pz-surface-sunken));
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
+}
+
+@media (max-width: 640px) {
+    #iconSidebarColorModal .folder-color-picker {
+        grid-template-columns: repeat(11, minmax(0, 32px));
+        gap: 6px;
+        padding: 12px;
+    }
+}
+
+html[data-theme='dark'] #iconSidebarColorModal .folder-color-picker {
+    background: var(--dm-bg);
+    border-color: var(--dm-border);
+}
+
+html[data-theme='dark'] #iconSidebarColorModal .folder-color-swatch {
+    border-color: var(--dm-border);
+}
+
+html[data-theme='dark'] #iconSidebarColorModal .folder-color-option:hover .folder-color-swatch,
+html[data-theme='dark'] #iconSidebarColorModal .folder-color-option.selected .folder-color-swatch {
+    border-color: var(--dm-accent);
+}
+
+html[data-theme='dark'] #iconSidebarColorModal .folder-color-default {
+    background: linear-gradient(135deg, var(--dm-border) 25%, transparent 25%, transparent 75%, var(--dm-border) 75%, var(--dm-border)),
+        linear-gradient(135deg, var(--dm-border) 25%, var(--dm-bg) 25%, var(--dm-bg) 75%, var(--dm-border) 75%, var(--dm-border));
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
 }

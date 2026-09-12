@@ -675,7 +675,7 @@ Under **Settings > Display**, you can configure:
 - **Note colors:** choose the palette offered when colouring a note
 - **Icons by note type:** give task lists and Markdown notes their own icon in the notes list
 - **Index icon scaling:** resize icons in the note index
-- **Icon sidebar order:** reorder the buttons of the left icon rail
+- **Icon sidebar order:** reorder the buttons of the left icon rail and change their colors (a right-click on a button of the rail also opens the color picker)
 - **Note content width:** control the max width of the note editor area
 - **Attachment previews:** show attachments as previews inside the note
 - **Default image border:** frame inserted images without adding padding

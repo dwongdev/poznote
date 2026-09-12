@@ -409,6 +409,22 @@ class SettingsController {
             return substr(trim((string) $value), 0, 1000);
         }
 
+        // Button id => #rrggbb map painted on the icon rail
+        // (poznoteNormalizeIconSidebarColors()).
+        if ($key === 'icon_sidebar_colors') {
+            $raw = is_string($value) ? trim($value) : $value;
+            if ($raw === '' || $raw === null || $raw === '{}' || $raw === '[]') {
+                return '{}';
+            }
+            $decoded = json_decode((string) $raw, true);
+            if (!is_array($decoded)) {
+                throw new InvalidArgumentException('value must be a JSON object of button colors', 400);
+            }
+            require_once __DIR__ . '/../../../functions.php';
+            $colors = poznoteNormalizeIconSidebarColors($decoded);
+            return $colors ? json_encode($colors, JSON_UNESCAPED_SLASHES) : '{}';
+        }
+
         // icon_sidebar_order is an ordered list rather than a set, but the
         // element-key handling below is the same and its dedupe preserves the
         // first occurrence, which is the order the client sent. Its separator

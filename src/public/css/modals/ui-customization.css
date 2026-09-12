@@ -536,14 +536,39 @@ html[data-theme='dark'] .ui-custom-columns,
     white-space: nowrap;
 }
 
-/* Keyboard and touch alternative to dragging: the handle is pointer-only. */
-.icon-sidebar-order-moves {
+/* The entry's icon doubles as the button that opens the colour modal
+   (js/icon-sidebar-colors.js). */
+.icon-sidebar-order-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    /* Keeps the glyph and the row exactly where the bare icon had them. */
+    margin: -6px;
+    padding: 0;
+    border: none;
+    border-radius: var(--pz-radius);
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.icon-sidebar-order-icon-btn:hover,
+.icon-sidebar-order-icon-btn:focus-visible {
+    background: rgba(var(--pz-accent-rgb), 0.08);
+}
+
+/* Remove button of a separator row. */
+.icon-sidebar-order-actions {
     display: inline-flex;
     gap: 2px;
     flex-shrink: 0;
 }
 
-.icon-sidebar-order-move {
+.icon-sidebar-order-action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -559,14 +584,9 @@ html[data-theme='dark'] .ui-custom-columns,
     -webkit-appearance: none;
 }
 
-.icon-sidebar-order-move:hover:not(:disabled) {
+.icon-sidebar-order-action:hover {
     background: rgba(128, 128, 128, 0.15);
     color: var(--pz-accent);
-}
-
-.icon-sidebar-order-move:disabled {
-    opacity: 0.35;
-    cursor: default;
 }
 
 /* Separator row: a dashed, unfilled box with a line through it, so it reads as
@@ -590,7 +610,7 @@ html[data-theme='dark'] .ui-custom-columns,
     color: var(--pz-text-subtle);
 }
 
-.icon-sidebar-order-remove:hover:not(:disabled) {
+.icon-sidebar-order-remove:hover {
     color: var(--pz-danger);
 }
 

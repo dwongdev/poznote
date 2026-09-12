@@ -675,7 +675,7 @@ Unter **Einstellungen > Anzeige** können Sie Folgendes konfigurieren:
 - **Notizfarben:** die Palette wählen, die beim Einfärben einer Notiz angeboten wird
 - **Symbole nach Notiztyp:** Aufgabenlisten und Markdown-Notizen in der Notizliste ein eigenes Symbol geben
 - **Skalierung der Index-Symbole:** die Größe der Symbole im Notizindex ändern
-- **Reihenfolge der Icon-Seitenleiste:** die Schaltflächen der linken Symbolleiste neu anordnen
+- **Reihenfolge der Icon-Seitenleiste:** die Schaltflächen der linken Symbolleiste neu anordnen und ihre Farbe ändern (ein Rechtsklick auf eine Schaltfläche der Leiste öffnet ebenfalls die Farbauswahl)
 - **Breite des Notizinhalts:** die maximale Breite des Notizeditors festlegen
 - **Anhangsvorschauen:** Anhänge als Vorschau in der Notiz anzeigen
 - **Standard-Bildrahmen:** eingefügte Bilder ohne zusätzlichen Innenabstand einrahmen

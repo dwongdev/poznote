@@ -260,6 +260,16 @@
     height: 16px;
 }
 
+/* A colour the user picked for one button (right-click on it, see
+   js/icon-sidebar-colors.js). The ids lift it over the rail's own icon colours
+   in both themes, active page and hover included; they name the rail, its
+   overflow menu (which clones the icons), and the two places the colour is
+   previewed: the colour modal's title and the Icon Sidebar Order rows. */
+:is(#icon_sidebar, #iconSidebarOverflowMenu, #iconSidebarColorModal, #iconSidebarOrderList) .lucide.icon-sidebar-icon-colored {
+    color: var(--icon-sidebar-icon-color);
+    background-color: var(--icon-sidebar-icon-color);
+}
+
 .icon-sidebar-btn.has-notifications .lucide-bell {
     color: var(--pz-warning-hover);
 }

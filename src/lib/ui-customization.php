@@ -229,6 +229,66 @@ function poznoteApplyIconSidebarOrder(array $items, array $order) {
 }
 
 /**
+ * Keep only well-formed entries of an icon rail colour map: a button id (the
+ * ids declared in icon_sidebar.php) mapped to a #rrggbb colour. Anything else
+ * is dropped rather than rejected, so a stale or hand-edited value never takes
+ * the rail down. Colours are lowercased so the modal can match its swatches.
+ */
+function poznoteNormalizeIconSidebarColors($decoded) {
+    $colors = [];
+    if (!is_array($decoded)) {
+        return $colors;
+    }
+    foreach ($decoded as $id => $color) {
+        if (!is_string($id) || !preg_match('/^[A-Za-z][A-Za-z0-9_-]{0,99}$/', $id)) {
+            continue;
+        }
+        if (!is_string($color) || !preg_match('/^#[0-9a-fA-F]{6}$/', $color)) {
+            continue;
+        }
+        $colors[$id] = strtolower($color);
+        if (count($colors) >= 100) {
+            break;
+        }
+    }
+    return $colors;
+}
+
+/**
+ * User-chosen colours of the icon rail's buttons, keyed by button id. Stored
+ * under the 'icon_sidebar_colors' user setting by the colour modal of the rail
+ * (right-click on a button, or the palette button of the Icon Sidebar Order
+ * modal). A button with no entry keeps the rail's own colours.
+ */
+function poznoteGetIconSidebarColors() {
+    static $colors = null;
+
+    if ($colors === null) {
+        $colors = poznoteNormalizeIconSidebarColors(json_decode((string)getSetting('icon_sidebar_colors', '{}'), true));
+    }
+
+    return $colors;
+}
+
+/**
+ * The <i> of one rail button (or of its row in the Icon Sidebar Order modal),
+ * painted in the button's saved colour when it has one. The colour rides on the
+ * icon itself, not the button, because the rail's overflow menu clones the icon
+ * element (js/icon-sidebar-toggle.js). css/icon-sidebar.css styles
+ * .icon-sidebar-icon-colored; js/icon-sidebar-colors.js keeps it in sync.
+ */
+function poznoteRenderIconSidebarIcon($iconClass, $id, $extraClass = '') {
+    $colors = poznoteGetIconSidebarColors();
+    $class = 'lucide ' . $iconClass . ($extraClass !== '' ? ' ' . $extraClass : '');
+    $style = '';
+    if (isset($colors[$id])) {
+        $class .= ' icon-sidebar-icon-colored';
+        $style = ' style="--icon-sidebar-icon-color: ' . $colors[$id] . ';"';
+    }
+    return '<i class="' . htmlspecialchars($class, ENT_QUOTES, 'UTF-8') . '"' . $style . '></i>';
+}
+
+/**
  * Drop the separators that would draw nothing useful: one before the first
  * entry, one after the last, or two in a row. Entries the UI Customization
  * modal hides are still in the list here (they are hidden by CSS), so

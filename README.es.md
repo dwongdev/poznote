@@ -675,7 +675,7 @@ En **Configuración > Pantalla** puedes configurar:
 - **Colores de notas:** elige la paleta que se ofrece al colorear una nota
 - **Iconos por tipo de nota:** da a las listas de tareas y a las notas Markdown su propio icono en la lista de notas
 - **Escalado de iconos del índice:** cambia el tamaño de los iconos del índice de notas
-- **Orden de la barra de iconos:** reordena los botones de la barra de iconos de la izquierda
+- **Orden de la barra de iconos:** reordena los botones de la barra de iconos de la izquierda y cambia su color (un clic derecho en un botón de la barra también abre el selector de color)
 - **Ancho del contenido de la nota:** controla el ancho máximo del área del editor de notas
 - **Vistas previas de adjuntos:** muestra los adjuntos como vistas previas dentro de la nota
 - **Borde de imagen por defecto:** enmarca las imágenes insertadas sin añadir relleno
