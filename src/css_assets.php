@@ -270,6 +270,7 @@ function poznoteCssManifest(): array
             'css/favorites.css',
             'css/home/alerts.css',
             'css/dashboard.css',
+            'css/outline.css',
             'css/diary.css',
             '@theme',
             '@icon-sidebar',

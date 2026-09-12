@@ -4630,7 +4630,17 @@
     "new_button": "Nouveau journal",
     "new_modal_title": "Créer un nouveau journal",
     "new_name_placeholder": "Nom du journal",
-    "new_create_error": "Impossible de créer le journal."
+    "new_create_error": "Impossible de créer le journal.",
+    "journal_view": "Vue en fil continu",
+    "journal_open": "Ouvrir la note",
+    "journal_empty_entry": "Cette note est vide.",
+    "journal_load_error": "Impossible de charger cette note.",
+    "delete_title": "Supprimer le journal",
+    "delete_confirm": "Supprimer le journal « {{name}} » ? Ses dossiers sont supprimés et toutes ses notes sont placées dans la corbeille.",
+    "delete_error": "Impossible de supprimer le journal.",
+    "journal_trash": "Mettre à la corbeille",
+    "journal_trash_confirm": "Mettre « {{title}} » à la corbeille ?",
+    "journal_trash_error": "Impossible de mettre cette note à la corbeille."
   },
   "new_user_email": {
     "subject": "Nouvel utilisateur Poznote : {{user}}",

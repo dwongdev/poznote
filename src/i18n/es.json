@@ -4526,7 +4526,17 @@
     "new_button": "Nuevo diario",
     "new_modal_title": "Crear un nuevo diario",
     "new_name_placeholder": "Nombre del diario",
-    "new_create_error": "No se pudo crear el diario."
+    "new_create_error": "No se pudo crear el diario.",
+    "journal_view": "Vista continua",
+    "journal_open": "Abrir la nota",
+    "journal_empty_entry": "Esta entrada está vacía.",
+    "journal_load_error": "No se pudo cargar esta entrada.",
+    "delete_title": "Eliminar diario",
+    "delete_confirm": "¿Eliminar el diario «{{name}}»? Sus carpetas se eliminan y todas sus entradas se mueven a la papelera.",
+    "delete_error": "No se pudo eliminar el diario.",
+    "journal_trash": "Mover a la papelera",
+    "journal_trash_confirm": "¿Mover «{{title}}» a la papelera?",
+    "journal_trash_error": "No se pudo mover esta entrada a la papelera."
   },
   "new_user_email": {
     "subject": "Nuevo usuario de Poznote: {{user}}",

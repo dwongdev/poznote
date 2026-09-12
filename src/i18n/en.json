@@ -4174,7 +4174,17 @@
     "new_button": "New diary",
     "new_modal_title": "Create a new diary",
     "new_name_placeholder": "Diary name",
-    "new_create_error": "Could not create the diary."
+    "new_create_error": "Could not create the diary.",
+    "journal_view": "Journal view",
+    "journal_open": "Open the note",
+    "journal_empty_entry": "This entry is empty.",
+    "journal_load_error": "Could not load this entry.",
+    "delete_title": "Delete diary",
+    "delete_confirm": "Delete the diary \"{{name}}\"? Its folders are removed and all its entries are moved to the trash.",
+    "delete_error": "Could not delete the diary.",
+    "journal_trash": "Move to trash",
+    "journal_trash_confirm": "Move \"{{title}}\" to the trash?",
+    "journal_trash_error": "Could not move this entry to the trash."
   },
   "new_user_email": {
     "subject": "New Poznote user: {{user}}",

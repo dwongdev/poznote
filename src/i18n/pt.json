@@ -4526,7 +4526,17 @@
     "new_button": "Novo diário",
     "new_modal_title": "Criar um novo diário",
     "new_name_placeholder": "Nome do diário",
-    "new_create_error": "Não foi possível criar o diário."
+    "new_create_error": "Não foi possível criar o diário.",
+    "journal_view": "Vista contínua",
+    "journal_open": "Abrir a nota",
+    "journal_empty_entry": "Esta entrada está vazia.",
+    "journal_load_error": "Não foi possível carregar esta entrada.",
+    "delete_title": "Excluir diário",
+    "delete_confirm": "Excluir o diário \"{{name}}\"? Suas pastas são removidas e todas as entradas vão para a lixeira.",
+    "delete_error": "Não foi possível excluir o diário.",
+    "journal_trash": "Mover para a lixeira",
+    "journal_trash_confirm": "Mover \"{{title}}\" para a lixeira?",
+    "journal_trash_error": "Não foi possível mover esta entrada para a lixeira."
   },
   "new_user_email": {
     "subject": "Novo utilizador Poznote: {{user}}",
