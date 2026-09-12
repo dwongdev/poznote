@@ -119,7 +119,7 @@ Tout se trouve dans **Paramètres → Outils d'administration → Transcription*
 | **Vérifier l'accès et lister les modèles** | Confirme que le serveur répond et remplit les suggestions de modèles. |
 | **Modèle** | Le nom du modèle envoyé avec chaque requête. Obligatoire pour tous les serveurs, même ceux qui l'ignorent. |
 | **Langue parlée** | Code à deux lettres comme `en`, `fr` ou `de`, ou vide pour laisser le serveur la détecter. |
-| **Durée maximale d'enregistrement** | En minutes, de 1 à 60, 10 par défaut. La dictée s'arrête et part en transcription d'elle-même une fois ce seuil atteint. Les pièces jointes ne sont pas concernées. |
+| **Durée maximale d'enregistrement** | En minutes, de 1 à 60, 10 par défaut. La dictée s'arrête et part en transcription d'elle-même une fois ce seuil atteint, tout comme **Enregistrer un audio** dans le sous-menu **Médias** du menu slash, qui insère l'enregistrement sans le transcrire. Les pièces jointes ne sont pas concernées. |
 | **Autoriser les serveurs de transcription personnels** | Permet à chaque utilisateur de définir son propre serveur, voir [Serveurs personnels](#serveurs-personnels). |
 
 ### Choisir un modèle
@@ -305,7 +305,7 @@ whisper.cpp tourne sans `-l auto`, ou avec le modèle fourni `ggml-base.en.bin`.
 **"HTTP 504" sur les enregistrements plus longs**
 Un reverse proxy a coupé la requête avant la fin de la transcription. Voir le délai du reverse proxy dans [Limites](#limites).
 
-**"The transcription server did not answer within 570 seconds"**
+**« Le serveur de transcription n'a pas répondu en 570 secondes »**
 L'enregistrement est trop long pour ce modèle sur ce matériel. Enregistrez moins à la fois, réduisez la **Durée maximale d'enregistrement**, ou utilisez un modèle plus petit ou un GPU.
 
 **« Le serveur n'a rien entendu dans cet enregistrement »**

@@ -119,7 +119,7 @@ Alles befindet sich unter **Einstellungen → Admin-Werkzeuge → Transkription*
 | **Zugang prüfen und Modelle auflisten** | Prüft, ob der Server antwortet, und füllt die Modellvorschläge. |
 | **Modell** | Der Modellname, der mit jeder Anfrage gesendet wird. Für jeden Server erforderlich, auch für die, die ihn ignorieren. |
 | **Gesprochene Sprache** | Zweibuchstabiger Code wie `en`, `fr` oder `de`, oder leer, damit der Server die Sprache erkennt. |
-| **Maximale Aufnahmedauer** | In Minuten, von 1 bis 60, standardmäßig 10. Das Diktat stoppt beim Erreichen dieser Dauer und wird automatisch transkribiert. Anhänge sind davon nicht betroffen. |
+| **Maximale Aufnahmedauer** | In Minuten, von 1 bis 60, standardmäßig 10. Das Diktat stoppt beim Erreichen dieser Dauer und wird automatisch transkribiert, ebenso **Audio aufnehmen** unter **Medien** im Slash-Menü, das die Aufnahme ohne Transkription einfügt. Anhänge sind davon nicht betroffen. |
 | **Persönliche Transkriptionsserver erlauben** | Erlaubt jedem Benutzer, einen eigenen Server festzulegen, siehe [Persönliche Server](#persönliche-server). |
 
 ### Ein Modell auswählen
@@ -305,7 +305,7 @@ whisper.cpp läuft ohne `-l auto` oder mit dem mitgelieferten Modell `ggml-base.
 **„HTTP 504“ bei längeren Aufnahmen**
 Ein Reverse Proxy hat die Anfrage abgebrochen, bevor die Transkription fertig war. Siehe das Timeout des Reverse Proxys unter [Grenzen](#grenzen).
 
-**„The transcription server did not answer within 570 seconds“**
+**„Der Transkriptionsserver hat nicht innerhalb von 570 Sekunden geantwortet“**
 Die Aufnahme ist für dieses Modell auf dieser Hardware zu lang. Nehmen Sie kürzere Abschnitte auf, verringern Sie die **Maximale Aufnahmedauer**, oder verwenden Sie ein kleineres Modell oder eine GPU.
 
 **„Der Server hat in dieser Aufnahme nichts gehört“**

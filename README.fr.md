@@ -16,7 +16,7 @@
 </p>
 
 <h2 align="center">
-Une prise de notes puissante, sans les tracas.
+Une prise de notes puissante, sans prise de tête.
 </h2>
 
 <h3 align="center">

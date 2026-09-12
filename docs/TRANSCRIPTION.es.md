@@ -119,7 +119,7 @@ Todo se encuentra en **Configuración → Herramientas de administración → Tr
 | **Comprobar el acceso y listar los modelos** | Confirma que el servidor responde y rellena las sugerencias de modelos. |
 | **Modelo** | El nombre del modelo que se envía con cada petición. Obligatorio para todos los servidores, incluso para los que lo ignoran. |
 | **Idioma hablado** | Código de dos letras como `en`, `fr` o `de`, o vacío para que el servidor lo detecte. |
-| **Duración máxima de grabación** | En minutos, de 1 a 60, 10 por defecto. Al llegar a ese límite, el dictado se detiene y se transcribe automáticamente. No afecta a los adjuntos. |
+| **Duración máxima de grabación** | En minutos, de 1 a 60, 10 por defecto. Al llegar a ese límite, el dictado se detiene y se transcribe automáticamente, igual que **Grabar audio** en **Multimedia** del menú de barra, que inserta la grabación sin transcribirla. No afecta a los adjuntos. |
 | **Permitir servidores de transcripción personales** | Permite que cada usuario configure su propio servidor, consulta [Servidores personales](#servidores-personales). |
 
 ### Elegir un modelo
@@ -305,7 +305,7 @@ Falta `--convert`.
 **«HTTP 504» en grabaciones largas**
 Un proxy inverso cortó la petición antes de que terminara la transcripción. Consulta el tiempo de espera del proxy inverso en [Límites](#límites).
 
-**«The transcription server did not answer within 570 seconds»**
+**«El servidor de transcripción no respondió en 570 segundos»**
 La grabación es demasiado larga para este modelo en este hardware. Graba fragmentos más cortos, reduce la **Duración máxima de grabación** o usa un modelo más pequeño o una GPU.
 
 **«El servidor no oyó nada en esta grabación»**

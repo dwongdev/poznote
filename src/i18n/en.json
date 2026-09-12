@@ -57,7 +57,26 @@
     "print": "Print",
     "yes": "Yes",
     "no": "No",
-    "download": "Download"
+    "download": "Download",
+    "please_wait": "Please wait",
+    "calendar": "Calendar",
+    "confirm_action": "Confirm Action",
+    "confirmation": "Confirmation",
+    "convert": "Convert",
+    "date": {
+      "days_ago": "days ago",
+      "today": "Today",
+      "yesterday": "Yesterday"
+    },
+    "duplicate": "Duplicate",
+    "login": {
+      "button": "Log in"
+    },
+    "network_error": "Network error",
+    "not_available": "Not available",
+    "notes": "Notes",
+    "saved": "saved",
+    "unknown_error": "Unknown error"
   },
   "snapshot": {
     "menu_item": "Snapshots",
@@ -266,7 +285,8 @@
       "admin_contact": "Help",
       "s3_storage": "S3 Attachments",
       "s3_backup": "S3 Backups",
-      "stt": "Transcription"
+      "stt": "Transcription",
+      "api_rest": "API REST"
     },
     "default_credentials": {
       "both": "This account still uses the username and the password it shipped with. Anyone who can reach this instance can sign in to it.",
@@ -307,7 +327,17 @@
       "new_workspace": "New workspace"
     },
     "errors": {
-      "already_exists": "A workspace with this name already exists"
+      "already_exists": "A workspace with this name already exists",
+      "cannot_delete_last": "Cannot delete the last workspace",
+      "invalid_name": "Invalid workspace name. Letters, numbers, spaces, dash and underscore are allowed.",
+      "invalid_new_name": "Invalid new workspace name. Letters, numbers, spaces, dash and underscore are allowed.",
+      "name_and_target_required": "Workspace name and target required",
+      "name_empty": "Workspace name cannot be empty",
+      "name_exists": "A workspace with this name already exists",
+      "name_required": "Workspace name required",
+      "no_workspace_selected": "No workspace selected",
+      "not_found": "Workspace not found",
+      "source_target_must_differ": "Source and target workspaces must differ"
     },
     "share": {
       "actions": {
@@ -342,7 +372,8 @@
         "restrict_users": "Restrict to specific users",
         "users_loading": "Loading users...",
         "no_users_found": "No other users found"
-      }
+      },
+      "url_label": "Public URL"
     },
     "tags": {
       "action": "Tags",
@@ -363,7 +394,10 @@
       "invalid": "Invalid color"
     },
     "actions": {
-      "menu": "Workspace actions"
+      "menu": "Workspace actions",
+      "background": "Background",
+      "move_notes": "Move notes",
+      "select": "Select"
     },
     "order": {
       "handle": "Drag to reorder",
@@ -371,7 +405,42 @@
       "save_error": "Could not update the workspace order"
     },
     "messages": {
-      "creating": "Creating workspace..."
+      "creating": "Creating workspace...",
+      "created": "Workspace created",
+      "deleted_all": "Workspace deleted and all associated notes, folders and attachments removed",
+      "notes_moved_to": "Notes moved to {{target}}",
+      "renamed": "Workspace renamed across notes and labels"
+    },
+    "alerts": {
+      "error_prefix": "Error: {{error}}",
+      "unknown_error": "Unknown error"
+    },
+    "confirm_delete": {
+      "message": "Delete workspace \"{{workspace}}\"? Notes will be moved to the default workspace.",
+      "title": "Confirm delete workspace"
+    },
+    "default": {
+      "description_1": "Choose which workspace opens when you start Poznote.",
+      "last_opened": "Last workspace opened",
+      "save_button": "Save Default",
+      "title": "Default Workspace"
+    },
+    "info": {
+      "folders": "Folders",
+      "notes": "Notes",
+      "shared": "Shared",
+      "shared_with": "Shared with",
+      "tags": "Tags"
+    },
+    "sections": {
+      "create": {
+        "placeholder": "Enter workspace name",
+        "title": "Create a new workspace"
+      },
+      "existing": {
+        "empty": "No workspaces defined.",
+        "title": "Existing workspaces"
+      }
     }
   },
   "display": {
@@ -426,7 +495,20 @@
       "ui_customization_configure": "Configure",
       "icon_sidebar_order_configure": "Configure",
       "slash_menu_alt_slash": "Alt + /",
-      "slash_menu_slash": "/"
+      "slash_menu_slash": "/",
+      "toolbar_mode": {
+        "both": "Toolbar icons + slash command menu",
+        "full": "Toolbar only",
+        "slash": "Slash command only"
+      }
+    },
+    "alerts": {
+      "error_saving_preference": "Error saving preference"
+    },
+    "timezone": {
+      "alerts": {
+        "update_error": "Error updating timezone"
+      }
     }
   },
   "tasklist": {
@@ -451,7 +533,13 @@
     "unmark_important": "Remove important",
     "task_options": "Task options",
     "remind_me": "Remind me",
-    "remind_me_hint": "A notification fires at the due date and time."
+    "remind_me_hint": "A notification fires at the due date and time.",
+    "actions": "Task list actions",
+    "confirm_clear_completed": "Delete {{count}} completed task(s)?",
+    "confirm_uncheck_all": "Uncheck {{count}} task(s)?",
+    "move_error": "Unable to move task",
+    "no_checked_tasks": "No checked tasks to uncheck.",
+    "uncheck_all": "Uncheck all tasks"
   },
   "tags": {
     "add_single": "Add tag...",
@@ -538,7 +626,8 @@
   "attachments": {
     "empty": "No attachments.",
     "upload": {
-      "button_uploading": "Uploading..."
+      "button_uploading": "Uploading...",
+      "uploading": "Uploading..."
     },
     "actions": {
       "view": "View",
@@ -966,7 +1055,27 @@
       "reset": "Restore default behavior",
       "search_placeholder": "Search icons...",
       "gray": "Gray",
-      "black": "Black"
+      "black": "Black",
+      "amber": "Amber",
+      "blue": "Blue",
+      "cyan": "Cyan",
+      "default_color": "Default",
+      "emerald": "Emerald",
+      "fuchsia": "Fuchsia",
+      "green": "Green",
+      "indigo": "Indigo",
+      "lime": "Lime",
+      "orange": "Orange",
+      "pink": "Pink",
+      "purple": "Purple",
+      "red": "Red",
+      "rose": "Rose",
+      "sky": "Sky",
+      "slate": "Slate",
+      "stone": "Stone",
+      "teal": "Teal",
+      "violet": "Violet",
+      "yellow": "Yellow"
     },
     "linked_selector": {
       "title": "Create a Shortcut from a Note",
@@ -1215,6 +1324,40 @@
       "badge_with_safety": "{{count}} automatic, {{safety}} safety per note",
       "warning_title": "Snapshots only store the note text. Attachments are never copied.",
       "warning": "Attachments and images are kept on disk even after you remove them from a note, as long as one of its snapshots still contains them. They are only freed when the last snapshot containing them expires (after {{days}} days at most) or when the note is permanently deleted."
+    },
+    "api_rest": {
+      "github_option": "GitHub",
+      "swagger_option": "Swagger",
+      "title": "API REST"
+    },
+    "attachment": {
+      "title": "Attachments"
+    },
+    "background_image": {
+      "description": "Upload a background image for your workspace. You can adjust the opacity to make it subtle.",
+      "no_image": "No background image set",
+      "opacity": "Background Opacity",
+      "remove": "Remove",
+      "title": "Background Image Settings",
+      "upload": "Upload Image"
+    },
+    "tag_folder_notes": {
+      "apply": "Add tags",
+      "applying": "Tagging...",
+      "count_one": "1 note will be tagged",
+      "count_other": "{{count}} notes will be tagged",
+      "empty_folder": "This folder is empty",
+      "error": "Could not tag the notes",
+      "existing_tags": "Existing tags",
+      "include_subfolders": "Include the notes of subfolders",
+      "no_tags": "Enter at least one tag",
+      "placeholder": "Tags, separated by commas",
+      "prompt_prefix": "Add tags to every note in",
+      "prompt_suffix": ":",
+      "success_none": "All notes already had these tags",
+      "success_one": "1 note tagged",
+      "success_other": "{{count}} notes tagged",
+      "title": "Tag all notes"
     }
   },
   "notes_list": {
@@ -1223,7 +1366,8 @@
       "tags": "Tags",
       "favorites": "Favorites",
       "public": "Shared",
-      "attachments": "Attachments"
+      "attachments": "Attachments",
+      "no_folder": "No folder"
     },
     "favorites": {
       "empty": "No favorite notes yet.",
@@ -1369,7 +1513,8 @@
     "type_excalidraw": "Excalidraw",
     "filter_age": "Filter by age",
     "age_all": "All notes",
-    "age_recent": "Recent only"
+    "age_recent": "Recent only",
+    "empty": "No notes found."
   },
   "update": {
     "new_available": "🎉 New update available!",
@@ -1450,7 +1595,29 @@
     "template_none": "No templates yet",
     "template_none_hint": "Put notes in a folder or a workspace named \"Templates\"",
     "template_insert_failed": "Could not insert the template",
-    "dictate": "Dictate"
+    "dictate": "Dictate",
+    "record_audio": "Record audio",
+    "insert": "Insert",
+    "media": "Media",
+    "color": "Color",
+    "color_red": "Red",
+    "color_blue": "Blue",
+    "color_green": "Green",
+    "color_yellow": "Yellow",
+    "color_purple": "Purple",
+    "color_orange": "Orange",
+    "color_black": "Black",
+    "bg_yellow": "Yellow background",
+    "youtube": "YouTube",
+    "streaming_videos": "Streaming videos",
+    "bilibili": "Bilibili",
+    "invalid_url": "Invalid URL",
+    "bilibili_invalid_url": "Please enter a valid Bilibili URL",
+    "bilibili_invalid_format": "Invalid Bilibili URL format. Use a video page URL (bilibili.com/video/BV...)",
+    "streaming_video_url_prompt": "Enter streaming video URL (YouTube, Vimeo, etc.):",
+    "bilibili_help": "Enter the Bilibili video page URL (e.g., bilibili.com/video/BV...)",
+    "bilibili_modal_title": "Insert Bilibili Video",
+    "video_insert": "Insert"
   },
   "api": {
     "settings": {
@@ -1475,7 +1642,9 @@
       "no_token_generated": "No link generated",
       "server_error": "Server error: {{error}}",
       "storage_s3_quota_reached": "S3 storage limit reached: this instance allows at most {{max}} MB of S3 storage for this user.",
-      "backups_s3_quota_reached": "S3 backups limit reached: this instance allows at most {{max}} MB of backup archives for this user."
+      "backups_s3_quota_reached": "S3 backups limit reached: this instance allows at most {{max}} MB of backup archives for this user.",
+      "cannot_delete_last_workspace": "Cannot delete the last workspace",
+      "workspace_required": "Workspace is required"
     }
   },
   "ui": {
@@ -1540,7 +1709,8 @@
       "note_width": "Note width",
       "note_width_current": "Note width: {{width}}",
       "note_width_default": "Default ({{width}})",
-      "convert_to_markdown": "Convert to Markdown"
+      "convert_to_markdown": "Convert to Markdown",
+      "share_note": "Share"
     },
     "share_modal": {
       "description": "A shared URL creates a public link to this note. Once the URL is created, you will be able to add more options, such as protecting the note with a password or customizing the share URL.",
@@ -1586,7 +1756,8 @@
     "note": {
       "new_note": "New note",
       "new_note_numbered": "New note ({{number}})",
-      "title_placeholder": "Title ?"
+      "title_placeholder": "Title ?",
+      "untitled": "Untitled"
     },
     "editor": {
       "placeholder_desktop": "Enter text, use / for command menu, paste images or drop an image at cursor.",
@@ -1687,7 +1858,11 @@
       "create_linked_note": "Create shortcut",
       "search_replace": "Search and replace",
       "split_view": "Toggle split view",
-      "save_now": "Save now"
+      "save_now": "Save now",
+      "go_back": "Go back",
+      "go_forward": "Go forward",
+      "switch_to_edit": "Switch to edit mode",
+      "switch_to_preview": "Switch to preview mode"
     },
     "link": {
       "add_title": "Add link",
@@ -1854,7 +2029,8 @@
       "own_account": "Your account",
       "sign_out": "Sign out",
       "invalid": "Unable to select this account."
-    }
+    },
+    "or": "or"
   },
   "restore_import": {
     "page": {
@@ -1869,7 +2045,8 @@
       "complete_backup_restored": "{{message}}",
       "notes_imported": "Imported {{count}} note(s) into workspace \"{{workspace}}\", folder \"{{folder}}\".",
       "attachments_imported": "{{message}}",
-      "notes_imported_zip": "Imported {{count}} note(s) from ZIP into workspace \"{{workspace}}\", folder \"{{folder}}\"."
+      "notes_imported_zip": "Imported {{count}} note(s) from ZIP into workspace \"{{workspace}}\", folder \"{{folder}}\".",
+      "notes_imported_with_folders": "Imported {{count}} note(s) and created {{folders}} folder(s) in workspace \"{{workspace}}\"."
     },
     "skipped_attachments": {
       "header": "Skipped blocked attachment files:",
@@ -1906,7 +2083,13 @@
       "failed_extract_content": "Failed to extract content from {{file}}.",
       "s3_restore_forbidden": "Restoring from S3 is not allowed on this account.",
       "s3_restore_invalid_key": "Invalid backup archive.",
-      "s3_restore_download_error": "Cannot fetch the archive from the bucket: {{error}}"
+      "s3_restore_download_error": "Cannot fetch the archive from the bucket: {{error}}",
+      "cannot_find_attachments_directory": "Cannot find the attachments directory",
+      "database_error_for_file": "Database error for {{file}}: {{message}}",
+      "errors_prefix": "Errors:",
+      "failed_write_file": "Failed to write the file {{file}}",
+      "internal_server_error": "Internal server error",
+      "invalid_form_submission": "Invalid form submission. Please try again."
     },
     "spinner": {
       "processing": "Processing restoration...",
@@ -1942,7 +2125,8 @@
         "entries_dir_not_found": "Cannot find entries directory",
         "upload_error": "Upload error",
         "invalid_file_type": "Invalid file type (only {{allowed}} allowed)",
-        "cannot_read_file": "Cannot read file"
+        "cannot_read_file": "Cannot read file",
+        "no_workspace_available": "No workspace available"
       },
       "summary_with_location": "This will import {{fileText}} into workspace \"{{workspace}}\", folder \"{{folder}}\".",
       "summary_zip_with_location": "This will extract and import all files from ZIP archive into workspace \"{{workspace}}\", folder \"{{folder}}\"."
@@ -2117,6 +2301,10 @@
       "error": "The import failed: {{error}}",
       "upload_interrupted": "The previous upload was interrupted after {{done}} of {{total}} slices, so nothing was imported. You can start the import again.",
       "worker_lost": "The import stopped before it finished. Check the server logs, then start it again."
+    },
+    "import_notes": {
+      "default_title": "Imported note",
+      "summary": "{{imported}} note(s) imported, {{updated}} updated."
     }
   },
   "markdown_guide": {
@@ -2323,7 +2511,9 @@
       "discard_confirm": "Discard your changes?",
       "locked": "Someone else is currently editing this note. Please try again later.",
       "lock_lost": "Someone else is now editing this note. Your latest changes cannot be saved."
-    }
+    },
+    "shared_note_not_found_or_denied": "Shared note not found or access denied. This can happen after a restore. An administrator may need to rebuild the master database in Settings > Administration Tools to repair shared links.",
+    "token_update_failed": "Failed to update token"
   },
   "public_folder": {
     "filter_placeholder": "Filter notes by title",
@@ -2370,6 +2560,11 @@
     "subfolder": {
       "expand": "Expand subfolder",
       "collapse": "Collapse subfolder"
+    },
+    "add_note": "Add note",
+    "empty": {
+      "message": "Create subfolders in this folder to use the Kanban view. Each subfolder will become a column.",
+      "title": "No subfolders yet"
     }
   },
   "sidebar": {
@@ -3244,7 +3439,18 @@
       "delete_warning_item_s3": "Its attachments and backup archives stored in the S3 buckets",
       "delete_warning_no_recovery": "There is no recovery: nothing is kept, and no backup is created beforehand. If this data still matters, download a complete backup ZIP before deleting.",
       "delete_confirm_label": "Type \"{{username}}\" to confirm:",
-      "delete_confirm_placeholder": "Type the username to confirm"
+      "delete_confirm_placeholder": "Type the username to confirm",
+      "access_denied_admin": "Access denied. Admin privileges required.",
+      "confirm_delete": "Are you sure you want to delete user \"{{username}}\"?",
+      "delete_id_1_locked": "User ID 1 cannot be deleted",
+      "delete_user": "Delete User Profile",
+      "errors_label": "Errors:",
+      "network_error": "Network error: ",
+      "new_password": "New password",
+      "oidc_subject": "OIDC Subject (UUID)",
+      "oidc_subject_help": "Optional: UUID from your OIDC provider (LLDAP, Authelia, etc.)",
+      "oidc_subject_placeholder": "e.g., 510ec799-02f8-42e0-...",
+      "processing": "Processing..."
     }
   },
   "profile": {
@@ -3736,8 +3942,20 @@
       "error_creating": "Error creating note"
     },
     "modal": {
-      "create_button": "Create & link"
-    }
+      "create_button": "Create & link",
+      "recent_notes": "Recent notes",
+      "search_placeholder": "Search for a note..."
+    },
+    "untitled": "Untitled",
+    "empty": {
+      "no_match": "No notes match your search",
+      "no_notes_found": "No notes found",
+      "no_other": "No other notes available"
+    },
+    "error": {
+      "loading_notes": "Error loading notes"
+    },
+    "loading": "Loading..."
   },
   "ai_settings": {
     "title": "AI Assistant",
@@ -3867,7 +4085,7 @@
       "save_error": "Failed to save configuration."
     },
     "max_duration_label": "Maximum recording length",
-    "max_duration_description": "In minutes, from 1 to {{limit}}. Dictation stops and transcribes on its own when it gets there, so a tab left recording cannot send the server an hour of audio. The dialog shows the elapsed time against this limit. Transcribing an existing attachment is not affected."
+    "max_duration_description": "In minutes, from 1 to {{limit}}. Dictate and Record audio stop on their own when they get there, so a tab left recording cannot send an hour of audio. The dialog shows the elapsed time against this limit. Transcribing an existing attachment is not affected."
   },
   "stt_settings_user": {
     "title": "My transcription server",
@@ -3910,7 +4128,39 @@
       "failed": "Transcription failed: {{error}}",
       "attach_failed": "The text was inserted, but the recording could not be attached: {{error}}",
       "note_locked": "This note cannot be edited from here right now, so the text was not inserted. Copy it from the box above."
+    },
+    "server_errors": {
+      "no_server": "No transcription server configured",
+      "empty_result": "The server returned no transcription",
+      "admin_required": "Admin access required",
+      "no_url": "No server URL configured",
+      "unknown_action": "Unknown action",
+      "not_configured": "Transcription is not configured for this account",
+      "post_required": "POST required",
+      "too_large_for_server": "The recording is too large for this server to accept",
+      "no_audio": "No audio received",
+      "empty_recording": "The recording is empty",
+      "too_large": "The recording is too large",
+      "not_audio_file": "That file is not audio Poznote can send for transcription",
+      "ids_required": "Note id and attachment id are required",
+      "note_read_failed": "Could not read the note",
+      "note_not_found": "Note not found",
+      "attachment_not_found": "Attachment not found",
+      "attachment_not_audio": "That attachment is not an audio file",
+      "attachment_missing": "The attached file is missing from storage",
+      "attachment_too_large": "That recording is too large to transcribe",
+      "timeout": "The transcription server did not answer within {{seconds}} seconds. Try a shorter recording or a smaller model."
     }
+  },
+  "audio_recorder": {
+    "title": "Record audio",
+    "hint": "Recording. Stop to insert the audio into the note. It stops on its own after {{minutes}} min.",
+    "stop": "Stop and insert",
+    "saving": "Saving the recording...",
+    "max_duration": "Maximum recording length reached, inserting what was recorded.",
+    "upload_failed": "The recording could not be saved: {{error}}",
+    "download": "Download the recording",
+    "no_note": "Open a note first: the recording is saved as an attachment of that note."
   },
   "diary": {
     "title": "Diary",
@@ -3954,7 +4204,10 @@
       "discard": "Keep the current version",
       "restored": "Your latest changes were recovered and saved.",
       "restore_failed": "Your changes could not be saved. Check your connection and try again."
-    }
+    },
+    "beforeunload_warning": "⚠️ You have unsaved changes. Are you sure you want to leave?",
+    "unsaved_changes_title": "Unsaved Changes",
+    "unsaved_changes_warning": "⚠️ You have unsaved changes. Are you sure you want to leave?"
   },
   "tasks_page": {
     "title": "Tasks",
@@ -4108,7 +4361,8 @@
       "show_more": "Show more",
       "show_less": "Show less",
       "deleted_on": "Deleted on {{date}}",
-      "created_on": "Created on {{date}}"
+      "created_on": "Created on {{date}}",
+      "last_modified_on": "Last modified on {{date}}"
     },
     "sort": {
       "label": "Sort notes",
@@ -4116,7 +4370,46 @@
       "created": "Creation date"
     },
     "showing_limit_deleted": "Only the {{count}} most recently deleted notes are shown",
-    "showing_limit_created": "Only the {{count}} most recently created notes are shown"
+    "showing_limit_created": "Only the {{count}} most recently created notes are shown",
+    "actions": {
+      "delete_forever": "Delete Forever",
+      "delete_permanently_tooltip": "Delete permanently",
+      "empty_trash": "Empty trash",
+      "restore": "Restore",
+      "restore_note_tooltip": "Restore this note"
+    },
+    "alerts": {
+      "delete_error_generic": "Error during permanent deletion of the note",
+      "delete_error_prefix": "Error during permanent deletion: ",
+      "delete_error_title": "Delete Error",
+      "empty_error_generic": "Error emptying trash",
+      "empty_error_prefix": "Error emptying trash: ",
+      "empty_error_title": "Empty Trash Error",
+      "restore_error_generic": "Error restoring the note",
+      "restore_error_prefix": "Error restoring the note: ",
+      "restore_error_title": "Restore Error"
+    },
+    "empty": "No notes in trash.",
+    "modals": {
+      "delete": {
+        "message": "Do you want to permanently delete this note? This action cannot be undone.",
+        "title": "Permanently Delete Note"
+      },
+      "empty": {
+        "message": "Do you want to empty the trash completely? This action cannot be undone.",
+        "title": "Empty Trash"
+      },
+      "restore": {
+        "message": "Do you want to restore this note?",
+        "title": "Restore Note"
+      }
+    },
+    "search": {
+      "placeholder": "Search in trash...",
+      "results_for": "Results for \"{{term}}\"",
+      "results_one": "1 note found for \"{{term}}\"",
+      "results_other": "{{count}} notes found for \"{{term}}\""
+    }
   },
   "saas": {
     "description": "Display elements that make sense when this instance is offered as a hosted service (SaaS). Everything here is hidden by default.",
@@ -4188,5 +4481,101 @@
       "password_mismatch": "The two new passwords do not match.",
       "password_too_short": "The password must be at least 4 characters."
     }
+  },
+  "excalidraw": {
+    "editor": {
+      "alerts": {
+        "editor_not_ready": "Editor not ready",
+        "error_prefix": "Error: {{error}}"
+      },
+      "errors": {
+        "failed_to_load": "Error: Failed to load Excalidraw. Please refresh the page.",
+        "initializing_prefix": "Error initializing Excalidraw: {{error}}",
+        "save_failed": "Save failed"
+      },
+      "loading": "Loading Excalidraw Poznote...",
+      "titles": {
+        "embedded_diagram": "Embedded Diagram",
+        "new_note": "New note"
+      },
+      "toolbar": {
+        "exit_without_saving": "Exit without saving",
+        "save_and_exit": "Save and exit",
+        "saved": "Saved!",
+        "saving": "Saving..."
+      }
+    }
+  },
+  "folders": {
+    "delete": {
+      "confirm_main": "Are you sure you want to delete the folder \"{{folder}}\"?",
+      "details": {
+        "note_plural_html": "<strong>• {{count}}</strong> notes will be moved to trash",
+        "note_singular_html": "<strong>• {{count}}</strong> note will be moved to trash",
+        "subfolder_plural_html": "<strong>• {{count}}</strong> subfolders will also be deleted",
+        "subfolder_singular_html": "<strong>• {{count}}</strong> subfolder will also be deleted"
+      }
+    },
+    "empty": {
+      "confirm_button": "Send notes to trash",
+      "confirm_message": "Are you sure you want to move all notes from \"{{folder}}\" to trash?",
+      "success_moved_to_trash": "All notes moved to trash from folder: {{folder}}",
+      "title": "Empty Folder"
+    },
+    "errors": {
+      "cannot_rename_system_folders": "Cannot rename system folders",
+      "check_content_prefix": "Error checking folder content: {{error}}",
+      "create_prefix": "Error creating folder: {{error}}",
+      "create_title": "Error Creating Folder",
+      "delete_prefix": "Error deleting folder: {{error}}",
+      "duplicate_prefix": "Error duplicating folder: {{error}}",
+      "empty_folder_prefix": "Error emptying folder: {{error}}",
+      "generic_prefix": "Error: {{error}}",
+      "load_prefix": "Error loading folders: {{error}}",
+      "move_files_prefix": "Error moving files: {{error}}",
+      "move_folder_prefix": "Error moving folder: {{error}}",
+      "rename_prefix": "Error renaming folder: {{error}}"
+    },
+    "filter_placeholder": "Filter by folder name...",
+    "move": {
+      "moving": "Moving...",
+      "success": "Folder \"{{folder}}\" moved successfully"
+    },
+    "move_all": {
+      "empty_folder": "This folder is empty",
+      "files_count_plural": "{{count}} files will be moved",
+      "files_count_singular": "1 file will be moved",
+      "moving": "Moving...",
+      "same_source_target": "Source and target folders cannot be the same",
+      "unable_to_count_files": "Unable to count files"
+    },
+    "move_note": {
+      "create_and_move": "Create & Move",
+      "errors": {
+        "move_prefix": "Error moving note: {{error}}"
+      },
+      "select_note_first": "Please select a note first",
+      "select_target_folder": "Please select a target folder"
+    },
+    "no_folders": "No folders yet.",
+    "subfolder": {
+      "modal_message": "Enter subfolder name (within {{parent}})",
+      "modal_title": "New Subfolder"
+    },
+    "validation": {
+      "enter_folder_name": "Please enter a folder name"
+    }
+  },
+  "modal_alerts": {
+    "cursor_warning": {
+      "message": "Please place the cursor in the note editing area where you want to insert content.",
+      "title": "Cursor Position Required"
+    }
+  },
+  "search_replace": {
+    "no_matches": "No results",
+    "replaced_all": "Replaced {{count}} match(es)",
+    "result": "result",
+    "results": "results"
   }
 }

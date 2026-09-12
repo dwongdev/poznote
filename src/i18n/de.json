@@ -77,7 +77,24 @@
       "no_headings": "Keine Überschriften in dieser Notiz",
       "unavailable_tasklist": "Gliederung ist für Aufgabenlisten nicht verfügbar"
     },
-    "link_copied": "Link kopiert"
+    "link_copied": "Link kopiert",
+    "ok": "OK",
+    "caution": "Vorsicht",
+    "tip": "Tipp",
+    "important": "Wichtig",
+    "note": "Notiz",
+    "access_denied": "Zugriff verweigert",
+    "scroll_left": "Nach links scrollen",
+    "scroll_right": "Nach rechts scrollen",
+    "calendar": "Kalender",
+    "confirm_action": "Aktion bestätigen",
+    "convert": "Konvertieren",
+    "date": {
+      "days_ago": "Tage her",
+      "today": "Heute",
+      "yesterday": "Gestern"
+    },
+    "network_error": "Netzwerkfehler"
   },
   "snapshot": {
     "menu_item": "Schnappschüsse",
@@ -179,7 +196,16 @@
     "subfolder": {
       "expand": "Unterordner ausklappen",
       "collapse": "Unterordner einklappen"
-    }
+    },
+    "add_column": "Spalte hinzufügen",
+    "new_column_title": "Neue Spalte",
+    "new_column_placeholder": "Spaltenname",
+    "list": {
+      "filter_placeholder": "Nach Boardname filtern...",
+      "no_boards": "Noch keine Kanban-Boards.",
+      "hint": "Aktivieren Sie die Kanban-Ansicht für einen Ordner, damit er hier erscheint."
+    },
+    "add_note": "Notiz hinzufügen"
   },
   "folders": {
     "delete": {
@@ -243,7 +269,9 @@
     "move": {
       "moving": "Verschieben...",
       "success": "Ordner \"{{folder}}\" erfolgreich verschoben"
-    }
+    },
+    "filter_placeholder": "Nach Ordnername filtern...",
+    "no_folders": "Noch keine Ordner."
   },
   "modal_alerts": {
     "cursor_warning": {
@@ -325,7 +353,8 @@
   "attachments": {
     "empty": "Keine Anhänge.",
     "upload": {
-      "button_uploading": "Wird hochgeladen..."
+      "button_uploading": "Wird hochgeladen...",
+      "uploading": "Wird hochgeladen..."
     },
     "actions": {
       "view": "Anzeigen",
@@ -374,7 +403,8 @@
       "preview_alt": "Vorschau",
       "uploaded_prefix": "Hochgeladen: ",
       "open_in_new_tab": "In neuem Tab öffnen",
-      "inline_images_hidden_notice": "Bilder, die direkt im Notizinhalt eingefügt wurden, bleiben als Anhänge gespeichert, werden hier aber ausgeblendet, um Mehrdeutigkeiten zu vermeiden."
+      "inline_images_hidden_notice": "Bilder, die direkt im Notizinhalt eingefügt wurden, bleiben als Anhänge gespeichert, werden hier aber ausgeblendet, um Mehrdeutigkeiten zu vermeiden.",
+      "pdf_label": "PDF"
     },
     "modals": {
       "delete": {
@@ -405,6 +435,15 @@
       "all_file_types": "Alle Typen",
       "file_type_filter": "Nach Dateityp filtern",
       "download": "Herunterladen"
+    },
+    "context_menu": {
+      "open": "Öffnen",
+      "download": "Herunterladen",
+      "transcribe": "Transkribieren",
+      "delete": "Löschen",
+      "delete_confirm_title": "Anhang löschen",
+      "delete_confirm_message": "„{{filename}}“ löschen? Der Anhang wird aus der Notiz entfernt und kann nicht wiederhergestellt werden.",
+      "delete_confirm_message_unnamed": "Diesen Anhang löschen? Er wird aus der Notiz entfernt und kann nicht wiederhergestellt werden."
     }
   },
   "auth": {
@@ -495,7 +534,8 @@
       "s3_storage": "Notiz-Anhänge in einem S3-kompatiblen Objektspeicher statt auf der lokalen Festplatte speichern.",
       "s3_backup": "Lädt vollständige Sicherungsarchive in einen S3-kompatiblen Bucket hoch, manuell oder nach Zeitplan.",
       "highlight_current_folder_tree": "Notizen und Ordner außerhalb der Ordnerhierarchie, in der Sie arbeiten, so stark abschwächen, wie Sie möchten.",
-      "snapshots": "Wählen Sie, wie viele automatische tägliche Schnappschüsse und wie viele Sicherheits-Schnappschüsse (vor einer KI- oder MCP-Änderung) pro Notiz aufbewahrt werden."
+      "snapshots": "Wählen Sie, wie viele automatische tägliche Schnappschüsse und wie viele Sicherheits-Schnappschüsse (vor einer KI- oder MCP-Änderung) pro Notiz aufbewahrt werden.",
+      "stt": "Den Spracherkennungsserver konfigurieren, mit dem Notizen diktiert und Audioanhänge transkribiert werden."
     },
     "title": "Einstellungen",
     "collapse_section": "Bereich einklappen",
@@ -574,7 +614,9 @@
       "saas": "SaaS-Modus",
       "admin_contact": "Hilfe",
       "s3_storage": "S3-Anhänge",
-      "s3_backup": "S3-Sicherungen"
+      "s3_backup": "S3-Sicherungen",
+      "stt": "Transkription",
+      "api_rest": "REST-API"
     },
     "default_credentials": {
       "both": "Dieses Konto verwendet noch den mitgelieferten Benutzernamen und das mitgelieferte Passwort. Jeder, der diese Instanz erreichen kann, kann sich anmelden.",
@@ -613,7 +655,8 @@
     "actions": {
       "select": "Auswählen",
       "move_notes": "Notizen verschieben",
-      "menu": "Workspace-Aktionen"
+      "menu": "Workspace-Aktionen",
+      "background": "Hintergrund"
     },
     "count": {
       "notes_0": "0 Notizen",
@@ -665,7 +708,10 @@
       "cannot_rename_default": "Startup-Arbeitsbereich kann nicht umbenannt werden",
       "invalid_new_name": "Ungültiger neuer Arbeitsbereichsname. Verwenden Sie nur Buchstaben, Zahlen, Bindestrich und Unterstrich (keine Leerzeichen).",
       "name_and_target_required": "Arbeitsbereichsname und Ziel erforderlich",
-      "source_target_must_differ": "Quell- und Ziel-Arbeitsbereiche müssen sich unterscheiden"
+      "source_target_must_differ": "Quell- und Ziel-Arbeitsbereiche müssen sich unterscheiden",
+      "cannot_delete_last": "Der letzte Arbeitsbereich kann nicht gelöscht werden",
+      "name_exists": "Ein Arbeitsbereich mit diesem Namen existiert bereits",
+      "no_workspace_selected": "Kein Arbeitsbereich ausgewählt"
     },
     "messages": {
       "creating": "Arbeitsbereich wird erstellt...",
@@ -736,6 +782,13 @@
       "handle": "Zum Umsortieren ziehen",
       "saved": "Reihenfolge der Arbeitsbereiche aktualisiert",
       "save_error": "Die Reihenfolge der Arbeitsbereiche konnte nicht aktualisiert werden"
+    },
+    "info": {
+      "folders": "Ordner",
+      "notes": "Notizen",
+      "shared": "Geteilt",
+      "shared_with": "Geteilt mit",
+      "tags": "Tags"
     }
   },
   "display": {
@@ -778,7 +831,8 @@
       "slash_menu_require_alt": "Tastenkürzel für das Befehlsmenü",
       "note_nav_shortcuts": "Notizen wechseln mit Alt + ↑/↓",
       "ctrl_s_save": "Notiz mit Strg + S speichern",
-      "snapshots": "Schnappschüsse"
+      "snapshots": "Schnappschüsse",
+      "show_note_icons": "Notizsymbole anzeigen"
     },
     "badges": {
       "font_size_default": "Standard ({{size}}px)",
@@ -790,7 +844,11 @@
         "both": "Symbolleistensymbole + Schrägstrich-Befehlsmenü"
       },
       "slash_menu_alt_slash": "Alt + /",
-      "slash_menu_slash": "/"
+      "slash_menu_slash": "/",
+      "note_font_size": "{{size}}px",
+      "sidebar_font_size": "{{size}}px",
+      "code_block_font_size": "{{size}}px",
+      "settings_font_size": "{{size}}px"
     },
     "alerts": {
       "error_saving_preference": "Fehler beim Speichern der Einstellung"
@@ -826,7 +884,8 @@
     "support_poznote": "Poznote unterstützen",
     "version": "Version",
     "filter_placeholder": "Filtern...",
-    "graph": "Graph"
+    "graph": "Graph",
+    "no_filter_results": "Keine Ergebnisse gefunden."
   },
   "search": {
     "placeholder": "Suchen...",
@@ -861,7 +920,9 @@
       "discard": "Aktuelle Version behalten",
       "restored": "Ihre letzten Änderungen wurden wiederhergestellt und gespeichert.",
       "restore_failed": "Ihre Änderungen konnten nicht gespeichert werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut."
-    }
+    },
+    "unsaved_changes_title": "Ungespeicherte Änderungen",
+    "unsaved_changes_warning": "⚠️ Sie haben ungespeicherte Änderungen. Möchten Sie die Seite wirklich verlassen?"
   },
   "tasklist": {
     "open_tasks_page": "Alle Aufgaben anzeigen",
@@ -937,6 +998,13 @@
       "error": "Löschen fehlgeschlagen"
     }
   },
+  "download": "Herunterladen",
+  "convert": "Konvertieren",
+  "create": "Erstellen",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "favorite": "Favorit",
+  "share": "Teilen",
   "trash": {
     "search": {
       "placeholder": "Im Papierkorb suchen...",
@@ -1038,7 +1106,8 @@
       "green": "Grün",
       "blue": "Blau",
       "purple": "Lila",
-      "none": "Keine"
+      "none": "Keine",
+      "red": "Rot"
     },
     "font_size": {
       "very_small": "Sehr klein",
@@ -1087,7 +1156,11 @@
       "open_in_new_tab": "In neuem Tab öffnen",
       "split_view": "Geteilte Ansicht umschalten",
       "search_replace": "Suchen und ersetzen",
-      "save_now": "Jetzt speichern"
+      "save_now": "Jetzt speichern",
+      "go_back": "Zurück",
+      "go_forward": "Vorwärts",
+      "switch_to_edit": "In den Bearbeitungsmodus wechseln",
+      "switch_to_preview": "In die Vorschau wechseln"
     },
     "link": {
       "add_title": "Link hinzufügen",
@@ -1126,7 +1199,9 @@
       "favorite": "Favorit:",
       "attachments": "Anhänge:",
       "note_id": "Notiz-ID:",
-      "full_path": "Vollständiger Pfad:"
+      "full_path": "Vollständiger Pfad:",
+      "created_by": "Erstellt von:",
+      "last_modified_by": "Zuletzt geändert von:"
     },
     "attachments": {
       "count_singular": "1 Datei",
@@ -1135,7 +1210,11 @@
     "empty": {
       "no_tags": "Keine Tags"
     },
-    "errors": []
+    "errors": [],
+    "users": {
+      "user_id": "Benutzer #{{id}}",
+      "deleted": "Benutzer #{{id}}"
+    }
   },
   "modals": {
     "paste_markdown": {
@@ -1292,7 +1371,8 @@
       "remove_divider": "Trennlinie entfernen"
     },
     "language": {
-      "description": "Wählen Sie Ihre bevorzugte Sprache:"
+      "description": "Wählen Sie Ihre bevorzugte Sprache:",
+      "title": "Sprachauswahl"
     },
     "input": {
       "placeholder": "Text eingeben"
@@ -1318,7 +1398,9 @@
       "note_label": "Notizinhalt (px):",
       "sidebar_label": "Seitenleiste (px):",
       "default_value": "{{size}} px ist der Standardwert",
-      "preview": "Vorschau"
+      "preview": "Vorschau",
+      "code_block_label": "Codeblöcke (px):",
+      "settings_label": "Einstellungsseite (px):"
     },
     "note_width": {
       "title": "Breite des Notizinhalts",
@@ -1381,7 +1463,43 @@
       "delete_title": "Arbeitsbereich löschen bestätigen",
       "delete_description": "Alle Notizen und Ordner werden dauerhaft gelöscht und können nicht wiederhergestellt werden.",
       "delete_placeholder": "Arbeitsbereichsnamen eingeben, um zu bestätigen",
-      "delete_button": "Arbeitsbereich löschen"
+      "delete_button": "Arbeitsbereich löschen",
+      "share": {
+        "actions": {
+          "enable": "Teilen",
+          "edit": "Freigabe bearbeiten",
+          "copy_link": "Link kopieren",
+          "disable": "Freigabe beenden"
+        },
+        "confirm": {
+          "title": "Arbeitsbereich schreibgeschützt teilen",
+          "message": "Jeder mit der URL des Arbeitsbereichs „{{workspace}}“ erhält schreibgeschützten Zugriff auf alle Notizen und Ordner dieses Arbeitsbereichs.",
+          "confirm_button": "Arbeitsbereich teilen"
+        },
+        "messages": {
+          "enabled": "Link zum schreibgeschützten Arbeitsbereich aktiviert",
+          "disabled": "Link zum schreibgeschützten Arbeitsbereich deaktiviert",
+          "url_copied": "Freigabelink in die Zwischenablage kopiert!"
+        },
+        "errors": {
+          "url_in_use": "Auf dieser Poznote-Instanz gibt es bereits einen öffentlichen Arbeitsbereich mit diesem Namen",
+          "copy_failed": "Freigabelink konnte nicht kopiert werden",
+          "save_failed": "Link zum schreibgeschützten Arbeitsbereich konnte nicht gespeichert werden",
+          "disable_failed": "Link zum schreibgeschützten Arbeitsbereich konnte nicht deaktiviert werden"
+        },
+        "status": {
+          "enabled": "Öffentlich schreibgeschützt aktiviert",
+          "disabled": "Nicht öffentlich geteilt"
+        },
+        "help": "Jeder mit dieser URL öffnet Poznote direkt schreibgeschützt in diesem Arbeitsbereich.",
+        "url_label": "Öffentliche URL",
+        "options": {
+          "require_login": "Poznote-Anmeldung verlangen",
+          "restrict_users": "Auf bestimmte Benutzer beschränken",
+          "users_loading": "Benutzer werden geladen...",
+          "no_users_found": "Keine anderen Benutzer gefunden"
+        }
+      }
     },
     "user_settings_info": {
       "title": "Kontoeinstellungen",
@@ -1424,7 +1542,27 @@
       "reset": "Standardverhalten wiederherstellen",
       "search_placeholder": "Symbole suchen...",
       "gray": "Grau",
-      "black": "Schwarz"
+      "black": "Schwarz",
+      "amber": "Bernstein",
+      "blue": "Blau",
+      "cyan": "Cyan",
+      "default_color": "Standard",
+      "emerald": "Smaragd",
+      "fuchsia": "Fuchsia",
+      "green": "Grün",
+      "indigo": "Indigo",
+      "lime": "Limette",
+      "orange": "Orange",
+      "pink": "Pink",
+      "purple": "Lila",
+      "red": "Rot",
+      "rose": "Rosé",
+      "sky": "Himmelblau",
+      "slate": "Schiefer",
+      "stone": "Stein",
+      "teal": "Blaugrün",
+      "violet": "Violett",
+      "yellow": "Gelb"
     },
     "linked_selector": {
       "title": "Verknüpfung aus einer Notiz erstellen",
@@ -1684,6 +1822,40 @@
       "badge_with_safety": "{{count}} automatische, {{safety}} Sicherheits- pro Notiz",
       "warning_title": "Schnappschüsse speichern nur den Text der Notiz. Anhänge werden nie kopiert.",
       "warning": "Anhänge und Bilder bleiben auch nach dem Entfernen aus einer Notiz auf der Festplatte, solange einer ihrer Schnappschüsse sie noch enthält. Sie werden erst freigegeben, wenn der letzte Schnappschuss, der sie enthält, abläuft (spätestens nach {{days}} Tagen) oder die Notiz endgültig gelöscht wird."
+    },
+    "api_rest": {
+      "github_option": "GitHub",
+      "swagger_option": "Swagger",
+      "title": "REST-API"
+    },
+    "attachment": {
+      "title": "Anhänge"
+    },
+    "background_image": {
+      "description": "Laden Sie ein Hintergrundbild für Ihren Arbeitsbereich hoch. Über die Deckkraft können Sie es dezent halten.",
+      "no_image": "Kein Hintergrundbild festgelegt",
+      "opacity": "Deckkraft des Hintergrunds",
+      "remove": "Entfernen",
+      "title": "Hintergrundbild",
+      "upload": "Bild hochladen"
+    },
+    "tag_folder_notes": {
+      "apply": "Tags hinzufügen",
+      "applying": "Wird getaggt...",
+      "count_one": "1 Notiz wird getaggt",
+      "count_other": "{{count}} Notizen werden getaggt",
+      "empty_folder": "Dieser Ordner ist leer",
+      "error": "Die Notizen konnten nicht getaggt werden",
+      "existing_tags": "Vorhandene Tags",
+      "include_subfolders": "Notizen aus Unterordnern einbeziehen",
+      "no_tags": "Geben Sie mindestens einen Tag ein",
+      "placeholder": "Tags, durch Kommas getrennt",
+      "prompt_prefix": "Allen Notizen in",
+      "prompt_suffix": " Tags hinzufügen:",
+      "success_none": "Alle Notizen hatten diese Tags bereits",
+      "success_one": "1 Notiz getaggt",
+      "success_other": "{{count}} Notizen getaggt",
+      "title": "Alle Notizen taggen"
     }
   },
   "notes_list": {
@@ -1692,7 +1864,8 @@
       "tags": "Tags",
       "favorites": "Favoriten",
       "public": "Geteilte",
-      "attachments": "Anhänge"
+      "attachments": "Anhänge",
+      "no_folder": "Kein Ordner"
     },
     "favorites": {
       "empty": "Noch keine Favoriten vorhanden.",
@@ -1721,7 +1894,11 @@
       "no_notes_title": "Keine Notizen",
       "no_notes_in_folder": "Dieser Ordner enthält keine Notizen",
       "too_many_notes": "Dieser Ordner enthält {{count}} Notizen. Nur die ersten {{max}} werden geöffnet, um Ihren Browser nicht zu überlasten.",
-      "show_only": "Nur diesen Ordner anzeigen"
+      "show_only": "Nur diesen Ordner anzeigen",
+      "copy_folder": "Kopieren",
+      "cut_folder": "Ausschneiden",
+      "paste_into_folder": "In Ordner einfügen",
+      "change_note_icon": "Notizsymbol ändern"
     },
     "folder_filter": {
       "exit": "Ordneransicht verlassen"
@@ -1736,8 +1913,41 @@
       "delete_note": "Notiz löschen",
       "enter_note_name": "Bitte geben Sie einen Notiztitel ein",
       "attachments": "Anhänge",
-      "convert_note": "Notiz konvertieren"
+      "convert_note": "Notiz konvertieren",
+      "copy_note": "Kopieren",
+      "cut_note": "Ausschneiden",
+      "paste_note": "Hier einfügen"
     }
+  },
+  "tree_history": {
+    "undone": "Rückgängig: {{action}}",
+    "redone": "Wiederholt: {{action}}",
+    "nothing_to_undo": "Nichts zum Rückgängigmachen",
+    "nothing_to_redo": "Nichts zum Wiederholen",
+    "undo_failed": "Rückgängigmachen fehlgeschlagen: {{error}}",
+    "redo_failed": "Wiederholen fehlgeschlagen: {{error}}",
+    "actions": {
+      "move_note": "Notiz verschieben",
+      "move_folder": "Ordner verschieben",
+      "delete_note": "Notiz löschen",
+      "delete_folder": "Ordner löschen",
+      "paste_note": "Notiz einfügen",
+      "paste_folder": "Ordner einfügen",
+      "rename_note": "Notiz umbenennen",
+      "rename_folder": "Ordner umbenennen"
+    }
+  },
+  "tree_clipboard": {
+    "copied_note": "„{{name}}“ kopiert",
+    "cut_note": "„{{name}}“ ausgeschnitten",
+    "copied_folder": "Ordner „{{name}}“ kopiert",
+    "cut_folder": "Ordner „{{name}}“ ausgeschnitten",
+    "pasted_note": "„{{name}}“ eingefügt",
+    "pasted_folder": "Ordner „{{name}}“ eingefügt",
+    "nothing_to_paste": "Nichts zum Einfügen",
+    "already_there": "Bereits in diesem Ordner",
+    "cannot_paste_into_itself": "Ein Ordner kann nicht in sich selbst eingefügt werden",
+    "paste_failed": "Einfügen fehlgeschlagen: {{error}}"
   },
   "note_color": {
     "modal_title": "Notizfarbe",
@@ -1795,7 +2005,14 @@
     "filter_placeholder": "Notizen nach Titel oder Tags filtern...",
     "filter_age": "Nach Alter filtern",
     "age_all": "Alle Notizen",
-    "age_recent": "Nur aktuelle"
+    "age_recent": "Nur aktuelle",
+    "all_types": "Alle Typen",
+    "filter_type": "Nach Typ filtern",
+    "type_html": "HTML",
+    "type_markdown": "Markdown",
+    "type_tasklist": "Aufgabenliste",
+    "type_excalidraw": "Excalidraw",
+    "empty": "Keine Notizen gefunden."
   },
   "update": {
     "new_available": "🎉 Neues Update verfügbar!",
@@ -1875,7 +2092,30 @@
     "template": "Vorlage",
     "template_none": "Noch keine Vorlagen",
     "template_none_hint": "Lege Notizen in einen Ordner oder einen Arbeitsbereich namens „Vorlagen“",
-    "template_insert_failed": "Die Vorlage konnte nicht eingefügt werden"
+    "template_insert_failed": "Die Vorlage konnte nicht eingefügt werden",
+    "dictate": "Diktieren",
+    "record_audio": "Audio aufnehmen",
+    "insert": "Einfügen",
+    "media": "Medien",
+    "color": "Farbe",
+    "color_red": "Rot",
+    "color_blue": "Blau",
+    "color_green": "Grün",
+    "color_yellow": "Gelb",
+    "color_purple": "Lila",
+    "color_orange": "Orange",
+    "color_black": "Schwarz",
+    "bg_yellow": "Gelber Hintergrund",
+    "youtube": "YouTube",
+    "streaming_videos": "Streaming-Videos",
+    "bilibili": "Bilibili",
+    "invalid_url": "Ungültige URL",
+    "bilibili_invalid_url": "Bitte geben Sie eine gültige Bilibili-URL ein",
+    "bilibili_invalid_format": "Ungültiges Bilibili-URL-Format. Verwenden Sie die URL einer Videoseite (bilibili.com/video/BV...)",
+    "streaming_video_url_prompt": "Geben Sie die URL des Streaming-Videos ein (YouTube, Vimeo usw.):",
+    "bilibili_help": "Geben Sie die URL der Bilibili-Videoseite ein (z. B. bilibili.com/video/BV...)",
+    "bilibili_modal_title": "Bilibili-Video einfügen",
+    "video_insert": "Einfügen"
   },
   "api": {
     "settings": {
@@ -1895,7 +2135,14 @@
       "duplicate_title_in_folder": "Eine andere Notiz mit demselben Titel existiert bereits in diesem Ordner.",
       "invalid_custom_token": "Ungültiger benutzerdefinierter Link.\n\nErlaubt:\n\nBuchstaben, Zahlen, -, _, . (4-128 Zeichen)",
       "storage_s3_quota_reached": "S3-Speicherlimit erreicht: Diese Instanz erlaubt höchstens {{max}} MB S3-Speicher für diesen Benutzer.",
-      "backups_s3_quota_reached": "S3-Backup-Limit erreicht: Diese Instanz erlaubt höchstens {{max}} MB an Backup-Archiven für diesen Benutzer."
+      "backups_s3_quota_reached": "S3-Backup-Limit erreicht: Diese Instanz erlaubt höchstens {{max}} MB an Backup-Archiven für diesen Benutzer.",
+      "note_id_required": "note_id erforderlich",
+      "note_not_found": "Notiz nicht gefunden",
+      "token_already_in_use": "Benutzerdefinierter Link wird bereits verwendet",
+      "no_token_generated": "Kein Link erstellt",
+      "server_error": "Serverfehler: {{error}}",
+      "cannot_delete_last_workspace": "Der letzte Arbeitsbereich kann nicht gelöscht werden",
+      "workspace_required": "Arbeitsbereich ist erforderlich"
     }
   },
   "ui": {
@@ -1960,7 +2207,8 @@
       "note_width": "Notizbreite",
       "note_width_current": "Notizbreite: {{width}}",
       "note_width_default": "Standard ({{width}})",
-      "convert_to_markdown": "In Markdown konvertieren"
+      "convert_to_markdown": "In Markdown konvertieren",
+      "share_note": "Teilen"
     },
     "share_modal": {
       "description": "Eine geteilte URL erstellt einen öffentlichen Link zu dieser Notiz. Sobald die URL erstellt wurde, stehen weitere Optionen zur Verfügung, zum Beispiel ein Passwortschutz für die Notiz oder eine Anpassung der Freigabe-URL.",
@@ -2010,7 +2258,8 @@
     "note": {
       "new_note": "Neue Notiz",
       "new_note_numbered": "Neue Notiz ({{number}})",
-      "title_placeholder": "Titel ?"
+      "title_placeholder": "Titel ?",
+      "untitled": "Ohne Titel"
     },
     "editor": {
       "placeholder_desktop": "Text eingeben, / verwenden, um das Befehlsmenü zu öffnen, Bilder einfügen oder ein Bild am Cursor ablegen.",
@@ -2160,7 +2409,8 @@
       "own_account": "Ihr Konto",
       "sign_out": "Abmelden",
       "invalid": "Dieses Konto kann nicht ausgewählt werden."
-    }
+    },
+    "or": "oder"
   },
   "restore_import": {
     "page": {
@@ -2175,7 +2425,8 @@
       "complete_backup_restored": "{{message}}",
       "notes_imported": "{{count}} Notiz(en) in Arbeitsbereich \"{{workspace}}\", Ordner \"{{folder}}\" importiert.",
       "attachments_imported": "{{message}}",
-      "notes_imported_zip": "{{count}} Notiz(en) aus ZIP in Arbeitsbereich \"{{workspace}}\", Ordner \"{{folder}}\" importiert."
+      "notes_imported_zip": "{{count}} Notiz(en) aus ZIP in Arbeitsbereich \"{{workspace}}\", Ordner \"{{folder}}\" importiert.",
+      "notes_imported_with_folders": "{{count}} Notiz(en) importiert und {{folders}} Ordner im Arbeitsbereich „{{workspace}}“ erstellt."
     },
     "skipped_attachments": {
       "header": "Übersprungene blockierte Anhangsdateien:",
@@ -2212,7 +2463,13 @@
       "failed_extract_content": "Inhalt aus {{file}} konnte nicht extrahiert werden.",
       "s3_restore_forbidden": "Die Wiederherstellung aus S3 ist auf diesem Konto nicht erlaubt.",
       "s3_restore_invalid_key": "Ungültiges Sicherungsarchiv.",
-      "s3_restore_download_error": "Das Archiv kann nicht aus dem Bucket geladen werden: {{error}}"
+      "s3_restore_download_error": "Das Archiv kann nicht aus dem Bucket geladen werden: {{error}}",
+      "cannot_find_attachments_directory": "Anhangsverzeichnis nicht gefunden",
+      "database_error_for_file": "Datenbankfehler bei {{file}}: {{message}}",
+      "errors_prefix": "Fehler:",
+      "failed_write_file": "Die Datei {{file}} konnte nicht geschrieben werden",
+      "internal_server_error": "Interner Serverfehler",
+      "invalid_form_submission": "Ungültige Formularübermittlung. Bitte versuchen Sie es erneut."
     },
     "spinner": {
       "processing": "Wiederherstellung wird verarbeitet...",
@@ -2248,7 +2505,8 @@
         "entries_dir_not_found": "Eintragsverzeichnis kann nicht gefunden werden",
         "upload_error": "Upload-Fehler",
         "invalid_file_type": "Ungültiger Dateityp (nur {{allowed}} erlaubt)",
-        "cannot_read_file": "Datei kann nicht gelesen werden"
+        "cannot_read_file": "Datei kann nicht gelesen werden",
+        "no_workspace_available": "Kein Arbeitsbereich verfügbar"
       },
       "summary_with_location": "Dies wird {{fileText}} in Arbeitsbereich \"{{workspace}}\", Ordner \"{{folder}}\" importieren.",
       "summary_zip_with_location": "Dies wird alle Dateien aus dem ZIP-Archiv in Arbeitsbereich \"{{workspace}}\", Ordner \"{{folder}}\" extrahieren und importieren."
@@ -2423,6 +2681,10 @@
       "error": "Der Import ist fehlgeschlagen: {{error}}",
       "upload_interrupted": "Der vorherige Upload wurde nach {{done}} von {{total}} Teilen unterbrochen, es wurde nichts importiert. Sie können den Import erneut starten.",
       "worker_lost": "Der Import wurde vor dem Ende abgebrochen. Prüfen Sie die Serverprotokolle und starten Sie ihn erneut."
+    },
+    "import_notes": {
+      "default_title": "Importierte Notiz",
+      "summary": "{{imported}} Notiz(en) importiert, {{updated}} aktualisiert."
     }
   },
   "markdown_guide": {
@@ -2605,7 +2867,8 @@
       "error_incorrect": "Falsches Passwort. Bitte versuchen Sie es erneut.",
       "additional_password_required": "Diese Notiz erfordert ein zusätzliches Passwort. Bitte geben Sie das nächste Passwort ein, um fortzufahren.",
       "placeholder": "Passwort eingeben",
-      "unlock": "Entsperren"
+      "unlock": "Entsperren",
+      "workspace_heading": "Passwortgeschützter Arbeitsbereich"
     },
     "errors": {
       "token_missing": "Link fehlt",
@@ -2626,11 +2889,17 @@
       "discard_confirm": "Änderungen verwerfen?",
       "locked": "Jemand anderes bearbeitet diese Notiz gerade. Bitte versuchen Sie es später erneut.",
       "lock_lost": "Jemand anderes bearbeitet diese Notiz jetzt. Ihre letzten Änderungen können nicht gespeichert werden."
-    }
+    },
+    "tree_tools": "Ordnerbaum",
+    "tree_search_hint": "Suchergebnisse werden automatisch aufgeklappt angezeigt.",
+    "shared_note_not_found_or_denied": "Geteilte Notiz nicht gefunden oder Zugriff verweigert. Das kann nach einer Wiederherstellung passieren. Ein Administrator muss eventuell unter Einstellungen > Administrationswerkzeuge die Hauptdatenbank neu aufbauen, um die Freigabelinks zu reparieren.",
+    "token_update_failed": "Token konnte nicht aktualisiert werden"
   },
   "public_folder": {
     "filter_placeholder": "Notizen nach Titel filtern",
-    "no_filter_results": "Keine Ergebnisse."
+    "no_filter_results": "Keine Ergebnisse.",
+    "view_notes": "Als Liste anzeigen",
+    "view_kanban": "Als Kanban anzeigen"
   },
   "icon_names": {
     "briefcase": "Aktentasche",
@@ -3036,7 +3305,10 @@
     "angry": "wütend",
     "meh": "neutral",
     "sun-moon": "Tag und Nacht",
-    "handshake": "Handschlag"
+    "handshake": "Handschlag",
+    "euro": "Euro",
+    "globe": "Globus",
+    "puzzle": "Puzzle"
   },
   "folder_icon": {
     "default": "Standard"
@@ -3162,7 +3434,36 @@
       "delete_warning_item_s3": "Seine Anhänge und Backup-Archive in den S3-Buckets",
       "delete_warning_no_recovery": "Eine Wiederherstellung ist nicht möglich: Nichts wird aufbewahrt und vorher wird kein Backup erstellt. Wenn diese Daten noch wichtig sind, laden Sie vor dem Löschen ein vollständiges Backup-ZIP herunter.",
       "delete_confirm_label": "Geben Sie „{{username}}“ ein, um zu bestätigen:",
-      "delete_confirm_placeholder": "Benutzernamen zur Bestätigung eingeben"
+      "delete_confirm_placeholder": "Benutzernamen zur Bestätigung eingeben",
+      "maintenance": {
+        "title": "Hauptdatenbank neu aufbauen",
+        "subtitle": "Benutzerprofile und öffentliche Freigabelinks wiederherstellen",
+        "description": "Die Hauptdatenbank (master.db) speichert die Benutzerinformationen, ihre öffentlichen Links und die globalen Einstellungen von Poznote. Geht diese Datei verloren oder wird sie beschädigt, oder funktionieren nach einer Wiederherstellung einige öffentliche Links nicht mehr, durchsucht dieses Werkzeug Ihre Ordner „data/users“, um die Konten automatisch neu zu registrieren, ihre echten Namen aus den persönlichen Datenbanken wiederherzustellen und alle öffentlichen Freigabelinks wiederherzustellen.",
+        "repair_registry": "Neu aufbauen",
+        "repair_registry_confirm": "Alle Benutzerordner werden durchsucht und die Hauptdatenbank wird neu aufgebaut. Fortfahren?",
+        "repair_registry_success": "Hauptdatenbank erfolgreich neu aufgebaut:\n\n- {{scanned}} Ordner durchsucht\n- {{added}} Benutzer wiederhergestellt\n- {{links}} Freigabelinks neu aufgebaut",
+        "repair_registry_error": "Fehler beim Neuaufbau: {{error}}"
+      },
+      "confirm_admin": {
+        "title": "Beförderung zum Administrator bestätigen",
+        "message": "Möchten Sie „{{username}}“ wirklich Administratorrechte gewähren?",
+        "privileges_title": "Der Administrator kann:",
+        "privilege_notes": "Notizen beliebiger Benutzer als ZIP-Datei exportieren",
+        "privilege_passwords": "Die Passwörter aller anderen Benutzer ändern",
+        "privilege_admin_panel": "Auf diese Benutzerverwaltung zugreifen",
+        "confirm_button": "Beförderung zum Administrator bestätigen"
+      },
+      "access_denied_admin": "Zugriff verweigert. Administratorrechte erforderlich.",
+      "confirm_delete": "Möchten Sie den Benutzer „{{username}}“ wirklich löschen?",
+      "delete_id_1_locked": "Der Benutzer mit der ID 1 kann nicht gelöscht werden",
+      "delete_user": "Benutzerprofil löschen",
+      "errors_label": "Fehler:",
+      "network_error": "Netzwerkfehler: ",
+      "new_password": "Neues Passwort",
+      "oidc_subject": "OIDC-Subject (UUID)",
+      "oidc_subject_help": "Optional: UUID Ihres OIDC-Anbieters (LLDAP, Authelia usw.)",
+      "oidc_subject_placeholder": "z. B. 510ec799-02f8-42e0-...",
+      "processing": "Wird verarbeitet..."
     }
   },
   "git_sync": {
@@ -3200,7 +3501,12 @@
       "not_configured": "Nicht konfiguriert",
       "not_configured_yet": "Zu konfigurieren",
       "hint": "Die {{provider}}-Synchronisierung ist deaktiviert. Ein Administrator kann sie in Einstellungen > Admin-Werkzeuge aktivieren.",
-      "hint_enable": "Die Git-Synchronisierung ist deaktiviert. Ein Administrator kann sie in Einstellungen > Admin-Werkzeuge aktivieren."
+      "hint_enable": "Die Git-Synchronisierung ist deaktiviert. Ein Administrator kann sie in Einstellungen > Admin-Werkzeuge aktivieren.",
+      "provider": "Anbieter",
+      "api_base": "API-Basis-URL",
+      "author_name": "Name des Autors",
+      "author_email": "E-Mail des Autors",
+      "save": "Konfiguration speichern"
     },
     "auto_sync": {
       "title": "Automatische Synchronisierung",
@@ -3245,7 +3551,9 @@
       "push_success": "{{count}} Notizen erfolgreich gesendet, {{deleted}} Dateien gelöscht ({{errors}} Fehler)",
       "push_error": "Fehler beim Senden: {{error}}",
       "pull_success": "{{pulled}} neue Notizen abgerufen, {{updated}} vorhandene Notizen aktualisiert, {{deleted}} Notizen gelöscht ({{errors}} Fehler)",
-      "pull_error": "Fehler beim Abrufen: {{error}}"
+      "pull_error": "Fehler beim Abrufen: {{error}}",
+      "config_saved": "Konfiguration erfolgreich gespeichert.",
+      "config_save_error": "Konfiguration konnte nicht gespeichert werden."
     },
     "debug": {
       "title": "Debug-Informationen",
@@ -4077,7 +4385,133 @@
     "tool_update": "Notiz #{{id}} wird bearbeitet",
     "tool_create": "Notiz wird erstellt: {{title}}",
     "context_label": "Notiz:",
-    "context_hint": "Die Notiz, die der Assistent verwendet, wenn Sie „diese Notiz“ sagen."
+    "context_hint": "Die Notiz, die der Assistent verwendet, wenn Sie „diese Notiz“ sagen.",
+    "model_label": "Modell:",
+    "model_hint": "Einstellungen des KI-Assistenten öffnen.",
+    "back_to_assistant": "Zurück zum KI-Assistenten",
+    "workspace_label": "Arbeitsbereich:",
+    "tool_tags": "Tags von Notiz #{{id}} werden aktualisiert",
+    "tool_list_tags": "Tags werden aufgelistet",
+    "tool_list_folders": "Ordner werden aufgelistet",
+    "tool_create_folder": "Ordner wird erstellt: {{path}}",
+    "tool_rename_folder": "Ordner „{{folder}}“ wird in „{{name}}“ umbenannt",
+    "tool_move": "Notiz #{{id}} wird nach {{folder}} verschoben",
+    "tool_move_root": "Notiz #{{id}} wird aus ihrem Ordner verschoben",
+    "tool_favorite_on": "Notiz #{{id}} wird zu den Favoriten hinzugefügt",
+    "tool_favorite_off": "Notiz #{{id}} wird aus den Favoriten entfernt",
+    "tool_folder_favorite": "Favoritenstatus von Ordner „{{folder}}“ wird aktualisiert",
+    "tool_reminder": "Erinnerung für Notiz #{{id}} wird gesetzt",
+    "tool_reminder_remove": "Erinnerung von Notiz #{{id}} wird entfernt",
+    "tool_task_add": "Aufgabe wird hinzugefügt: {{text}}",
+    "tool_task_update": "Aufgabe „{{task}}“ wird aktualisiert",
+    "tool_task_delete": "Aufgabe „{{task}}“ wird entfernt",
+    "tool_checklist": "Kontrollkästchen in Notiz #{{id}} wird aktualisiert",
+    "tool_delete": "Notiz #{{id}} wird in den Papierkorb verschoben",
+    "tool_delete_folder": "Ordner „{{folder}}“ und seine Notizen werden in den Papierkorb verschoben",
+    "scope_modal_title": "Ein Arbeitsbereich nach dem anderen",
+    "scope_modal_text": "Der Assistent kann nicht in mehreren Arbeitsbereichen gleichzeitig arbeiten. Hier sucht, liest und ändert er nur die Notizen des Arbeitsbereichs „{{workspace}}“.",
+    "scope_modal_continue": "Weiter"
+  },
+  "stt_settings": {
+    "title": "Transkription",
+    "config_title": "Konfiguration",
+    "description": "Verbinden Sie Poznote mit einem Spracherkennungsserver, um Sprache in Notiztext umzuwandeln. Jeder Server mit der Audio-API von OpenAI funktioniert, auch ein selbst gehosteter Whisper-Server, und die Audiodaten verlassen nie den Rechner, auf dem er läuft.",
+    "enable_label": "Transkription aktivieren",
+    "enable_description": "Fügt im Slash-Menü jeder Notiz unter Einfügen den Eintrag Diktieren hinzu sowie die Aktion Transkribieren bei Audioanhängen.",
+    "users_label": "Benutzer, die den vom Administrator konfigurierten Transkriptionsserver verwenden dürfen",
+    "users_description": "Nur die ausgewählten Benutzer können mit der Konfiguration auf dieser Seite diktieren und transkribieren. Neue Benutzer haben keinen Zugriff, bis Sie sie hier hinzufügen.",
+    "users_filter_placeholder": "Benutzer filtern",
+    "provider_label": "Transkriptionsserver",
+    "url_description": "Basis-URL eines Servers, der POST /v1/audio/transcriptions bereitstellt. Für einen Container auf dem Docker-Host verwenden Sie http://host.docker.internal:8000",
+    "api_key_description": "Leer lassen für einen lokalen Server, der keinen verlangt. Für OpenAI erforderlich.",
+    "model_description": "Ein Whisper-Modell wie Systran/faster-whisper-small. Prüfen Sie oben den Zugriff, um die angebotenen Modelle aufzulisten. whisper.cpp nutzt das eine Modell, mit dem es gestartet wurde, und ignoriert dieses Feld, ein Wert ist aber trotzdem erforderlich.",
+    "model_none_found": "Dieser Server listet kein Modell auf. Geben Sie den Modellnamen unten ein, wenn Sie ihn kennen, oder sehen Sie in der Dokumentation des Servers nach.",
+    "language_label": "Gesprochene Sprache",
+    "language_description": "Zweibuchstabiger Code wie en, fr oder de. Leer lassen, damit der Server die Sprache erkennt, was Whisper gut kann; setzen Sie ihn, wenn Sie immer in derselben Sprache diktieren und kurze Sätze für eine andere gehalten werden.",
+    "user_keys_label": "Persönliche Transkriptionsserver erlauben",
+    "user_keys_description": "Jeder Benutzer erhält in seinen eigenen Einstellungen eine Karte Transkription, in der er seinen eigenen Server und API-Schlüssel angeben kann. Tut er das, gehen seine Audiodaten an diesen Server statt an den auf dieser Seite, unabhängig davon, ob er in der Liste oben steht.",
+    "footer_note": "Aufnahmen werden an Poznote hochgeladen und von dort an den Transkriptionsserver weitergeleitet, nicht vom Browser aus. Poznote behält keine Kopie: Die Audiodaten werden verworfen, sobald der Text zurückkommt, es sei denn, der Benutzer hängt die Aufnahme an die Notiz an.",
+    "messages": {
+      "saved": "Konfiguration erfolgreich gespeichert.",
+      "save_error": "Konfiguration konnte nicht gespeichert werden."
+    },
+    "max_duration_label": "Maximale Aufnahmedauer",
+    "max_duration_description": "In Minuten, von 1 bis {{limit}}. Diktieren und Audio aufnehmen stoppen beim Erreichen dieser Dauer von selbst, damit ein vergessener Tab keine Stunde Audio senden kann. Der Dialog zeigt die verstrichene Zeit im Verhältnis zu diesem Limit. Die Transkription eines vorhandenen Anhangs ist nicht betroffen."
+  },
+  "stt_settings_user": {
+    "title": "Mein Transkriptionsserver",
+    "card": "Mein Transkriptionsserver",
+    "card_help": "Ihre Diktate an Ihren eigenen Spracherkennungsserver senden.",
+    "description": "Senden Sie Ihre Aufnahmen mit Ihrem eigenen API-Schlüssel an Ihren eigenen Spracherkennungsserver. Ihre Konfiguration ersetzt die vom Administrator festgelegte.",
+    "disabled_notice": "Ihr Administrator hat persönliche Transkriptionsserver auf dieser Instanz nicht erlaubt.",
+    "using_instance": "Die Transkription läuft derzeit über den vom Administrator festgelegten Server. Aktivieren Sie unten Ihre eigene Konfiguration, um stattdessen Ihren zu verwenden.",
+    "enable_label": "Meinen eigenen Server verwenden",
+    "enable_description": "Diktat und Transkription von Anhängen verwenden den Server und den API-Schlüssel unten statt derer der Instanz.",
+    "messages": {
+      "incomplete": "Geben Sie eine Server-URL und ein Modell an, bevor Sie Ihren eigenen Transkriptionsserver aktivieren."
+    }
+  },
+  "stt": {
+    "modal": {
+      "title": "Diktieren",
+      "recording_hint": "Sprechen Sie und beenden Sie dann die Aufnahme, um sie transkribieren zu lassen. Sie stoppt nach {{minutes}} Min. von selbst.",
+      "stop": "Stoppen und transkribieren",
+      "transcribing": "Wird transkribiert...",
+      "transcribing_file": "{{file}} wird transkribiert...",
+      "review_label": "Transkription",
+      "keep_audio": "Aufnahme zusätzlich an diese Notiz anhängen",
+      "insert": "Einfügen"
+    },
+    "attachment": {
+      "transcribe": "Transkribieren",
+      "transcribe_into_note": "In die Notiz transkribieren"
+    },
+    "errors": {
+      "unsupported": "Dieser Browser kann kein Audio aufnehmen.",
+      "insecure_context": "Das Mikrofon benötigt HTTPS. Öffnen Sie Poznote über https oder über localhost.",
+      "permission_denied": "Poznote durfte das Mikrofon nicht verwenden.",
+      "no_microphone": "Es wurde kein Mikrofon gefunden.",
+      "microphone_failed": "Das Mikrofon konnte nicht geöffnet werden.",
+      "empty_recording": "Es wurde nichts aufgenommen.",
+      "max_duration": "Maximale Aufnahmedauer erreicht, das Aufgenommene wird transkribiert.",
+      "nothing_heard": "Der Server hat in dieser Aufnahme nichts gehört.",
+      "no_note": "Öffnen Sie zuerst eine Notiz: Es gibt keinen Ort für den Text.",
+      "failed": "Transkription fehlgeschlagen: {{error}}",
+      "attach_failed": "Der Text wurde eingefügt, aber die Aufnahme konnte nicht angehängt werden: {{error}}",
+      "note_locked": "Diese Notiz kann von hier aus gerade nicht bearbeitet werden, daher wurde der Text nicht eingefügt. Kopieren Sie ihn aus dem Feld oben."
+    },
+    "server_errors": {
+      "no_server": "Kein Transkriptionsserver konfiguriert",
+      "empty_result": "Der Server hat keine Transkription zurückgegeben",
+      "admin_required": "Administratorzugriff erforderlich",
+      "no_url": "Keine Server-URL konfiguriert",
+      "unknown_action": "Unbekannte Aktion",
+      "not_configured": "Die Transkription ist für dieses Konto nicht konfiguriert",
+      "post_required": "POST erforderlich",
+      "too_large_for_server": "Die Aufnahme ist zu groß für diesen Server",
+      "no_audio": "Kein Audio empfangen",
+      "empty_recording": "Die Aufnahme ist leer",
+      "too_large": "Die Aufnahme ist zu groß",
+      "not_audio_file": "Diese Datei ist kein Audio, das Poznote zur Transkription senden kann",
+      "ids_required": "Notiz-ID und Anhang-ID sind erforderlich",
+      "note_read_failed": "Die Notiz konnte nicht gelesen werden",
+      "note_not_found": "Notiz nicht gefunden",
+      "attachment_not_found": "Anhang nicht gefunden",
+      "attachment_not_audio": "Dieser Anhang ist keine Audiodatei",
+      "attachment_missing": "Die angehängte Datei fehlt im Speicher",
+      "attachment_too_large": "Diese Aufnahme ist zu groß für eine Transkription",
+      "timeout": "Der Transkriptionsserver hat nicht innerhalb von {{seconds}} Sekunden geantwortet. Versuchen Sie eine kürzere Aufnahme oder ein kleineres Modell."
+    }
+  },
+  "audio_recorder": {
+    "title": "Audio aufnehmen",
+    "hint": "Aufnahme läuft. Beenden Sie sie, um das Audio in die Notiz einzufügen. Sie stoppt nach {{minutes}} Min. von selbst.",
+    "stop": "Stoppen und einfügen",
+    "saving": "Aufnahme wird gespeichert...",
+    "max_duration": "Maximale Aufnahmedauer erreicht, das Aufgenommene wird eingefügt.",
+    "upload_failed": "Die Aufnahme konnte nicht gespeichert werden: {{error}}",
+    "download": "Aufnahme herunterladen",
+    "no_note": "Öffnen Sie zuerst eine Notiz: Die Aufnahme wird als Anhang dieser Notiz gespeichert."
   },
   "diary": {
     "title": "Tagebuch",

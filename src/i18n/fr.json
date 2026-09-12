@@ -80,7 +80,20 @@
       "no_headings": "Aucun titre dans cette note",
       "unavailable_tasklist": "Le sommaire n'est pas disponible pour les listes de tâches"
     },
-    "link_copied": "Lien copié"
+    "link_copied": "Lien copié",
+    "ok": "OK",
+    "caution": "Attention",
+    "tip": "Astuce",
+    "important": "Important",
+    "note": "Note",
+    "scroll_left": "Défiler vers la gauche",
+    "calendar": "Calendrier",
+    "date": {
+      "days_ago": "jours auparavant",
+      "today": "Aujourd'hui",
+      "yesterday": "Hier"
+    },
+    "network_error": "Erreur réseau"
   },
   "snapshot": {
     "menu_item": "Snapshots",
@@ -190,7 +203,8 @@
     "subfolder": {
       "expand": "Déplier le sous-dossier",
       "collapse": "Replier le sous-dossier"
-    }
+    },
+    "add_note": "Ajouter une note"
   },
   "folders": {
     "delete": {
@@ -254,7 +268,9 @@
     "subfolder": {
       "modal_title": "Nouveau sous-dossier",
       "modal_message": "Entrez le nom du sous-dossier (dans {{parent}})"
-    }
+    },
+    "filter_placeholder": "Filtrer par nom de dossier...",
+    "no_folders": "Aucun dossier pour le moment."
   },
   "modal_alerts": {
     "cursor_warning": {
@@ -336,7 +352,8 @@
   "attachments": {
     "empty": "Aucune pièce jointe.",
     "upload": {
-      "button_uploading": "Téléchargement..."
+      "button_uploading": "Téléchargement...",
+      "uploading": "Envoi en cours..."
     },
     "actions": {
       "view": "Voir",
@@ -417,6 +434,15 @@
       "all_file_types": "Tous les types",
       "file_type_filter": "Filtrer par type de fichier",
       "download": "Télécharger"
+    },
+    "context_menu": {
+      "open": "Ouvrir",
+      "download": "Télécharger",
+      "transcribe": "Transcrire",
+      "delete": "Supprimer",
+      "delete_confirm_title": "Supprimer la pièce jointe",
+      "delete_confirm_message": "Supprimer « {{filename}} » ? La pièce jointe est retirée de la note et ne pourra pas être récupérée.",
+      "delete_confirm_message_unnamed": "Supprimer cette pièce jointe ? Elle est retirée de la note et ne pourra pas être récupérée."
     }
   },
   "auth": {
@@ -507,7 +533,8 @@
       "s3_storage": "Stocker les pièces jointes des notes dans un stockage objet compatible S3 au lieu du disque local.",
       "s3_backup": "Envoie des archives de sauvegarde complètes vers un bucket compatible S3, manuellement ou selon une planification.",
       "highlight_current_folder_tree": "Estomper, autant que vous le souhaitez, les notes et les dossiers situés en dehors de la hiérarchie de dossiers dans laquelle vous travaillez.",
-      "snapshots": "Choisissez combien de snapshots automatiques quotidiens et combien de snapshots de sécurité (avant une modification IA ou MCP) sont conservés par note."
+      "snapshots": "Choisissez combien de snapshots automatiques quotidiens et combien de snapshots de sécurité (avant une modification IA ou MCP) sont conservés par note.",
+      "stt": "Configurer le serveur de reconnaissance vocale utilisé pour dicter des notes et transcrire les pièces jointes audio."
     },
     "title": "Paramètres",
     "collapse_section": "Réduire la section",
@@ -586,7 +613,9 @@
       "saas": "Mode SaaS",
       "admin_contact": "Aide",
       "s3_storage": "Pièces jointes S3",
-      "s3_backup": "Sauvegardes S3"
+      "s3_backup": "Sauvegardes S3",
+      "stt": "Transcription",
+      "api_rest": "API REST"
     },
     "default_credentials": {
       "both": "Ce compte utilise encore le login et le mot de passe livrés par défaut. N'importe qui pouvant joindre cette instance peut s'y connecter.",
@@ -625,7 +654,8 @@
     "actions": {
       "select": "Sélectionner",
       "move_notes": "Déplacer les notes",
-      "menu": "Actions du workspace"
+      "menu": "Actions du workspace",
+      "background": "Fond"
     },
     "count": {
       "notes_0": "0 notes",
@@ -678,7 +708,10 @@
       "cannot_rename_default": "Impossible de renommer le workspace de démarrage",
       "invalid_new_name": "Nouveau nom d’espace de travail invalide. Utilisez uniquement des lettres, chiffres, tirets et underscores (sans espaces).",
       "name_and_target_required": "Nom de l’espace de travail et destination requis",
-      "source_target_must_differ": "Les espaces de travail source et destination doivent être différents"
+      "source_target_must_differ": "Les espaces de travail source et destination doivent être différents",
+      "cannot_delete_last": "Impossible de supprimer le dernier espace de travail",
+      "name_exists": "Un espace de travail porte déjà ce nom",
+      "no_workspace_selected": "Aucun espace de travail sélectionné"
     },
     "messages": {
       "creating": "Espace de travail en cours de création...",
@@ -749,6 +782,13 @@
       "handle": "Glisser pour réordonner",
       "saved": "Ordre des espaces de travail mis à jour",
       "save_error": "Impossible de mettre à jour l'ordre des espaces de travail"
+    },
+    "info": {
+      "folders": "Dossiers",
+      "notes": "Notes",
+      "shared": "Partagé",
+      "shared_with": "Partagé avec",
+      "tags": "Étiquettes"
     }
   },
   "display": {
@@ -880,7 +920,9 @@
       "discard": "Garder la version actuelle",
       "restored": "Vos dernières modifications ont été récupérées et enregistrées.",
       "restore_failed": "Vos modifications n'ont pas pu être enregistrées. Vérifiez votre connexion et réessayez."
-    }
+    },
+    "unsaved_changes_title": "Modifications non enregistrées",
+    "unsaved_changes_warning": "⚠️ Vous avez des modifications non enregistrées. Voulez-vous vraiment quitter ?"
   },
   "tasklist": {
     "open_tasks_page": "Voir toutes les tâches",
@@ -956,6 +998,13 @@
       "results_other": "{{count}} tags correspondent aux couleurs sélectionnées"
     }
   },
+  "download": "Télécharger",
+  "convert": "Convertir",
+  "create": "Créer",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "favorite": "Favori",
+  "share": "Partager",
   "trash": {
     "search": {
       "placeholder": "Rechercher dans la corbeille...",
@@ -1098,7 +1147,11 @@
       "open_in_new_tab": "Ouvrir dans un nouvel onglet",
       "split_view": "Activer/désactiver la vue divisée",
       "search_replace": "Rechercher et remplacer",
-      "save_now": "Enregistrer maintenant"
+      "save_now": "Enregistrer maintenant",
+      "go_back": "Retour",
+      "go_forward": "Suivant",
+      "switch_to_edit": "Passer en mode édition",
+      "switch_to_preview": "Passer en mode aperçu"
     },
     "link": {
       "add_title": "Ajouter un lien",
@@ -1318,7 +1371,8 @@
       "remove_divider": "Supprimer le séparateur"
     },
     "language": {
-      "description": "Sélectionnez votre langue préférée :"
+      "description": "Sélectionnez votre langue préférée :",
+      "title": "Choix de la langue"
     },
     "input": {
       "placeholder": "Saisir le texte"
@@ -1414,7 +1468,43 @@
       "delete_title": "Confirmer la suppression de l’espace de travail",
       "delete_description": "Toutes les notes et tous les dossiers seront supprimés définitivement et ne pourront pas être récupérés.",
       "delete_placeholder": "Tapez le nom de l’espace de travail pour confirmer",
-      "delete_button": "Supprimer"
+      "delete_button": "Supprimer",
+      "share": {
+        "actions": {
+          "enable": "Partager",
+          "edit": "Modifier le partage",
+          "copy_link": "Copier le lien",
+          "disable": "Ne plus partager"
+        },
+        "confirm": {
+          "title": "Partager l'espace de travail en lecture seule",
+          "message": "Toute personne disposant de l'URL de l'espace de travail « {{workspace}} » aura accès en lecture seule à toutes les notes et à tous les dossiers de cet espace.",
+          "confirm_button": "Partager l'espace de travail"
+        },
+        "messages": {
+          "enabled": "Lien de l'espace en lecture seule activé",
+          "disabled": "Lien de l'espace en lecture seule désactivé",
+          "url_copied": "Lien de partage copié dans le presse-papiers !"
+        },
+        "errors": {
+          "url_in_use": "Un espace de travail public porte déjà ce nom sur cette instance Poznote",
+          "copy_failed": "Impossible de copier le lien de partage",
+          "save_failed": "Impossible d'enregistrer le lien de l'espace en lecture seule",
+          "disable_failed": "Impossible de désactiver le lien de l'espace en lecture seule"
+        },
+        "status": {
+          "enabled": "Lecture seule publique activée",
+          "disabled": "Non partagé publiquement"
+        },
+        "help": "Toute personne disposant de cette URL ouvre Poznote directement sur cet espace de travail, en lecture seule.",
+        "url_label": "URL publique",
+        "options": {
+          "require_login": "Exiger une connexion à Poznote",
+          "restrict_users": "Restreindre à certains utilisateurs",
+          "users_loading": "Chargement des utilisateurs...",
+          "no_users_found": "Aucun autre utilisateur trouvé"
+        }
+      }
     },
     "user_settings_info": {
       "title": "Paramètres du compte",
@@ -1458,7 +1548,27 @@
       "search_placeholder": "Rechercher des icônes...",
       "gray": "Gris",
       "black": "Noir",
-      "default": "Par défaut"
+      "default": "Par défaut",
+      "amber": "Ambre",
+      "blue": "Bleu",
+      "cyan": "Cyan",
+      "default_color": "Par défaut",
+      "emerald": "Émeraude",
+      "fuchsia": "Fuchsia",
+      "green": "Vert",
+      "indigo": "Indigo",
+      "lime": "Citron vert",
+      "orange": "Orange",
+      "pink": "Rose",
+      "purple": "Violet",
+      "red": "Rouge",
+      "rose": "Rose vif",
+      "sky": "Ciel",
+      "slate": "Ardoise",
+      "stone": "Pierre",
+      "teal": "Sarcelle",
+      "violet": "Mauve",
+      "yellow": "Jaune"
     },
     "linked_selector": {
       "title": "Créer un raccourci d'une note",
@@ -1718,6 +1828,40 @@
       "badge_with_safety": "{{count}} automatiques, {{safety}} de sécurité par note",
       "warning_title": "Les snapshots ne stockent que le texte de la note. Les pièces jointes ne sont jamais copiées.",
       "warning": "Les pièces jointes et les images sont conservées sur le disque même après leur suppression de la note, tant qu'un de ses snapshots les contient encore. Elles ne sont libérées que lorsque le dernier snapshot qui les contient expire (au plus tard après {{days}} jours) ou lorsque la note est définitivement supprimée."
+    },
+    "api_rest": {
+      "github_option": "GitHub",
+      "swagger_option": "Swagger",
+      "title": "API REST"
+    },
+    "attachment": {
+      "title": "Pièces jointes"
+    },
+    "background_image": {
+      "description": "Envoyez une image de fond pour votre espace de travail. Vous pouvez régler l'opacité pour la rendre discrète.",
+      "no_image": "Aucune image de fond définie",
+      "opacity": "Opacité du fond",
+      "remove": "Retirer",
+      "title": "Image de fond",
+      "upload": "Envoyer une image"
+    },
+    "tag_folder_notes": {
+      "apply": "Ajouter les étiquettes",
+      "applying": "Étiquetage...",
+      "count_one": "1 note sera étiquetée",
+      "count_other": "{{count}} notes seront étiquetées",
+      "empty_folder": "Ce dossier est vide",
+      "error": "Impossible d'étiqueter les notes",
+      "existing_tags": "Étiquettes existantes",
+      "include_subfolders": "Inclure les notes des sous-dossiers",
+      "no_tags": "Saisissez au moins une étiquette",
+      "placeholder": "Étiquettes, séparées par des virgules",
+      "prompt_prefix": "Ajouter des étiquettes à toutes les notes de",
+      "prompt_suffix": " :",
+      "success_none": "Toutes les notes avaient déjà ces étiquettes",
+      "success_one": "1 note étiquetée",
+      "success_other": "{{count}} notes étiquetées",
+      "title": "Étiqueter toutes les notes"
     }
   },
   "notes_list": {
@@ -1726,7 +1870,8 @@
       "tags": "Tags",
       "favorites": "Favoris",
       "public": "Partagées",
-      "attachments": "Pièces jointes"
+      "attachments": "Pièces jointes",
+      "no_folder": "Aucun dossier"
     },
     "favorites": {
       "empty": "Aucune note en favoris pour le moment.",
@@ -1872,7 +2017,8 @@
     "type_excalidraw": "Excalidraw",
     "filter_age": "Filtrer par ancienneté",
     "age_all": "Toutes les notes",
-    "age_recent": "Récentes seulement"
+    "age_recent": "Récentes seulement",
+    "empty": "Aucune note trouvée."
   },
   "update": {
     "new_available": "🎉 Nouvelle mise à jour disponible !",
@@ -1961,7 +2107,21 @@
     "template": "Modèle",
     "template_none": "Aucun modèle pour l'instant",
     "template_none_hint": "Placez des notes dans un dossier ou un espace de travail nommé « Modèles »",
-    "template_insert_failed": "Impossible d'insérer le modèle"
+    "template_insert_failed": "Impossible d'insérer le modèle",
+    "dictate": "Dicter",
+    "record_audio": "Enregistrer un audio",
+    "insert": "Insérer",
+    "media": "Médias",
+    "youtube": "YouTube",
+    "streaming_videos": "Vidéos en streaming",
+    "bilibili": "Bilibili",
+    "invalid_url": "URL invalide",
+    "bilibili_invalid_url": "Veuillez saisir une URL Bilibili valide",
+    "bilibili_invalid_format": "Format d'URL Bilibili invalide. Utilisez l'URL d'une page vidéo (bilibili.com/video/BV...)",
+    "streaming_video_url_prompt": "Saisissez l'URL de la vidéo en streaming (YouTube, Vimeo, etc.) :",
+    "bilibili_help": "Saisissez l'URL de la page vidéo Bilibili (par ex. bilibili.com/video/BV...)",
+    "bilibili_modal_title": "Insérer une vidéo Bilibili",
+    "video_insert": "Insérer"
   },
   "api": {
     "settings": {
@@ -1986,7 +2146,9 @@
       "no_token_generated": "Aucun lien généré",
       "server_error": "Erreur serveur : {{error}}",
       "storage_s3_quota_reached": "Limite de stockage S3 atteinte : cette instance autorise au maximum {{max}} Mo de stockage S3 pour cet utilisateur.",
-      "backups_s3_quota_reached": "Limite de sauvegardes S3 atteinte : cette instance autorise au maximum {{max}} Mo d'archives de sauvegarde pour cet utilisateur."
+      "backups_s3_quota_reached": "Limite de sauvegardes S3 atteinte : cette instance autorise au maximum {{max}} Mo d'archives de sauvegarde pour cet utilisateur.",
+      "cannot_delete_last_workspace": "Impossible de supprimer le dernier espace de travail",
+      "workspace_required": "L'espace de travail est requis"
     }
   },
   "ui": {
@@ -2098,7 +2260,8 @@
     "note": {
       "new_note": "Nouvelle note",
       "new_note_numbered": "Nouvelle note ({{number}})",
-      "title_placeholder": "Titre ?"
+      "title_placeholder": "Titre ?",
+      "untitled": "Sans titre"
     },
     "editor": {
       "placeholder_desktop": "Saisissez du texte, utilisez / pour ouvrir le menu des commandes, collez des images ou glissez-déposez une image à l’emplacement du curseur.",
@@ -2251,7 +2414,8 @@
       "own_account": "Votre compte",
       "sign_out": "Se déconnecter",
       "invalid": "Impossible de sélectionner ce compte."
-    }
+    },
+    "or": "ou"
   },
   "restore_import": {
     "page": {
@@ -2266,7 +2430,8 @@
       "complete_backup_restored": "{{message}}",
       "notes_imported": "Importé {{count}} note(s) dans l'espace de travail \"{{workspace}}\", dossier \"{{folder}}\".",
       "attachments_imported": "{{message}}",
-      "notes_imported_zip": "Importé {{count}} note(s) depuis le ZIP dans l'espace de travail \"{{workspace}}\", dossier \"{{folder}}\"."
+      "notes_imported_zip": "Importé {{count}} note(s) depuis le ZIP dans l'espace de travail \"{{workspace}}\", dossier \"{{folder}}\".",
+      "notes_imported_with_folders": "{{count}} note(s) importée(s) et {{folders}} dossier(s) créé(s) dans l'espace de travail « {{workspace}} »."
     },
     "skipped_attachments": {
       "header": "Fichiers de pièces jointes bloqués ignorés :",
@@ -2303,7 +2468,13 @@
       "failed_extract_content": "Échec de l'extraction du contenu de {{file}}.",
       "s3_restore_forbidden": "La restauration depuis S3 n'est pas autorisée sur ce compte.",
       "s3_restore_invalid_key": "Archive de sauvegarde invalide.",
-      "s3_restore_download_error": "Impossible de récupérer l'archive depuis le bucket : {{error}}"
+      "s3_restore_download_error": "Impossible de récupérer l'archive depuis le bucket : {{error}}",
+      "cannot_find_attachments_directory": "Dossier des pièces jointes introuvable",
+      "database_error_for_file": "Erreur de base de données pour {{file}} : {{message}}",
+      "errors_prefix": "Erreurs :",
+      "failed_write_file": "Impossible d'écrire le fichier {{file}}",
+      "internal_server_error": "Erreur interne du serveur",
+      "invalid_form_submission": "Envoi du formulaire invalide. Veuillez réessayer."
     },
     "spinner": {
       "processing": "Restauration en cours...",
@@ -2339,7 +2510,8 @@
         "entries_dir_not_found": "Impossible de trouver le dossier des entrées",
         "upload_error": "Erreur de téléversement",
         "invalid_file_type": "Type de fichier invalide (uniquement {{allowed}})",
-        "cannot_read_file": "Impossible de lire le fichier"
+        "cannot_read_file": "Impossible de lire le fichier",
+        "no_workspace_available": "Aucun espace de travail disponible"
       },
       "summary_with_location": "Cela importera {{fileText}} dans l'espace de travail \"{{workspace}}\", dossier \"{{folder}}\".",
       "summary_zip_with_location": "Cela extraira et importera tous les fichiers depuis l'archive ZIP dans l'espace de travail \"{{workspace}}\", dossier \"{{folder}}\"."
@@ -2514,6 +2686,10 @@
       "error": "L'import a échoué : {{error}}",
       "upload_interrupted": "L'envoi précédent a été interrompu après {{done}} tranches sur {{total}}, rien n'a été importé. Vous pouvez relancer l'import.",
       "worker_lost": "L'import s'est arrêté avant la fin. Consultez les journaux du serveur, puis relancez-le."
+    },
+    "import_notes": {
+      "default_title": "Note importée",
+      "summary": "{{imported}} note(s) importée(s), {{updated}} mise(s) à jour."
     }
   },
   "markdown_guide": {
@@ -2720,7 +2896,9 @@
       "discard_confirm": "Abandonner vos modifications ?",
       "locked": "Quelqu'un d'autre est en train de modifier cette note. Réessayez plus tard.",
       "lock_lost": "Quelqu'un d'autre modifie maintenant cette note. Vos dernières modifications ne peuvent pas être enregistrées."
-    }
+    },
+    "shared_note_not_found_or_denied": "Note partagée introuvable ou accès refusé. Cela peut arriver après une restauration. Un administrateur devra peut-être reconstruire la base principale dans Réglages > Outils d'administration pour réparer les liens partagés.",
+    "token_update_failed": "Impossible de mettre à jour le jeton"
   },
   "public_folder": {
     "filter_placeholder": "Filtrer les notes par titre",
@@ -3132,7 +3310,13 @@
     "angry": "fâché",
     "meh": "neutre",
     "sun-moon": "jour et nuit",
-    "handshake": "poignée de main"
+    "handshake": "poignée de main",
+    "euro": "euro",
+    "globe": "globe",
+    "puzzle": "puzzle"
+  },
+  "folder_icon": {
+    "default": "Par défaut"
   },
   "shared_folders": {
     "page": {
@@ -3319,7 +3503,11 @@
       "delete_warning_item_s3": "Ses pièces jointes et ses archives de sauvegarde stockées dans les buckets S3",
       "delete_warning_no_recovery": "Aucune récupération n'est possible : rien n'est conservé et aucune sauvegarde n'est créée au préalable. Si ces données comptent encore, téléchargez une sauvegarde complète au format ZIP avant de supprimer.",
       "delete_confirm_label": "Saisissez « {{username}} » pour confirmer :",
-      "delete_confirm_placeholder": "Saisissez le nom d'utilisateur pour confirmer"
+      "delete_confirm_placeholder": "Saisissez le nom d'utilisateur pour confirmer",
+      "delete_id_1_locked": "L'utilisateur d'ID 1 ne peut pas être supprimé",
+      "oidc_subject": "Sujet OIDC (UUID)",
+      "oidc_subject_help": "Facultatif : UUID fourni par votre fournisseur OIDC (LLDAP, Authelia, etc.)",
+      "oidc_subject_placeholder": "ex. 510ec799-02f8-42e0-..."
     },
     "profile": {
       "title": "Mon profil",
@@ -4328,6 +4516,107 @@
     "scope_modal_title": "Un seul espace de travail à la fois",
     "scope_modal_text": "L'assistant ne peut pas agir sur plusieurs espaces de travail à la fois. Ici, il ne cherchera, lira et modifiera que les notes de l'espace de travail « {{workspace}} ».",
     "scope_modal_continue": "Continuer"
+  },
+  "stt_settings": {
+    "title": "Transcription",
+    "config_title": "Configuration",
+    "description": "Connectez Poznote à un serveur de reconnaissance vocale pour transformer la voix en texte dans vos notes. Tout serveur compatible avec l'API audio d'OpenAI fonctionne, y compris un Whisper auto-hébergé, et l'audio ne quitte jamais la machine qui l'exécute.",
+    "enable_label": "Activer la transcription",
+    "enable_description": "Ajoute une entrée Dicter sous Insérer dans le menu slash de chaque note, et une action Transcrire sur les pièces jointes audio.",
+    "users_label": "Utilisateurs autorisés à utiliser le serveur de transcription configuré par l'administrateur",
+    "users_description": "Seuls les utilisateurs sélectionnés peuvent dicter et transcrire avec la configuration de cette page. Les nouveaux utilisateurs n'y ont pas accès tant que vous ne les ajoutez pas ici.",
+    "users_filter_placeholder": "Filtrer les utilisateurs",
+    "provider_label": "Serveur de transcription",
+    "url_description": "URL de base d'un serveur exposant POST /v1/audio/transcriptions. Pour un conteneur tournant sur l'hôte Docker, utilisez http://host.docker.internal:8000",
+    "api_key_description": "Laissez vide pour un serveur local qui n'en demande pas. Obligatoire pour OpenAI.",
+    "model_description": "Un modèle Whisper comme Systran/faster-whisper-small. Vérifiez l'accès ci-dessus pour lister ce que propose le serveur. whisper.cpp utilise le seul modèle avec lequel il a été démarré et ignore ce champ, mais une valeur reste obligatoire.",
+    "model_none_found": "Ce serveur ne liste aucun modèle. Saisissez le nom du modèle dans le champ ci-dessous si vous le connaissez, ou consultez la documentation du serveur.",
+    "language_label": "Langue parlée",
+    "language_description": "Code à deux lettres comme en, fr ou de. Laissez vide pour que le serveur détecte la langue, ce que Whisper fait bien ; renseignez-le si vous dictez toujours dans la même langue et que des phrases courtes sont prises pour une autre.",
+    "user_keys_label": "Autoriser les serveurs de transcription personnels",
+    "user_keys_description": "Chaque utilisateur dispose d'une carte Transcription dans ses propres réglages, où il peut indiquer son serveur et sa clé API. Dans ce cas, son audio part vers ce serveur plutôt que vers celui de cette page, qu'il figure ou non dans la liste ci-dessus.",
+    "footer_note": "Les enregistrements sont envoyés à Poznote, qui les transmet au serveur de transcription, jamais depuis le navigateur. Poznote n'en garde aucune copie : l'audio est supprimé dès que le texte revient, sauf si l'utilisateur choisit de joindre l'enregistrement à la note.",
+    "messages": {
+      "saved": "Configuration enregistrée avec succès.",
+      "save_error": "Échec de l'enregistrement de la configuration."
+    },
+    "max_duration_label": "Durée maximale d'enregistrement",
+    "max_duration_description": "En minutes, de 1 à {{limit}}. Dicter et Enregistrer un audio s'arrêtent d'eux-mêmes une fois ce seuil atteint, pour qu'un onglet oublié en enregistrement ne puisse pas envoyer une heure d'audio. La fenêtre affiche le temps écoulé face à cette limite. La transcription d'une pièce jointe existante n'est pas concernée."
+  },
+  "stt_settings_user": {
+    "title": "Mon serveur de transcription",
+    "card": "Mon serveur de transcription",
+    "card_help": "Envoyer vos dictées vers votre propre serveur de reconnaissance vocale.",
+    "description": "Envoyez vos enregistrements vers votre propre serveur de reconnaissance vocale, avec votre propre clé API. Votre configuration remplace celle définie par l'administrateur.",
+    "disabled_notice": "Votre administrateur n'a pas autorisé les serveurs de transcription personnels sur cette instance.",
+    "using_instance": "La transcription passe actuellement par le serveur défini par l'administrateur. Activez votre propre configuration ci-dessous pour utiliser le vôtre.",
+    "enable_label": "Utiliser mon propre serveur",
+    "enable_description": "La dictée et la transcription des pièces jointes utilisent le serveur et la clé API ci-dessous au lieu de ceux de l'instance.",
+    "messages": {
+      "incomplete": "Renseignez une URL de serveur et un modèle avant d'activer votre propre serveur de transcription."
+    }
+  },
+  "stt": {
+    "modal": {
+      "title": "Dicter",
+      "recording_hint": "Parlez, puis arrêtez l'enregistrement pour le faire transcrire. Il s'arrête de lui-même au bout de {{minutes}} min.",
+      "stop": "Arrêter et transcrire",
+      "transcribing": "Transcription en cours...",
+      "transcribing_file": "Transcription de {{file}}...",
+      "review_label": "Transcription",
+      "keep_audio": "Joindre aussi l'enregistrement à cette note",
+      "insert": "Insérer"
+    },
+    "attachment": {
+      "transcribe": "Transcrire",
+      "transcribe_into_note": "Transcrire dans la note"
+    },
+    "errors": {
+      "unsupported": "Ce navigateur ne peut pas enregistrer d'audio.",
+      "insecure_context": "Le microphone nécessite HTTPS. Ouvrez Poznote en https, ou via localhost.",
+      "permission_denied": "Poznote n'a pas été autorisé à utiliser le microphone.",
+      "no_microphone": "Aucun microphone n'a été trouvé.",
+      "microphone_failed": "Impossible d'ouvrir le microphone.",
+      "empty_recording": "Rien n'a été enregistré.",
+      "max_duration": "Durée maximale d'enregistrement atteinte, transcription de ce qui a été enregistré.",
+      "nothing_heard": "Le serveur n'a rien entendu dans cet enregistrement.",
+      "no_note": "Ouvrez d'abord une note : il n'y a nulle part où mettre le texte.",
+      "failed": "Échec de la transcription : {{error}}",
+      "attach_failed": "Le texte a été inséré, mais l'enregistrement n'a pas pu être joint : {{error}}",
+      "note_locked": "Cette note ne peut pas être modifiée d'ici pour le moment, le texte n'a donc pas été inséré. Copiez-le depuis la zone ci-dessus."
+    },
+    "server_errors": {
+      "no_server": "Aucun serveur de transcription configuré",
+      "empty_result": "Le serveur n'a renvoyé aucune transcription",
+      "admin_required": "Accès administrateur requis",
+      "no_url": "Aucune URL de serveur configurée",
+      "unknown_action": "Action inconnue",
+      "not_configured": "La transcription n'est pas configurée pour ce compte",
+      "post_required": "Requête POST requise",
+      "too_large_for_server": "L'enregistrement est trop volumineux pour ce serveur",
+      "no_audio": "Aucun audio reçu",
+      "empty_recording": "L'enregistrement est vide",
+      "too_large": "L'enregistrement est trop volumineux",
+      "not_audio_file": "Ce fichier n'est pas un audio que Poznote peut envoyer en transcription",
+      "ids_required": "L'identifiant de la note et celui de la pièce jointe sont requis",
+      "note_read_failed": "Impossible de lire la note",
+      "note_not_found": "Note introuvable",
+      "attachment_not_found": "Pièce jointe introuvable",
+      "attachment_not_audio": "Cette pièce jointe n'est pas un fichier audio",
+      "attachment_missing": "Le fichier joint est introuvable dans le stockage",
+      "attachment_too_large": "Cet enregistrement est trop volumineux pour être transcrit",
+      "timeout": "Le serveur de transcription n'a pas répondu en {{seconds}} secondes. Essayez un enregistrement plus court ou un modèle plus petit."
+    }
+  },
+  "audio_recorder": {
+    "title": "Enregistrer un audio",
+    "hint": "Enregistrement en cours. Arrêtez pour insérer l'audio dans la note. Il s'arrête de lui-même au bout de {{minutes}} min.",
+    "stop": "Arrêter et insérer",
+    "saving": "Sauvegarde de l'enregistrement...",
+    "max_duration": "Durée maximale d'enregistrement atteinte, insertion de ce qui a été enregistré.",
+    "upload_failed": "L'enregistrement n'a pas pu être sauvegardé : {{error}}",
+    "download": "Télécharger l'enregistrement",
+    "no_note": "Ouvrez d'abord une note : l'enregistrement est sauvegardé comme pièce jointe de cette note."
   },
   "diary": {
     "title": "Journal",

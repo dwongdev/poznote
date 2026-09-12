@@ -119,7 +119,7 @@ Everything is on **Settings → Admin Tools → Transcription** (administrator o
 | **Check access and list models** | Confirms the server answers and fills the model suggestions. |
 | **Model** | The model name sent with each request. Required for every server, even the ones that ignore it. |
 | **Spoken language** | Two-letter code such as `en`, `fr` or `de`, or empty to let the server detect it. |
-| **Maximum recording length** | In minutes, from 1 to 60, 10 by default. Dictation stops and transcribes on its own when it gets there. Attachments are not affected. |
+| **Maximum recording length** | In minutes, from 1 to 60, 10 by default. Dictation stops and transcribes on its own when it gets there, and so does **Record audio** in the slash menu's **Media**, which inserts the recording without transcribing it. Attachments are not affected. |
 | **Allow personal transcription servers** | Lets every user set their own server, see [Personal servers](#personal-servers). |
 
 ### Choosing a model

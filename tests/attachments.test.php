@@ -93,3 +93,40 @@ test('sizes are formatted with a unit, megabytes without one', function () {
 test('the extension is read from the stored attachment record', function () {
     assertSame('png', poznoteAttachmentExtension(['filename' => 'a.png']));
 });
+
+// finfo reads the container, so audio recorded by a browser (WebM) or by the
+// Windows Voice Recorder (M4A) was stored as video and shown as a video. These
+// are the real first bytes of such files.
+$webmAudioHeader = "\x1a\x45\xdf\xa3\x9f\x42\x86\x81\x01\x42\xf7\x81\x01\x42\xf2\x81\x04\x42\xf3\x81\x08\x42\x82\x84\x77\x65\x62\x6d\x42\x87\x81\x04\x42\x85\x81\x02\x18\x53\x80\x67\x01\x00\x00\x00\x00\x00\x37\x6e\x11\x4d\x9b\x74\xba\x4d\xbb\x8b\x53\xab\x84\x15\x49\xa9\x66\x53";
+$m4aHeader = "\x00\x00\x00\x18\x66\x74\x79\x70\x6d\x70\x34\x32\x00\x00\x00\x00\x6d\x70\x34\x31\x69\x73\x6f\x6d\x00\x00\x00\x28\x75\x75\x69\x64\x5c\xa7\x08\xfb\x32\x8e\x42\x05\xa8\x61\x65\x0e\xca\x0a\x95\x96\x00\x00\x00\x0c\x31\x30\x2e\x30\x2e\x32\x36\x32\x30\x30\x2e\x30";
+
+test('an audio-only extension stores an audio type over the container finfo sees', function () {
+    assertSame('audio/webm', poznoteResolveAttachmentMimeType('recording.weba', 'video/webm'));
+    assertSame('audio/mp4', poznoteResolveAttachmentMimeType('Enregistrement.m4a', 'video/mp4'));
+    assertSame('audio/mpeg', poznoteResolveAttachmentMimeType('memo.MP3', 'application/octet-stream'));
+    assertSame('audio/ogg', poznoteResolveAttachmentMimeType('note.opus', null), 'no finfo at all');
+});
+
+test('a real video or a file finfo recognised as something else keeps its type', function () {
+    assertSame('video/webm', poznoteResolveAttachmentMimeType('film.webm', 'video/webm'), '.webm can be a film');
+    assertSame('video/mp4', poznoteResolveAttachmentMimeType('clip.mp4', 'video/mp4'));
+    assertSame('video/ogg', poznoteResolveAttachmentMimeType('clip.ogg', 'video/ogg'), '.ogg is also a video container');
+    assertSame('text/plain', poznoteResolveAttachmentMimeType('fake.mp3', 'text/plain'), 'not a container, not ours to relabel');
+    assertSame('application/pdf', poznoteResolveAttachmentMimeType('document.pdf', 'application/pdf'));
+});
+
+test('uploading browser and Windows recordings stores them as audio', function () use ($webmAudioHeader, $m4aHeader) {
+    if (!class_exists('finfo')) {
+        return;
+    }
+    $webm = poznoteValidateAttachmentFile('recording-2026-09-12.weba', null, $webmAudioHeader);
+    assertTrue($webm['success'], 'webm accepted');
+    assertSame('audio/webm', $webm['mime_type']);
+
+    $m4a = poznoteValidateAttachmentFile('Enregistrement.m4a', null, $m4aHeader);
+    assertTrue($m4a['success'], 'm4a accepted');
+    assertSame('audio/mp4', $m4a['mime_type']);
+
+    // The same WebM bytes under a video name stay a video
+    assertSame('video/webm', poznoteValidateAttachmentFile('film.webm', null, $webmAudioHeader)['mime_type']);
+});

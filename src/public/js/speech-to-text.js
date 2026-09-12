@@ -11,6 +11,10 @@
  *   window.openDictationModal()                 the slash menu's "Dictate"
  *   window.transcribeAttachment(noteId, id, fn) an audio attachment
  *
+ * And one that needs no transcription server at all, sharing the same dialog
+ * and microphone handling:
+ *   window.openAudioRecorder()                  the slash menu's "Record audio"
+ *
  * The recording never touches disk unless the user ticks "attach the
  * recording", which goes through the ordinary attachment endpoint and so obeys
  * the same quotas as any upload.
@@ -307,6 +311,10 @@
         context: null,
         noteId: null,
         canKeepAudio: false,
+        // 'dictate' transcribes the recording, 'record' inserts it as audio
+        mode: 'dictate',
+        // Object URL offered when a recording could not be uploaded
+        downloadUrl: '',
         // Every dictation gets a number, and the recorder's callbacks carry the
         // one they were started for. Stopping a recording fires its events
         // asynchronously, so a flag set and cleared inside closeModal() is
@@ -413,13 +421,33 @@
         state.blob = null;
         state.context = null;
         state.noteId = null;
+        if (state.downloadUrl) {
+            URL.revokeObjectURL(state.downloadUrl);
+            state.downloadUrl = '';
+        }
         var modal = el('dictateModal');
         if (modal) modal.style.display = 'none';
     }
 
-    function openModal(mode) {
+    function openModal(mode, captureMode) {
         var modal = el('dictateModal');
         if (!modal) return false;
+        // Dictation unless told otherwise, so transcribeAttachment() and the
+        // slash menu's Dictate keep their wording without passing anything
+        state.mode = captureMode || 'dictate';
+        var recording = state.mode === 'record';
+        var title = el('dictateTitle');
+        if (title) {
+            title.textContent = recording
+                ? t('audio_recorder.title', null, 'Record audio')
+                : t('stt.modal.title', null, 'Dictate');
+        }
+        var stopBtn = el('dictateStopBtn');
+        if (stopBtn) {
+            stopBtn.textContent = recording
+                ? t('audio_recorder.stop', null, 'Stop and insert')
+                : t('stt.modal.stop', null, 'Stop and transcribe');
+        }
         showError('');
         var keepRow = el('dictateKeepRow');
         if (keepRow) keepRow.hidden = !state.canKeepAudio;
@@ -434,8 +462,10 @@
         if (limit) limit.textContent = formatElapsed(maxSeconds());
         var hint = el('dictateHint');
         if (hint) {
-            hint.textContent = t('stt.modal.recording_hint', { minutes: Math.round(maxSeconds() / 60) },
-                'Speak, then stop the recording to have it transcribed. It stops on its own after {{minutes}} min.');
+            var minutes = { minutes: Math.round(maxSeconds() / 60) };
+            hint.textContent = recording
+                ? t('audio_recorder.hint', minutes, 'Recording. Stop to insert the audio into the note. It stops on its own after {{minutes}} min.')
+                : t('stt.modal.recording_hint', minutes, 'Speak, then stop the recording to have it transcribed. It stops on its own after {{minutes}} min.');
         }
         var bar = el('dictateLevelBar');
         if (bar) bar.style.width = '0%';
@@ -496,7 +526,11 @@
                         showError(t('stt.errors.empty_recording', null, 'Nothing was recorded.'));
                         return;
                     }
-                    sendRecording(runId, state.blob, state.mimeType);
+                    if (state.mode === 'record') {
+                        insertRecording(runId, state.blob, state.mimeType);
+                    } else {
+                        sendRecording(runId, state.blob, state.mimeType);
+                    }
                 });
 
                 state.recorder.start();
@@ -505,7 +539,9 @@
                 // A tab left recording all afternoon helps nobody, and the
                 // server would then be handed a file it chews on for minutes.
                 state.limitId = setTimeout(function () {
-                    showError(t('stt.errors.max_duration', null, 'Maximum recording length reached, transcribing what was recorded.'));
+                    showError(state.mode === 'record'
+                        ? t('audio_recorder.max_duration', null, 'Maximum recording length reached, inserting what was recorded.')
+                        : t('stt.errors.max_duration', null, 'Maximum recording length reached, transcribing what was recorded.'));
                     stopRecording();
                 }, maxSeconds() * 1000);
                 startLevelMeter(stream);
@@ -530,7 +566,11 @@
                 state.recorder.stop();
                 showPanel('work');
                 var label = el('dictateWorkLabel');
-                if (label) label.textContent = t('stt.modal.transcribing', null, 'Transcribing...');
+                if (label) {
+                    label.textContent = state.mode === 'record'
+                        ? t('audio_recorder.saving', null, 'Saving the recording...')
+                        : t('stt.modal.transcribing', null, 'Transcribing...');
+                }
             } catch (e) {
                 showError(t('stt.errors.microphone_failed', null, 'The microphone could not be opened.'));
             }
@@ -667,6 +707,119 @@
     // ------------------------------------------------------------------
     // Public entry points
     // ------------------------------------------------------------------
+
+    // ------------------------------------------------------------------
+    // Plain audio recording (no transcription)
+    // ------------------------------------------------------------------
+
+    /**
+     * Name the file after its real container. A WebM from Chrome or Firefox is
+     * named .weba, WebM's audio-only extension: under .webm the server could
+     * not tell it from a film and would store it as video (see
+     * poznoteResolveAttachmentMimeType() in src/lib/attachments.php).
+     */
+    function recordingFileName(mimeType) {
+        var ext = extensionForType(mimeType);
+        if (ext === 'webm') ext = 'weba';
+        var stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+        return 'recording-' + stamp + '.' + ext;
+    }
+
+    /**
+     * Hand the recording to the slash menu's audio upload, so it gets exactly
+     * the player, upload spinner, errors and insertion that /Media > Audio
+     * gives a chosen file (insertAudioFileWithContext in js/slash-command.js).
+     */
+    function insertRecording(runId, blob, mimeType) {
+        if (runId !== state.runId) return;
+        var context = state.context || {};
+        var fileName = recordingFileName(mimeType);
+        var file;
+        try {
+            file = new File([blob], fileName, { type: String(mimeType || 'audio/webm').split(';')[0] });
+        } catch (e) {
+            // Very old browsers have no File constructor; a named Blob uploads the same
+            file = blob;
+            file.name = fileName;
+        }
+
+        if (typeof window.insertAudioFileWithContext !== 'function' || !context.noteEntry) {
+            showUploadFailure(t('stt.errors.no_note', null, 'Open a note first: there is nowhere to put the text.'), blob, fileName);
+            return;
+        }
+
+        var isMarkdown = !!context.markdownEditor;
+        var options = {
+            file: file,
+            noteEntry: context.noteEntry,
+            editableElement: isMarkdown ? context.markdownEditor : context.editable,
+            isMarkdown: isMarkdown,
+            savedRange: isMarkdown ? null : context.range,
+            codeMirrorSelection: (isMarkdown && context.markdownSelection)
+                ? { editor: context.markdownEditor, start: context.markdownSelection.start, end: context.markdownSelection.end }
+                : null,
+            // A failed upload must not lose what was just recorded
+            onUploadError: function (error) {
+                reopenWithDownload(blob, fileName, error);
+            }
+        };
+
+        // The upload shows its own spinner; this dialog would sit on top of it
+        closeModal();
+        window.insertAudioFileWithContext(options);
+    }
+
+    function reopenWithDownload(blob, fileName, error) {
+        state.runId++;
+        if (!openModal('record', 'record')) return;
+        var stopBtn = el('dictateStopBtn');
+        if (stopBtn) stopBtn.hidden = true;
+        var message = t('audio_recorder.upload_failed', { error: (error && error.message) || String(error || '') },
+            'The recording could not be saved: {{error}}');
+        showUploadFailure(message, blob, fileName);
+    }
+
+    /** Error line plus a link that saves the recording on this device. */
+    function showUploadFailure(message, blob, fileName) {
+        var box = el('dictateError');
+        if (!box) return;
+        box.textContent = message + ' ';
+        if (blob) {
+            if (state.downloadUrl) URL.revokeObjectURL(state.downloadUrl);
+            state.downloadUrl = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = state.downloadUrl;
+            link.download = fileName;
+            link.textContent = t('audio_recorder.download', null, 'Download the recording');
+            box.appendChild(link);
+        }
+        box.hidden = false;
+        var stopBtn = el('dictateStopBtn');
+        if (stopBtn) stopBtn.hidden = true;
+    }
+
+    /**
+     * Record audio straight into the note, without transcription. Offered to
+     * everyone: it needs a microphone, not a transcription server. The limit
+     * is the same Maximum recording length as dictation.
+     */
+    window.openAudioRecorder = function () {
+        var runId = ++state.runId;
+        state.context = captureInsertionContext();
+        state.noteId = state.context.noteEntry ? state.context.noteEntry.getAttribute('data-note-id') : null;
+        state.canKeepAudio = false;
+        state.blob = null;
+
+        if (!state.noteId) {
+            if (typeof window.showNotificationPopup === 'function') {
+                window.showNotificationPopup(t('audio_recorder.no_note', null, 'Open a note first: the recording is saved as an attachment of that note.'), 'error');
+            }
+            return;
+        }
+
+        if (!openModal('record', 'record')) return;
+        startRecording(runId);
+    };
 
     window.openDictationModal = function () {
         if (!isAvailable()) return;

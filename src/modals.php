@@ -1267,7 +1267,7 @@ $modalsPasswordDisabledHelp = $modalsPasswordDisabledReason === 'sso_only'
 -->
 <div id="dictateModal" class="modal">
     <div class="modal-content dictate-modal-content">
-        <h3><i class="lucide lucide-mic"></i> <?php echo t_h('stt.modal.title', [], 'Dictate'); ?></h3>
+        <h3><i class="lucide lucide-mic"></i> <span id="dictateTitle"><?php echo t_h('stt.modal.title', [], 'Dictate'); ?></span></h3>
 
         <div class="dictate-panel" id="dictateRecordPanel">
             <div class="dictate-level" id="dictateLevel" aria-hidden="true"><span class="dictate-level-bar" id="dictateLevelBar"></span></div>

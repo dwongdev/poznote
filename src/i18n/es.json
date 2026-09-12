@@ -78,7 +78,23 @@
       "no_headings": "Sin encabezados en esta nota",
       "unavailable_tasklist": "El esquema no está disponible para listas de tareas"
     },
-    "link_copied": "Enlace copiado"
+    "link_copied": "Enlace copiado",
+    "ok": "Aceptar",
+    "caution": "Precaución",
+    "tip": "Consejo",
+    "important": "Importante",
+    "note": "Nota",
+    "access_denied": "Acceso denegado",
+    "scroll_left": "Desplazar a la izquierda",
+    "scroll_right": "Desplazar a la derecha",
+    "calendar": "Calendario",
+    "confirm_action": "Confirmar acción",
+    "date": {
+      "days_ago": "días atrás",
+      "today": "Hoy",
+      "yesterday": "Ayer"
+    },
+    "network_error": "Error de red"
   },
   "snapshot": {
     "menu_item": "Instantáneas",
@@ -180,7 +196,16 @@
     "subfolder": {
       "expand": "Expandir subcarpeta",
       "collapse": "Contraer subcarpeta"
-    }
+    },
+    "add_column": "Añadir columna",
+    "new_column_title": "Nueva columna",
+    "new_column_placeholder": "Nombre de la columna",
+    "list": {
+      "filter_placeholder": "Filtrar por nombre de tablero...",
+      "no_boards": "Aún no hay tableros Kanban.",
+      "hint": "Activa la vista Kanban en una carpeta para verla aquí."
+    },
+    "add_note": "Añadir nota"
   },
   "folders": {
     "delete": {
@@ -244,7 +269,9 @@
     "move": {
       "moving": "Moviendo...",
       "success": "Carpeta \"{{folder}}\" movida exitosamente"
-    }
+    },
+    "filter_placeholder": "Filtrar por nombre de carpeta...",
+    "no_folders": "Aún no hay carpetas."
   },
   "modal_alerts": {
     "cursor_warning": {
@@ -326,7 +353,8 @@
   "attachments": {
     "empty": "Sin adjuntos.",
     "upload": {
-      "button_uploading": "Subiendo..."
+      "button_uploading": "Subiendo...",
+      "uploading": "Subiendo..."
     },
     "actions": {
       "view": "Ver",
@@ -375,7 +403,8 @@
       "preview_alt": "Vista previa",
       "uploaded_prefix": "Subido: ",
       "open_in_new_tab": "Abrir en nueva pestaña",
-      "inline_images_hidden_notice": "Las imágenes insertadas directamente en el contenido de la nota siguen almacenadas como adjuntos, pero se ocultan aquí para evitar ambigüedades."
+      "inline_images_hidden_notice": "Las imágenes insertadas directamente en el contenido de la nota siguen almacenadas como adjuntos, pero se ocultan aquí para evitar ambigüedades.",
+      "pdf_label": "PDF"
     },
     "modals": {
       "delete": {
@@ -406,6 +435,15 @@
       "all_file_types": "Todos los tipos",
       "file_type_filter": "Filtrar por tipo de archivo",
       "download": "Descargar"
+    },
+    "context_menu": {
+      "open": "Abrir",
+      "download": "Descargar",
+      "transcribe": "Transcribir",
+      "delete": "Eliminar",
+      "delete_confirm_title": "Eliminar adjunto",
+      "delete_confirm_message": "¿Eliminar «{{filename}}»? Se quita de la nota y no se puede recuperar.",
+      "delete_confirm_message_unnamed": "¿Eliminar este adjunto? Se quita de la nota y no se puede recuperar."
     }
   },
   "auth": {
@@ -496,7 +534,8 @@
       "s3_storage": "Almacenar los adjuntos de las notas en un almacenamiento de objetos compatible con S3 en lugar del disco local.",
       "s3_backup": "Sube archivos de copia de seguridad completos a un bucket compatible con S3, manualmente o según una programación.",
       "highlight_current_folder_tree": "Atenuar, tanto como quieras, las notas y carpetas que están fuera de la jerarquía de carpetas en la que trabajas.",
-      "snapshots": "Elija cuántas instantáneas automáticas diarias y cuántas instantáneas de seguridad (antes de una edición de IA o MCP) se conservan por nota."
+      "snapshots": "Elija cuántas instantáneas automáticas diarias y cuántas instantáneas de seguridad (antes de una edición de IA o MCP) se conservan por nota.",
+      "stt": "Configura el servidor de reconocimiento de voz que se usa para dictar notas y transcribir adjuntos de audio."
     },
     "title": "Configuración",
     "collapse_section": "Contraer la sección",
@@ -575,7 +614,9 @@
       "saas": "Modo SaaS",
       "admin_contact": "Ayuda",
       "s3_storage": "Adjuntos S3",
-      "s3_backup": "Copias de seguridad S3"
+      "s3_backup": "Copias de seguridad S3",
+      "stt": "Transcripción",
+      "api_rest": "API REST"
     },
     "default_credentials": {
       "both": "Esta cuenta sigue usando el nombre de usuario y la contraseña predeterminados. Cualquiera que pueda acceder a esta instancia puede iniciar sesión.",
@@ -614,7 +655,8 @@
     "actions": {
       "select": "Seleccionar",
       "move_notes": "Mover notas",
-      "menu": "Acciones del espacio de trabajo"
+      "menu": "Acciones del espacio de trabajo",
+      "background": "Fondo"
     },
     "count": {
       "notes_0": "0 notas",
@@ -666,7 +708,10 @@
       "cannot_rename_default": "No se puede renombrar el espacio de trabajo de inicio",
       "invalid_new_name": "Nuevo nombre de espacio de trabajo inválido. Usa solo letras, números, guión y guion bajo (sin espacios).",
       "name_and_target_required": "Nombre de espacio de trabajo y destino requeridos",
-      "source_target_must_differ": "Los espacios de trabajo de origen y destino deben ser diferentes"
+      "source_target_must_differ": "Los espacios de trabajo de origen y destino deben ser diferentes",
+      "cannot_delete_last": "No se puede eliminar el último espacio de trabajo",
+      "name_exists": "Ya existe un espacio de trabajo con este nombre",
+      "no_workspace_selected": "No hay ningún espacio de trabajo seleccionado"
     },
     "messages": {
       "creating": "Creando espacio de trabajo...",
@@ -737,6 +782,13 @@
       "handle": "Arrastrar para reordenar",
       "saved": "Orden de los espacios de trabajo actualizado",
       "save_error": "No se pudo actualizar el orden de los espacios de trabajo"
+    },
+    "info": {
+      "folders": "Carpetas",
+      "notes": "Notas",
+      "shared": "Compartido",
+      "shared_with": "Compartido con",
+      "tags": "Etiquetas"
     }
   },
   "display": {
@@ -779,7 +831,8 @@
       "slash_menu_require_alt": "Atajo del menú de comandos",
       "note_nav_shortcuts": "Cambiar de nota con Alt + ↑/↓",
       "ctrl_s_save": "Guardar nota con Ctrl + S",
-      "snapshots": "Instantáneas"
+      "snapshots": "Instantáneas",
+      "show_note_icons": "Mostrar iconos de las notas"
     },
     "badges": {
       "font_size_default": "predeterminado ({{size}}px)",
@@ -791,7 +844,11 @@
         "both": "Iconos de barra de herramientas + menú de comando de barra"
       },
       "slash_menu_alt_slash": "Alt + /",
-      "slash_menu_slash": "/"
+      "slash_menu_slash": "/",
+      "note_font_size": "{{size}}px",
+      "sidebar_font_size": "{{size}}px",
+      "code_block_font_size": "{{size}}px",
+      "settings_font_size": "{{size}}px"
     },
     "alerts": {
       "error_saving_preference": "Error al guardar preferencia"
@@ -827,7 +884,8 @@
     "support_poznote": "Apoyar a Poznote",
     "version": "Versión",
     "filter_placeholder": "Filtrar...",
-    "graph": "Grafo"
+    "graph": "Grafo",
+    "no_filter_results": "No se encontraron resultados."
   },
   "search": {
     "placeholder": "Buscar...",
@@ -862,7 +920,9 @@
       "discard": "Conservar la versión actual",
       "restored": "Tus últimos cambios se han recuperado y guardado.",
       "restore_failed": "No se han podido guardar tus cambios. Comprueba tu conexión e inténtalo de nuevo."
-    }
+    },
+    "unsaved_changes_title": "Cambios sin guardar",
+    "unsaved_changes_warning": "⚠️ Tienes cambios sin guardar. ¿Seguro que quieres salir?"
   },
   "tasklist": {
     "open_tasks_page": "Ver todas las tareas",
@@ -938,6 +998,13 @@
       "error": "Error al eliminar"
     }
   },
+  "download": "Descargar",
+  "convert": "Convertir",
+  "create": "Crear",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "favorite": "Favorito",
+  "share": "Compartir",
   "trash": {
     "search": {
       "placeholder": "Buscar en la papelera...",
@@ -1039,7 +1106,8 @@
       "green": "Verde",
       "blue": "Azul",
       "purple": "Morado",
-      "none": "Ninguno"
+      "none": "Ninguno",
+      "red": "Rojo"
     },
     "font_size": {
       "very_small": "Muy pequeño",
@@ -1088,7 +1156,11 @@
       "open_in_new_tab": "Abrir en nueva pestaña",
       "split_view": "Alternar vista dividida",
       "search_replace": "Buscar y reemplazar",
-      "save_now": "Guardar ahora"
+      "save_now": "Guardar ahora",
+      "go_back": "Atrás",
+      "go_forward": "Adelante",
+      "switch_to_edit": "Cambiar al modo edición",
+      "switch_to_preview": "Cambiar a la vista previa"
     },
     "link": {
       "add_title": "Agregar enlace",
@@ -1127,7 +1199,9 @@
       "favorite": "Favorito:",
       "attachments": "Adjuntos:",
       "note_id": "ID de la nota:",
-      "full_path": "Ruta completa:"
+      "full_path": "Ruta completa:",
+      "created_by": "Creado por:",
+      "last_modified_by": "Última modificación por:"
     },
     "attachments": {
       "count_singular": "1 archivo",
@@ -1136,7 +1210,11 @@
     "empty": {
       "no_tags": "Sin etiquetas"
     },
-    "errors": []
+    "errors": [],
+    "users": {
+      "user_id": "Usuario #{{id}}",
+      "deleted": "Usuario #{{id}}"
+    }
   },
   "modals": {
     "paste_markdown": {
@@ -1293,7 +1371,8 @@
       "remove_divider": "Quitar el separador"
     },
     "language": {
-      "description": "Selecciona tu idioma preferido:"
+      "description": "Selecciona tu idioma preferido:",
+      "title": "Selección de idioma"
     },
     "input": {
       "placeholder": "Ingresa texto"
@@ -1319,7 +1398,9 @@
       "note_label": "Contenido de la nota (px):",
       "sidebar_label": "Barra lateral (px):",
       "default_value": "{{size}} px es el valor predeterminado",
-      "preview": "Vista previa"
+      "preview": "Vista previa",
+      "code_block_label": "Bloques de código (px):",
+      "settings_label": "Página de ajustes (px):"
     },
     "note_width": {
       "title": "Ancho del contenido de la nota",
@@ -1382,7 +1463,43 @@
       "delete_title": "Confirmar eliminación de espacio de trabajo",
       "delete_description": "Todas las notas y carpetas serán eliminadas permanentemente y no se pueden recuperar.",
       "delete_placeholder": "Escribe el nombre del espacio de trabajo para confirmar",
-      "delete_button": "Eliminar"
+      "delete_button": "Eliminar",
+      "share": {
+        "actions": {
+          "enable": "Compartir",
+          "edit": "Editar el uso compartido",
+          "copy_link": "Copiar enlace",
+          "disable": "Dejar de compartir"
+        },
+        "confirm": {
+          "title": "Compartir el espacio de trabajo en solo lectura",
+          "message": "Cualquiera con la URL del espacio de trabajo «{{workspace}}» tendrá acceso de solo lectura a todas las notas y carpetas de este espacio.",
+          "confirm_button": "Compartir espacio de trabajo"
+        },
+        "messages": {
+          "enabled": "Enlace del espacio en solo lectura activado",
+          "disabled": "Enlace del espacio en solo lectura desactivado",
+          "url_copied": "¡Enlace para compartir copiado al portapapeles!"
+        },
+        "errors": {
+          "url_in_use": "Ya existe un espacio de trabajo público con este nombre en esta instancia de Poznote",
+          "copy_failed": "No se pudo copiar el enlace para compartir",
+          "save_failed": "No se pudo guardar el enlace del espacio en solo lectura",
+          "disable_failed": "No se pudo desactivar el enlace del espacio en solo lectura"
+        },
+        "status": {
+          "enabled": "Solo lectura pública activada",
+          "disabled": "No compartido públicamente"
+        },
+        "help": "Cualquiera con esta URL abre Poznote directamente en este espacio de trabajo, en solo lectura.",
+        "url_label": "URL pública",
+        "options": {
+          "require_login": "Exigir inicio de sesión en Poznote",
+          "restrict_users": "Restringir a usuarios concretos",
+          "users_loading": "Cargando usuarios...",
+          "no_users_found": "No se encontraron otros usuarios"
+        }
+      }
     },
     "user_settings_info": {
       "title": "Configuración de cuenta",
@@ -1425,7 +1542,27 @@
       "reset": "Restaurar el comportamiento predeterminado",
       "search_placeholder": "Buscar iconos...",
       "gray": "Gris",
-      "black": "Negro"
+      "black": "Negro",
+      "amber": "Ámbar",
+      "blue": "Azul",
+      "cyan": "Cian",
+      "default_color": "Predeterminado",
+      "emerald": "Esmeralda",
+      "fuchsia": "Fucsia",
+      "green": "Verde",
+      "indigo": "Índigo",
+      "lime": "Lima",
+      "orange": "Naranja",
+      "pink": "Rosa",
+      "purple": "Morado",
+      "red": "Rojo",
+      "rose": "Rosa intenso",
+      "sky": "Celeste",
+      "slate": "Pizarra",
+      "stone": "Piedra",
+      "teal": "Verde azulado",
+      "violet": "Violeta",
+      "yellow": "Amarillo"
     },
     "linked_selector": {
       "title": "Crear un atajo de una nota",
@@ -1685,6 +1822,40 @@
       "badge_with_safety": "{{count}} automáticas, {{safety}} de seguridad por nota",
       "warning_title": "Las instantáneas solo guardan el texto de la nota. Los archivos adjuntos nunca se copian.",
       "warning": "Los archivos adjuntos y las imágenes se conservan en el disco incluso después de eliminarlos de una nota, mientras alguna de sus instantáneas todavía los contenga. Solo se liberan cuando caduca la última instantánea que los contiene (como máximo a los {{days}} días) o cuando la nota se elimina definitivamente."
+    },
+    "api_rest": {
+      "github_option": "GitHub",
+      "swagger_option": "Swagger",
+      "title": "API REST"
+    },
+    "attachment": {
+      "title": "Adjuntos"
+    },
+    "background_image": {
+      "description": "Sube una imagen de fondo para tu espacio de trabajo. Puedes ajustar la opacidad para que sea discreta.",
+      "no_image": "No hay imagen de fondo",
+      "opacity": "Opacidad del fondo",
+      "remove": "Quitar",
+      "title": "Imagen de fondo",
+      "upload": "Subir imagen"
+    },
+    "tag_folder_notes": {
+      "apply": "Añadir etiquetas",
+      "applying": "Etiquetando...",
+      "count_one": "Se etiquetará 1 nota",
+      "count_other": "Se etiquetarán {{count}} notas",
+      "empty_folder": "Esta carpeta está vacía",
+      "error": "No se pudieron etiquetar las notas",
+      "existing_tags": "Etiquetas existentes",
+      "include_subfolders": "Incluir las notas de las subcarpetas",
+      "no_tags": "Introduce al menos una etiqueta",
+      "placeholder": "Etiquetas, separadas por comas",
+      "prompt_prefix": "Añadir etiquetas a todas las notas de",
+      "prompt_suffix": ":",
+      "success_none": "Todas las notas ya tenían estas etiquetas",
+      "success_one": "1 nota etiquetada",
+      "success_other": "{{count}} notas etiquetadas",
+      "title": "Etiquetar todas las notas"
     }
   },
   "notes_list": {
@@ -1693,7 +1864,8 @@
       "tags": "Etiquetas",
       "favorites": "Favoritos",
       "public": "Compartidas",
-      "attachments": "Archivos adjuntos"
+      "attachments": "Archivos adjuntos",
+      "no_folder": "Sin carpeta"
     },
     "favorites": {
       "empty": "Aún no hay notas favoritas.",
@@ -1722,7 +1894,11 @@
       "no_notes_title": "Sin notas",
       "no_notes_in_folder": "Esta carpeta no contiene notas",
       "too_many_notes": "Esta carpeta contiene {{count}} notas. Solo se abrirán las primeras {{max}} para no sobrecargar su navegador.",
-      "show_only": "Mostrar solo esta carpeta"
+      "show_only": "Mostrar solo esta carpeta",
+      "copy_folder": "Copiar",
+      "cut_folder": "Cortar",
+      "paste_into_folder": "Pegar en la carpeta",
+      "change_note_icon": "Cambiar el icono de la nota"
     },
     "folder_filter": {
       "exit": "Salir de la vista de la carpeta"
@@ -1737,8 +1913,41 @@
       "delete_note": "Eliminar nota",
       "enter_note_name": "Introduzca un título de nota",
       "attachments": "Adjuntos",
-      "convert_note": "Convertir nota"
+      "convert_note": "Convertir nota",
+      "copy_note": "Copiar",
+      "cut_note": "Cortar",
+      "paste_note": "Pegar aquí"
     }
+  },
+  "tree_history": {
+    "undone": "Deshecho: {{action}}",
+    "redone": "Rehecho: {{action}}",
+    "nothing_to_undo": "Nada que deshacer",
+    "nothing_to_redo": "Nada que rehacer",
+    "undo_failed": "Error al deshacer: {{error}}",
+    "redo_failed": "Error al rehacer: {{error}}",
+    "actions": {
+      "move_note": "Mover nota",
+      "move_folder": "Mover carpeta",
+      "delete_note": "Eliminar nota",
+      "delete_folder": "Eliminar carpeta",
+      "paste_note": "Pegar nota",
+      "paste_folder": "Pegar carpeta",
+      "rename_note": "Renombrar nota",
+      "rename_folder": "Renombrar carpeta"
+    }
+  },
+  "tree_clipboard": {
+    "copied_note": "«{{name}}» copiada",
+    "cut_note": "«{{name}}» cortada",
+    "copied_folder": "Carpeta «{{name}}» copiada",
+    "cut_folder": "Carpeta «{{name}}» cortada",
+    "pasted_note": "«{{name}}» pegada",
+    "pasted_folder": "Carpeta «{{name}}» pegada",
+    "nothing_to_paste": "Nada que pegar",
+    "already_there": "Ya está en esta carpeta",
+    "cannot_paste_into_itself": "Una carpeta no se puede pegar dentro de sí misma",
+    "paste_failed": "Error al pegar: {{error}}"
   },
   "note_color": {
     "modal_title": "Color de la nota",
@@ -1796,7 +2005,14 @@
     "filter_placeholder": "Filtrar notas por título o etiquetas...",
     "filter_age": "Filtrar por antigüedad",
     "age_all": "Todas las notas",
-    "age_recent": "Solo recientes"
+    "age_recent": "Solo recientes",
+    "all_types": "Todos los tipos",
+    "filter_type": "Filtrar por tipo",
+    "type_html": "HTML",
+    "type_markdown": "Markdown",
+    "type_tasklist": "Lista de tareas",
+    "type_excalidraw": "Excalidraw",
+    "empty": "No se encontraron notas."
   },
   "update": {
     "new_available": "🎉 ¡Nueva actualización disponible!",
@@ -1876,7 +2092,30 @@
     "template": "Plantilla",
     "template_none": "Aún no hay plantillas",
     "template_none_hint": "Coloca notas en una carpeta o un espacio de trabajo llamado «Plantillas»",
-    "template_insert_failed": "No se pudo insertar la plantilla"
+    "template_insert_failed": "No se pudo insertar la plantilla",
+    "dictate": "Dictar",
+    "record_audio": "Grabar audio",
+    "insert": "Insertar",
+    "media": "Multimedia",
+    "color": "Color",
+    "color_red": "Rojo",
+    "color_blue": "Azul",
+    "color_green": "Verde",
+    "color_yellow": "Amarillo",
+    "color_purple": "Morado",
+    "color_orange": "Naranja",
+    "color_black": "Negro",
+    "bg_yellow": "Fondo amarillo",
+    "youtube": "YouTube",
+    "streaming_videos": "Vídeos en streaming",
+    "bilibili": "Bilibili",
+    "invalid_url": "URL no válida",
+    "bilibili_invalid_url": "Introduce una URL de Bilibili válida",
+    "bilibili_invalid_format": "Formato de URL de Bilibili no válido. Usa la URL de una página de vídeo (bilibili.com/video/BV...)",
+    "streaming_video_url_prompt": "Introduce la URL del vídeo en streaming (YouTube, Vimeo, etc.):",
+    "bilibili_help": "Introduce la URL de la página del vídeo de Bilibili (p. ej., bilibili.com/video/BV...)",
+    "bilibili_modal_title": "Insertar vídeo de Bilibili",
+    "video_insert": "Insertar"
   },
   "api": {
     "settings": {
@@ -1896,7 +2135,14 @@
       "duplicate_title_in_folder": "Otra nota con el mismo título existe en esta carpeta.",
       "invalid_custom_token": "Enlace personalizado inválido.\n\nPermitidos:\n\nletras, números, -, _, . (4-128 caracteres)",
       "storage_s3_quota_reached": "Límite de almacenamiento S3 alcanzado: esta instancia permite como máximo {{max}} MB de almacenamiento S3 para este usuario.",
-      "backups_s3_quota_reached": "Límite de copias de seguridad S3 alcanzado: esta instancia permite como máximo {{max}} MB de archivos de copia de seguridad para este usuario."
+      "backups_s3_quota_reached": "Límite de copias de seguridad S3 alcanzado: esta instancia permite como máximo {{max}} MB de archivos de copia de seguridad para este usuario.",
+      "note_id_required": "Se requiere note_id",
+      "note_not_found": "Nota no encontrada",
+      "token_already_in_use": "El enlace personalizado ya está en uso",
+      "no_token_generated": "No se generó ningún enlace",
+      "server_error": "Error del servidor: {{error}}",
+      "cannot_delete_last_workspace": "No se puede eliminar el último espacio de trabajo",
+      "workspace_required": "Se requiere el espacio de trabajo"
     }
   },
   "ui": {
@@ -1961,7 +2207,8 @@
       "note_width": "Ancho de la nota",
       "note_width_current": "Ancho de la nota: {{width}}",
       "note_width_default": "Predeterminado ({{width}})",
-      "convert_to_markdown": "Convertir a Markdown"
+      "convert_to_markdown": "Convertir a Markdown",
+      "share_note": "Compartir"
     },
     "share_modal": {
       "description": "Una URL compartida crea un enlace público a esta nota. Una vez creada la URL, se ofrecerán otras opciones, como proteger la nota con contraseña o personalizar la URL compartida.",
@@ -2011,7 +2258,8 @@
     "note": {
       "new_note": "Nueva nota",
       "new_note_numbered": "Nueva nota ({{number}})",
-      "title_placeholder": "¿Título?"
+      "title_placeholder": "¿Título?",
+      "untitled": "Sin título"
     },
     "editor": {
       "placeholder_desktop": "Ingresa texto, usa / para abrir el menú de comandos, pega imágenes o arrastra y suelta una imagen en el cursor.",
@@ -2161,7 +2409,8 @@
       "own_account": "Tu cuenta",
       "sign_out": "Cerrar sesión",
       "invalid": "No se puede seleccionar esta cuenta."
-    }
+    },
+    "or": "o"
   },
   "restore_import": {
     "page": {
@@ -2176,7 +2425,8 @@
       "complete_backup_restored": "{{message}}",
       "notes_imported": "Importadas {{count}} nota(s) en espacio de trabajo \"{{workspace}}\", carpeta \"{{folder}}\".",
       "attachments_imported": "{{message}}",
-      "notes_imported_zip": "Importadas {{count}} nota(s) del ZIP en espacio de trabajo \"{{workspace}}\", carpeta \"{{folder}}\"."
+      "notes_imported_zip": "Importadas {{count}} nota(s) del ZIP en espacio de trabajo \"{{workspace}}\", carpeta \"{{folder}}\".",
+      "notes_imported_with_folders": "Se importaron {{count}} nota(s) y se crearon {{folders}} carpeta(s) en el espacio de trabajo «{{workspace}}»."
     },
     "skipped_attachments": {
       "header": "Archivos adjuntos bloqueados omitidos:",
@@ -2213,7 +2463,13 @@
       "failed_extract_content": "Falló al extraer contenido de {{file}}.",
       "s3_restore_forbidden": "La restauración desde S3 no está permitida en esta cuenta.",
       "s3_restore_invalid_key": "Archivo de copia de seguridad no válido.",
-      "s3_restore_download_error": "No se puede obtener el archivo del bucket: {{error}}"
+      "s3_restore_download_error": "No se puede obtener el archivo del bucket: {{error}}",
+      "cannot_find_attachments_directory": "No se encuentra el directorio de adjuntos",
+      "database_error_for_file": "Error de base de datos en {{file}}: {{message}}",
+      "errors_prefix": "Errores:",
+      "failed_write_file": "No se pudo escribir el archivo {{file}}",
+      "internal_server_error": "Error interno del servidor",
+      "invalid_form_submission": "Envío de formulario no válido. Inténtalo de nuevo."
     },
     "spinner": {
       "processing": "Procesando restauración...",
@@ -2249,7 +2505,8 @@
         "entries_dir_not_found": "No se puede encontrar el directorio de entradas",
         "upload_error": "Error de subida",
         "invalid_file_type": "Tipo de archivo inválido (solo {{allowed}} permitidos)",
-        "cannot_read_file": "No se puede leer archivo"
+        "cannot_read_file": "No se puede leer archivo",
+        "no_workspace_available": "No hay ningún espacio de trabajo disponible"
       },
       "summary_with_location": "Esto importará {{fileText}} en espacio de trabajo \"{{workspace}}\", carpeta \"{{folder}}\".",
       "summary_zip_with_location": "Esto extraerá e importará todos los archivos del archivo ZIP en espacio de trabajo \"{{workspace}}\", carpeta \"{{folder}}\"."
@@ -2424,6 +2681,10 @@
       "error": "La importación ha fallado: {{error}}",
       "upload_interrupted": "La subida anterior se interrumpió tras {{done}} de {{total}} fragmentos, no se importó nada. Puedes volver a iniciar la importación.",
       "worker_lost": "La importación se detuvo antes de terminar. Revisa los registros del servidor y vuelve a iniciarla."
+    },
+    "import_notes": {
+      "default_title": "Nota importada",
+      "summary": "{{imported}} nota(s) importada(s), {{updated}} actualizada(s)."
     }
   },
   "markdown_guide": {
@@ -2498,7 +2759,8 @@
       "tables": {
         "title": "Tablas",
         "url": "URL compartida",
-        "col_value": "Valor"
+        "col_value": "Valor",
+        "col_name": "Nombre"
       },
       "math": {
         "title": "Ecuaciones Matemáticas",
@@ -2606,7 +2868,8 @@
       "error_incorrect": "Contraseña incorrecta. Inténtelo de nuevo.",
       "additional_password_required": "Esta nota requiere una contraseña adicional. Ingrese la siguiente contraseña para continuar.",
       "placeholder": "Ingrese la contraseña",
-      "unlock": "Desbloquear"
+      "unlock": "Desbloquear",
+      "workspace_heading": "Espacio de trabajo protegido con contraseña"
     },
     "errors": {
       "token_missing": "Falta el enlace",
@@ -2627,11 +2890,17 @@
       "discard_confirm": "¿Descartar los cambios?",
       "locked": "Otra persona está editando esta nota en este momento. Inténtalo de nuevo más tarde.",
       "lock_lost": "Otra persona está editando esta nota ahora. Tus últimos cambios no se pueden guardar."
-    }
+    },
+    "tree_tools": "Árbol de carpetas",
+    "tree_search_hint": "Los resultados de búsqueda se muestran desplegados automáticamente.",
+    "shared_note_not_found_or_denied": "Nota compartida no encontrada o acceso denegado. Puede ocurrir tras una restauración. Es posible que un administrador tenga que reconstruir la base de datos principal en Ajustes > Herramientas de administración para reparar los enlaces compartidos.",
+    "token_update_failed": "No se pudo actualizar el token"
   },
   "public_folder": {
     "filter_placeholder": "Filtrar notas por título",
-    "no_filter_results": "Sin resultados."
+    "no_filter_results": "Sin resultados.",
+    "view_notes": "Ver como lista",
+    "view_kanban": "Ver como Kanban"
   },
   "icon_names": {
     "briefcase": "maletín",
@@ -3037,7 +3306,10 @@
     "angry": "enfadado",
     "meh": "neutral",
     "sun-moon": "día y noche",
-    "handshake": "apretón de manos"
+    "handshake": "apretón de manos",
+    "euro": "euro",
+    "globe": "globo",
+    "puzzle": "puzle"
   },
   "folder_icon": {
     "default": "Predeterminado"
@@ -3163,7 +3435,36 @@
       "delete_warning_item_s3": "Sus archivos adjuntos y sus copias de seguridad almacenadas en los buckets S3",
       "delete_warning_no_recovery": "No hay recuperación posible: no se conserva nada y no se crea ninguna copia de seguridad previa. Si estos datos aún importan, descargue una copia de seguridad completa en ZIP antes de eliminar.",
       "delete_confirm_label": "Escriba «{{username}}» para confirmar:",
-      "delete_confirm_placeholder": "Escriba el nombre de usuario para confirmar"
+      "delete_confirm_placeholder": "Escriba el nombre de usuario para confirmar",
+      "maintenance": {
+        "title": "Reconstruir la base de datos principal",
+        "subtitle": "Restaurar perfiles de usuario y enlaces públicos compartidos",
+        "description": "La base de datos principal (master.db) guarda la información de los usuarios, sus enlaces públicos y los ajustes globales de Poznote. Si este archivo se pierde o se daña, o si algunos enlaces públicos dejan de funcionar tras una restauración, esta herramienta recorre tus carpetas «data/users» para volver a registrar las cuentas automáticamente, recuperar sus nombres reales desde sus bases de datos personales y restaurar todos los enlaces públicos compartidos.",
+        "repair_registry": "Reconstruir",
+        "repair_registry_confirm": "Se recorrerán todas las carpetas de usuario y se reconstruirá la base de datos principal. ¿Continuar?",
+        "repair_registry_success": "Base de datos principal reconstruida correctamente:\n\n- {{scanned}} carpetas analizadas\n- {{added}} usuarios restaurados\n- {{links}} enlaces compartidos reconstruidos",
+        "repair_registry_error": "Error en la reconstrucción: {{error}}"
+      },
+      "confirm_admin": {
+        "title": "Confirmar el ascenso a administrador",
+        "message": "¿Seguro que quieres conceder privilegios de administrador a «{{username}}»?",
+        "privileges_title": "El administrador podrá:",
+        "privilege_notes": "Exportar las notas de cualquier usuario a un archivo ZIP",
+        "privilege_passwords": "Cambiar las contraseñas de todos los demás usuarios",
+        "privilege_admin_panel": "Acceder a este panel de gestión de usuarios",
+        "confirm_button": "Confirmar el ascenso a administrador"
+      },
+      "access_denied_admin": "Acceso denegado. Se requieren privilegios de administrador.",
+      "confirm_delete": "¿Seguro que quieres eliminar al usuario «{{username}}»?",
+      "delete_id_1_locked": "El usuario con ID 1 no se puede eliminar",
+      "delete_user": "Eliminar perfil de usuario",
+      "errors_label": "Errores:",
+      "network_error": "Error de red: ",
+      "new_password": "Nueva contraseña",
+      "oidc_subject": "Sujeto OIDC (UUID)",
+      "oidc_subject_help": "Opcional: UUID de tu proveedor OIDC (LLDAP, Authelia, etc.)",
+      "oidc_subject_placeholder": "p. ej., 510ec799-02f8-42e0-...",
+      "processing": "Procesando..."
     }
   },
   "git_sync": {
@@ -3200,7 +3501,13 @@
       "not_configured": "No configurado",
       "not_configured_yet": "A configurar",
       "hint": "La sincronización con {{provider}} está desactivada. Un administrador puede activarla en Configuración > Herramientas de administración.",
-      "hint_enable": "La sincronización Git está desactivada. Un administrador puede activarla en Configuración > Herramientas de administración."
+      "hint_enable": "La sincronización Git está desactivada. Un administrador puede activarla en Configuración > Herramientas de administración.",
+      "repository": "Repositorio",
+      "provider": "Proveedor",
+      "api_base": "URL base de la API",
+      "author_name": "Nombre del autor",
+      "author_email": "Correo del autor",
+      "save": "Guardar configuración"
     },
     "auto_sync": {
       "title": "Sincronización Automática",
@@ -3245,7 +3552,9 @@
       "push_success": "{{count}} notas enviadas con éxito, {{deleted}} archivos eliminados ({{errors}} errores)",
       "push_error": "Error al enviar: {{error}}",
       "pull_success": "{{pulled}} notas nuevas recuperadas, {{updated}} notas existentes actualizadas, {{deleted}} notas eliminadas ({{errors}} errores)",
-      "pull_error": "Error al recuperar: {{error}}"
+      "pull_error": "Error al recuperar: {{error}}",
+      "config_saved": "Configuración guardada correctamente.",
+      "config_save_error": "No se pudo guardar la configuración."
     },
     "debug": {
       "title": "Información de depuración",
@@ -4077,7 +4386,133 @@
     "tool_update": "Editando la nota #{{id}}",
     "tool_create": "Creando la nota: {{title}}",
     "context_label": "Nota:",
-    "context_hint": "La nota que el asistente usa cuando dices \"esta nota\"."
+    "context_hint": "La nota que el asistente usa cuando dices \"esta nota\".",
+    "model_label": "Modelo:",
+    "model_hint": "Abrir los ajustes del asistente de IA.",
+    "back_to_assistant": "Volver al asistente de IA",
+    "workspace_label": "Espacio de trabajo:",
+    "tool_tags": "Actualizando las etiquetas de la nota #{{id}}",
+    "tool_list_tags": "Listando etiquetas",
+    "tool_list_folders": "Listando carpetas",
+    "tool_create_folder": "Creando carpeta: {{path}}",
+    "tool_rename_folder": "Renombrando la carpeta «{{folder}}» a «{{name}}»",
+    "tool_move": "Moviendo la nota #{{id}} a {{folder}}",
+    "tool_move_root": "Sacando la nota #{{id}} de su carpeta",
+    "tool_favorite_on": "Añadiendo la nota #{{id}} a favoritos",
+    "tool_favorite_off": "Quitando la nota #{{id}} de favoritos",
+    "tool_folder_favorite": "Actualizando el estado de favorito de la carpeta «{{folder}}»",
+    "tool_reminder": "Añadiendo un recordatorio a la nota #{{id}}",
+    "tool_reminder_remove": "Quitando el recordatorio de la nota #{{id}}",
+    "tool_task_add": "Añadiendo tarea: {{text}}",
+    "tool_task_update": "Actualizando la tarea «{{task}}»",
+    "tool_task_delete": "Eliminando la tarea «{{task}}»",
+    "tool_checklist": "Actualizando una casilla de la nota #{{id}}",
+    "tool_delete": "Moviendo la nota #{{id}} a la papelera",
+    "tool_delete_folder": "Moviendo la carpeta «{{folder}}» y sus notas a la papelera",
+    "scope_modal_title": "Un espacio de trabajo cada vez",
+    "scope_modal_text": "El asistente no puede actuar sobre varios espacios de trabajo a la vez. Aquí solo buscará, leerá y modificará las notas del espacio de trabajo «{{workspace}}».",
+    "scope_modal_continue": "Continuar"
+  },
+  "stt_settings": {
+    "title": "Transcripción",
+    "config_title": "Configuración",
+    "description": "Conecta Poznote a un servidor de reconocimiento de voz para convertir la voz en texto de tus notas. Funciona cualquier servidor compatible con la API de audio de OpenAI, incluido un Whisper autoalojado, y el audio nunca sale de la máquina que lo ejecuta.",
+    "enable_label": "Activar la transcripción",
+    "enable_description": "Añade una entrada Dictar en Insertar del menú de barra de cada nota, y una acción Transcribir en los adjuntos de audio.",
+    "users_label": "Usuarios autorizados a usar el servidor de transcripción configurado por el administrador",
+    "users_description": "Solo los usuarios seleccionados pueden dictar y transcribir con la configuración de esta página. Los usuarios nuevos no tienen acceso hasta que los añadas aquí.",
+    "users_filter_placeholder": "Filtrar usuarios",
+    "provider_label": "Servidor de transcripción",
+    "url_description": "URL base de un servidor que expone POST /v1/audio/transcriptions. Para un contenedor en el host de Docker, usa http://host.docker.internal:8000",
+    "api_key_description": "Déjalo vacío para un servidor local que no la pida. Obligatoria para OpenAI.",
+    "model_description": "Un modelo Whisper como Systran/faster-whisper-small. Comprueba el acceso arriba para listar lo que ofrece el servidor. whisper.cpp usa el único modelo con el que se inició e ignora este campo, pero sigue siendo obligatorio un valor.",
+    "model_none_found": "Este servidor no lista ningún modelo. Escribe el nombre del modelo en el campo de abajo si lo conoces, o consulta la documentación del servidor.",
+    "language_label": "Idioma hablado",
+    "language_description": "Código de dos letras como en, fr o de. Déjalo vacío para que el servidor detecte el idioma, algo que Whisper hace bien; indícalo si siempre dictas en el mismo idioma y las frases cortas se confunden con otro.",
+    "user_keys_label": "Permitir servidores de transcripción personales",
+    "user_keys_description": "Cada usuario tiene una tarjeta Transcripción en sus propios ajustes, donde puede indicar su propio servidor y clave API. Si lo hace, su audio va a ese servidor en lugar del de esta página, figure o no en la lista de arriba.",
+    "footer_note": "Las grabaciones se suben a Poznote, que las reenvía al servidor de transcripción; nunca se envían desde el navegador. Poznote no guarda ninguna copia: el audio se descarta en cuanto vuelve el texto, salvo que el usuario decida adjuntar la grabación a la nota.",
+    "messages": {
+      "saved": "Configuración guardada correctamente.",
+      "save_error": "No se pudo guardar la configuración."
+    },
+    "max_duration_label": "Duración máxima de grabación",
+    "max_duration_description": "En minutos, de 1 a {{limit}}. Dictar y Grabar audio se detienen solos al llegar a ese límite, para que una pestaña olvidada grabando no pueda enviar una hora de audio. La ventana muestra el tiempo transcurrido frente a este límite. No afecta a la transcripción de un adjunto existente."
+  },
+  "stt_settings_user": {
+    "title": "Mi servidor de transcripción",
+    "card": "Mi servidor de transcripción",
+    "card_help": "Envía tus dictados a tu propio servidor de reconocimiento de voz.",
+    "description": "Envía tus grabaciones a tu propio servidor de reconocimiento de voz, con tu propia clave API. Tu configuración sustituye a la definida por el administrador.",
+    "disabled_notice": "Tu administrador no ha permitido servidores de transcripción personales en esta instancia.",
+    "using_instance": "Actualmente la transcripción pasa por el servidor definido por el administrador. Activa tu propia configuración a continuación para usar el tuyo.",
+    "enable_label": "Usar mi propio servidor",
+    "enable_description": "El dictado y la transcripción de adjuntos usan el servidor y la clave API de abajo en lugar de los de la instancia.",
+    "messages": {
+      "incomplete": "Introduce una URL de servidor y un modelo antes de activar tu propio servidor de transcripción."
+    }
+  },
+  "stt": {
+    "modal": {
+      "title": "Dictar",
+      "recording_hint": "Habla y después detén la grabación para transcribirla. Se detiene sola tras {{minutes}} min.",
+      "stop": "Detener y transcribir",
+      "transcribing": "Transcribiendo...",
+      "transcribing_file": "Transcribiendo {{file}}...",
+      "review_label": "Transcripción",
+      "keep_audio": "Adjuntar también la grabación a esta nota",
+      "insert": "Insertar"
+    },
+    "attachment": {
+      "transcribe": "Transcribir",
+      "transcribe_into_note": "Transcribir en la nota"
+    },
+    "errors": {
+      "unsupported": "Este navegador no puede grabar audio.",
+      "insecure_context": "El micrófono necesita HTTPS. Abre Poznote por https, o a través de localhost.",
+      "permission_denied": "No se permitió a Poznote usar el micrófono.",
+      "no_microphone": "No se ha encontrado ningún micrófono.",
+      "microphone_failed": "No se pudo abrir el micrófono.",
+      "empty_recording": "No se ha grabado nada.",
+      "max_duration": "Se alcanzó la duración máxima de grabación, se transcribe lo grabado.",
+      "nothing_heard": "El servidor no oyó nada en esta grabación.",
+      "no_note": "Abre primero una nota: no hay dónde poner el texto.",
+      "failed": "Error en la transcripción: {{error}}",
+      "attach_failed": "El texto se insertó, pero no se pudo adjuntar la grabación: {{error}}",
+      "note_locked": "Esta nota no se puede editar desde aquí en este momento, así que el texto no se insertó. Cópialo del cuadro de arriba."
+    },
+    "server_errors": {
+      "no_server": "No hay ningún servidor de transcripción configurado",
+      "empty_result": "El servidor no devolvió ninguna transcripción",
+      "admin_required": "Se requiere acceso de administrador",
+      "no_url": "No hay ninguna URL de servidor configurada",
+      "unknown_action": "Acción desconocida",
+      "not_configured": "La transcripción no está configurada para esta cuenta",
+      "post_required": "Se requiere POST",
+      "too_large_for_server": "La grabación es demasiado grande para este servidor",
+      "no_audio": "No se recibió audio",
+      "empty_recording": "La grabación está vacía",
+      "too_large": "La grabación es demasiado grande",
+      "not_audio_file": "Ese archivo no es un audio que Poznote pueda enviar a transcribir",
+      "ids_required": "Se requieren el id de la nota y el del adjunto",
+      "note_read_failed": "No se pudo leer la nota",
+      "note_not_found": "Nota no encontrada",
+      "attachment_not_found": "Adjunto no encontrado",
+      "attachment_not_audio": "Ese adjunto no es un archivo de audio",
+      "attachment_missing": "Falta el archivo adjunto en el almacenamiento",
+      "attachment_too_large": "Esa grabación es demasiado grande para transcribirla",
+      "timeout": "El servidor de transcripción no respondió en {{seconds}} segundos. Prueba con una grabación más corta o un modelo más pequeño."
+    }
+  },
+  "audio_recorder": {
+    "title": "Grabar audio",
+    "hint": "Grabando. Detén la grabación para insertar el audio en la nota. Se detiene sola tras {{minutes}} min.",
+    "stop": "Detener e insertar",
+    "saving": "Guardando la grabación...",
+    "max_duration": "Se alcanzó la duración máxima de grabación, se inserta lo grabado.",
+    "upload_failed": "No se pudo guardar la grabación: {{error}}",
+    "download": "Descargar la grabación",
+    "no_note": "Abre primero una nota: la grabación se guarda como adjunto de esa nota."
   },
   "diary": {
     "title": "Diario",

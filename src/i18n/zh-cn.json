@@ -78,7 +78,22 @@
       "no_headings": "此笔记中没有标题",
       "unavailable_tasklist": "任务列表不支持大纲"
     },
-    "link_copied": "链接已复制"
+    "link_copied": "链接已复制",
+    "ok": "确定",
+    "caution": "注意",
+    "tip": "提示",
+    "important": "重要",
+    "note": "笔记",
+    "access_denied": "拒绝访问",
+    "scroll_left": "向左滚动",
+    "scroll_right": "向右滚动",
+    "calendar": "日历",
+    "date": {
+      "days_ago": "天前",
+      "today": "今天",
+      "yesterday": "昨天"
+    },
+    "network_error": "网络错误"
   },
   "snapshot": {
     "menu_item": "快照",
@@ -180,7 +195,16 @@
     "subfolder": {
       "expand": "展开子文件夹",
       "collapse": "折叠子文件夹"
-    }
+    },
+    "add_column": "添加列",
+    "new_column_title": "新建列",
+    "new_column_placeholder": "列名称",
+    "list": {
+      "filter_placeholder": "按看板名称筛选...",
+      "no_boards": "还没有看板。",
+      "hint": "在文件夹上启用看板视图后，它会显示在这里。"
+    },
+    "add_note": "添加笔记"
   },
   "folders": {
     "delete": {
@@ -244,7 +268,9 @@
     "subfolder": {
       "modal_title": "新建子文件夹",
       "modal_message": "输入子文件夹名称 (在 {{parent}} 中)"
-    }
+    },
+    "filter_placeholder": "按文件夹名称筛选...",
+    "no_folders": "还没有文件夹。"
   },
   "modal_alerts": {
     "cursor_warning": {
@@ -326,7 +352,8 @@
   "attachments": {
     "empty": "无附件。",
     "upload": {
-      "button_uploading": "正在上传..."
+      "button_uploading": "正在上传...",
+      "uploading": "正在上传..."
     },
     "actions": {
       "view": "查看",
@@ -407,6 +434,15 @@
       "all_file_types": "所有类型",
       "file_type_filter": "按文件类型筛选",
       "download": "下载"
+    },
+    "context_menu": {
+      "open": "打开",
+      "download": "下载",
+      "transcribe": "转录",
+      "delete": "删除",
+      "delete_confirm_title": "删除附件",
+      "delete_confirm_message": "删除“{{filename}}”？它将从笔记中移除且无法恢复。",
+      "delete_confirm_message_unnamed": "删除此附件？它将从笔记中移除且无法恢复。"
     }
   },
   "auth": {
@@ -497,7 +533,8 @@
       "s3_storage": "将笔记附件存储在 S3 兼容的对象存储中,而不是本地磁盘。",
       "s3_backup": "将完整备份归档上传到 S3 兼容的存储桶,可手动或按计划执行。",
       "highlight_current_folder_tree": "按你喜欢的程度淡化当前所在文件夹层级之外的笔记和文件夹。",
-      "snapshots": "选择每条笔记保留多少个每日自动快照，以及多少个安全快照（AI 或 MCP 编辑前）。"
+      "snapshots": "选择每条笔记保留多少个每日自动快照，以及多少个安全快照（AI 或 MCP 编辑前）。",
+      "stt": "配置用于听写笔记和转录音频附件的语音识别服务器。"
     },
     "title": "设置",
     "collapse_section": "折叠此部分",
@@ -576,7 +613,9 @@
       "saas": "SaaS 模式",
       "admin_contact": "帮助",
       "s3_storage": "S3 附件",
-      "s3_backup": "S3 备份"
+      "s3_backup": "S3 备份",
+      "stt": "转录",
+      "api_rest": "REST API"
     },
     "default_credentials": {
       "both": "此账户仍在使用默认的用户名和密码。任何能访问此实例的人都可以登录。",
@@ -615,7 +654,8 @@
     "actions": {
       "select": "选择",
       "move_notes": "移动笔记",
-      "menu": "工作区操作"
+      "menu": "工作区操作",
+      "background": "背景"
     },
     "count": {
       "notes_0": "0 篇笔记",
@@ -667,7 +707,10 @@
       "cannot_rename_default": "无法重命名启动工作区",
       "invalid_new_name": "新工作区名称无效。仅限使用字母、数字、连字符和下划线（无空格）。",
       "name_and_target_required": "需要工作区名称和目标",
-      "source_target_must_differ": "源工作区和目标工作区必须不同"
+      "source_target_must_differ": "源工作区和目标工作区必须不同",
+      "cannot_delete_last": "无法删除最后一个工作区",
+      "name_exists": "已存在同名工作区",
+      "no_workspace_selected": "未选择工作区"
     },
     "messages": {
       "creating": "正在创建工作区...",
@@ -713,7 +756,8 @@
         "restrict_users": "限制为特定用户",
         "users_loading": "正在加载用户...",
         "no_users_found": "未找到其他用户"
-      }
+      },
+      "url_label": "公开 URL"
     },
     "tags": {
       "action": "标签",
@@ -737,6 +781,13 @@
       "handle": "拖动以重新排序",
       "saved": "工作区顺序已更新",
       "save_error": "无法更新工作区顺序"
+    },
+    "info": {
+      "folders": "文件夹",
+      "notes": "笔记",
+      "shared": "已分享",
+      "shared_with": "分享给",
+      "tags": "标签"
     }
   },
   "display": {
@@ -779,7 +830,8 @@
       "slash_menu_require_alt": "命令菜单快捷键",
       "note_nav_shortcuts": "Alt + ↑/↓ 切换笔记",
       "ctrl_s_save": "Ctrl + S 保存笔记",
-      "snapshots": "快照"
+      "snapshots": "快照",
+      "show_note_icons": "显示笔记图标"
     },
     "badges": {
       "font_size_default": "默认 ({{size}}px)",
@@ -791,7 +843,11 @@
         "both": "工具栏图标 + 斜杠命令菜单"
       },
       "slash_menu_alt_slash": "Alt + /",
-      "slash_menu_slash": "/"
+      "slash_menu_slash": "/",
+      "note_font_size": "{{size}}px",
+      "sidebar_font_size": "{{size}}px",
+      "code_block_font_size": "{{size}}px",
+      "settings_font_size": "{{size}}px"
     },
     "alerts": {
       "error_saving_preference": "保存偏好设置出错"
@@ -827,7 +883,8 @@
     "support_poznote": "支持 Poznote",
     "version": "版本",
     "filter_placeholder": "筛选...",
-    "graph": "图谱"
+    "graph": "图谱",
+    "no_filter_results": "未找到结果。"
   },
   "search": {
     "placeholder": "搜索...",
@@ -862,7 +919,9 @@
       "discard": "保留当前版本",
       "restored": "您最近的更改已恢复并保存。",
       "restore_failed": "无法保存您的更改。请检查网络连接后重试。"
-    }
+    },
+    "unsaved_changes_title": "未保存的更改",
+    "unsaved_changes_warning": "⚠️ 你有未保存的更改。确定要离开吗？"
   },
   "tasklist": {
     "open_tasks_page": "查看所有任务",
@@ -891,7 +950,8 @@
     "unmark_important": "取消重要标记",
     "task_options": "任务选项",
     "remind_me": "提醒我",
-    "remind_me_hint": "将在截止日期和时间触发通知。"
+    "remind_me_hint": "将在截止日期和时间触发通知。",
+    "move_error": "无法移动任务"
   },
   "tags": {
     "add_single": "添加标签...",
@@ -936,6 +996,13 @@
       "error": "删除失败"
     }
   },
+  "download": "下载",
+  "convert": "转换",
+  "create": "创建",
+  "edit": "编辑",
+  "delete": "删除",
+  "favorite": "收藏",
+  "share": "分享",
   "trash": {
     "search": {
       "placeholder": "在回收站中搜索...",
@@ -1037,7 +1104,8 @@
       "green": "绿色",
       "blue": "蓝色",
       "purple": "紫色",
-      "none": "无"
+      "none": "无",
+      "red": "红色"
     },
     "font_size": {
       "very_small": "极小",
@@ -1088,7 +1156,9 @@
       "split_view": "切换分屏视图",
       "switch_to_edit": "切换到编辑模式",
       "switch_to_preview": "切换到预览模式",
-      "save_now": "立即保存"
+      "save_now": "立即保存",
+      "go_back": "后退",
+      "go_forward": "前进"
     },
     "link": {
       "add_title": "添加链接",
@@ -1127,7 +1197,9 @@
       "favorite": "收藏:",
       "attachments": "附件:",
       "note_id": "笔记 ID:",
-      "full_path": "完整路径:"
+      "full_path": "完整路径:",
+      "created_by": "创建者：",
+      "last_modified_by": "最后修改者："
     },
     "attachments": {
       "count_singular": "1 个文件",
@@ -1136,7 +1208,11 @@
     "empty": {
       "no_tags": "无标签"
     },
-    "errors": []
+    "errors": [],
+    "users": {
+      "user_id": "用户 #{{id}}",
+      "deleted": "用户 #{{id}}"
+    }
   },
   "modals": {
     "paste_markdown": {
@@ -1293,7 +1369,8 @@
       "remove_divider": "删除分隔线"
     },
     "language": {
-      "description": "选择您的首选语言:"
+      "description": "选择您的首选语言:",
+      "title": "选择语言"
     },
     "input": {
       "placeholder": "输入文本"
@@ -1319,7 +1396,9 @@
       "note_label": "笔记内容 (px):",
       "sidebar_label": "侧边栏 (px):",
       "default_value": "{{size}} 像素是默认值",
-      "preview": "预览"
+      "preview": "预览",
+      "code_block_label": "代码块（px）：",
+      "settings_label": "设置页面（px）："
     },
     "note_width": {
       "title": "笔记内容宽度",
@@ -1393,7 +1472,43 @@
       "delete_title": "确认删除工作区",
       "delete_description": "所有笔记和文件夹将被永久删除且无法恢复。",
       "delete_placeholder": "输入工作区名称以确认",
-      "delete_button": "删除工作区"
+      "delete_button": "删除工作区",
+      "share": {
+        "actions": {
+          "enable": "分享",
+          "edit": "编辑分享",
+          "copy_link": "复制链接",
+          "disable": "取消分享"
+        },
+        "confirm": {
+          "title": "以只读方式分享工作区",
+          "message": "任何拥有工作区“{{workspace}}”URL 的人，都能以只读方式访问该工作区中的所有笔记和文件夹。",
+          "confirm_button": "分享工作区"
+        },
+        "messages": {
+          "enabled": "只读工作区链接已启用",
+          "disabled": "只读工作区链接已禁用",
+          "url_copied": "分享链接已复制到剪贴板！"
+        },
+        "errors": {
+          "url_in_use": "此 Poznote 实例上已存在同名的公开工作区",
+          "copy_failed": "复制分享链接失败",
+          "save_failed": "保存只读工作区链接失败",
+          "disable_failed": "禁用只读工作区链接失败"
+        },
+        "status": {
+          "enabled": "已启用公开只读",
+          "disabled": "未公开分享"
+        },
+        "help": "任何拥有此 URL 的人都会直接以只读方式在此工作区中打开 Poznote。",
+        "url_label": "公开 URL",
+        "options": {
+          "require_login": "要求登录 Poznote",
+          "restrict_users": "仅限特定用户",
+          "users_loading": "正在加载用户...",
+          "no_users_found": "未找到其他用户"
+        }
+      }
     },
     "user_settings_info": {
       "title": "账户设置",
@@ -1436,7 +1551,27 @@
       "reset": "恢复默认行为",
       "search_placeholder": "搜索图标...",
       "gray": "灰色",
-      "black": "黑色"
+      "black": "黑色",
+      "amber": "琥珀色",
+      "blue": "蓝色",
+      "cyan": "青色",
+      "default_color": "默认",
+      "emerald": "翠绿色",
+      "fuchsia": "紫红色",
+      "green": "绿色",
+      "indigo": "靛蓝色",
+      "lime": "黄绿色",
+      "orange": "橙色",
+      "pink": "粉色",
+      "purple": "紫色",
+      "red": "红色",
+      "rose": "玫瑰色",
+      "sky": "天蓝色",
+      "slate": "石板灰",
+      "stone": "岩石灰",
+      "teal": "蓝绿色",
+      "violet": "紫罗兰色",
+      "yellow": "黄色"
     },
     "linked_selector": {
       "title": "从笔记创建快捷方式",
@@ -1654,7 +1789,15 @@
     },
     "task_move": {
       "create_new": "创建任务列表",
-      "create_error": "无法创建任务列表"
+      "create_error": "无法创建任务列表",
+      "title": "移动任务",
+      "description": "选择要将此任务移动到的任务列表。",
+      "search_placeholder": "搜索任务列表...",
+      "loading": "加载中...",
+      "empty": "未找到任务列表。",
+      "moving": "正在移动任务...",
+      "error": "无法加载任务列表。",
+      "confirm": "移动任务"
     },
     "tasklist_picker": {
       "title": "插入任务列表",
@@ -1677,6 +1820,40 @@
       "badge_with_safety": "每条笔记 {{count}} 个自动快照、{{safety}} 个安全快照",
       "warning_title": "快照只保存笔记的文本，附件不会被复制。",
       "warning": "附件和图片即使已从笔记中移除，只要仍被某个快照包含，就会继续保留在磁盘上。只有在包含它们的最后一个快照过期（最多 {{days}} 天）或笔记被永久删除后才会释放。"
+    },
+    "api_rest": {
+      "github_option": "GitHub",
+      "swagger_option": "Swagger",
+      "title": "REST API"
+    },
+    "attachment": {
+      "title": "附件"
+    },
+    "background_image": {
+      "description": "为工作区上传一张背景图片。你可以调整不透明度，让它不那么显眼。",
+      "no_image": "未设置背景图片",
+      "opacity": "背景不透明度",
+      "remove": "移除",
+      "title": "背景图片",
+      "upload": "上传图片"
+    },
+    "tag_folder_notes": {
+      "apply": "添加标签",
+      "applying": "正在添加标签...",
+      "count_one": "将为 1 条笔记添加标签",
+      "count_other": "将为 {{count}} 条笔记添加标签",
+      "empty_folder": "此文件夹为空",
+      "error": "无法为笔记添加标签",
+      "existing_tags": "已有标签",
+      "include_subfolders": "包含子文件夹中的笔记",
+      "no_tags": "请至少输入一个标签",
+      "placeholder": "标签，用逗号分隔",
+      "prompt_prefix": "为",
+      "prompt_suffix": " 中的每条笔记添加标签：",
+      "success_none": "所有笔记都已有这些标签",
+      "success_one": "已为 1 条笔记添加标签",
+      "success_other": "已为 {{count}} 条笔记添加标签",
+      "title": "为所有笔记添加标签"
     }
   },
   "notes_list": {
@@ -1685,7 +1862,8 @@
       "tags": "标签",
       "favorites": "收藏",
       "public": "共享",
-      "attachments": "附件"
+      "attachments": "附件",
+      "no_folder": "无文件夹"
     },
     "favorites": {
       "empty": "暂无收藏笔记。",
@@ -1714,7 +1892,11 @@
       "no_notes_title": "无笔记",
       "no_notes_in_folder": "此文件夹不包含笔记",
       "too_many_notes": "此文件夹包含 {{count}} 条笔记。为避免浏览器负担过重，仅打开前 {{max}} 条。",
-      "show_only": "仅显示此文件夹"
+      "show_only": "仅显示此文件夹",
+      "copy_folder": "复制",
+      "cut_folder": "剪切",
+      "paste_into_folder": "粘贴到文件夹",
+      "change_note_icon": "更改笔记图标"
     },
     "folder_filter": {
       "exit": "退出文件夹视图"
@@ -1729,8 +1911,41 @@
       "delete_note": "删除笔记",
       "enter_note_name": "请输入笔记标题",
       "attachments": "附件",
-      "convert_note": "转换笔记"
+      "convert_note": "转换笔记",
+      "copy_note": "复制",
+      "cut_note": "剪切",
+      "paste_note": "粘贴到此处"
     }
+  },
+  "tree_history": {
+    "undone": "已撤销：{{action}}",
+    "redone": "已重做：{{action}}",
+    "nothing_to_undo": "没有可撤销的操作",
+    "nothing_to_redo": "没有可重做的操作",
+    "undo_failed": "撤销失败：{{error}}",
+    "redo_failed": "重做失败：{{error}}",
+    "actions": {
+      "move_note": "移动笔记",
+      "move_folder": "移动文件夹",
+      "delete_note": "删除笔记",
+      "delete_folder": "删除文件夹",
+      "paste_note": "粘贴笔记",
+      "paste_folder": "粘贴文件夹",
+      "rename_note": "重命名笔记",
+      "rename_folder": "重命名文件夹"
+    }
+  },
+  "tree_clipboard": {
+    "copied_note": "已复制“{{name}}”",
+    "cut_note": "已剪切“{{name}}”",
+    "copied_folder": "已复制文件夹“{{name}}”",
+    "cut_folder": "已剪切文件夹“{{name}}”",
+    "pasted_note": "已粘贴“{{name}}”",
+    "pasted_folder": "已粘贴文件夹“{{name}}”",
+    "nothing_to_paste": "没有可粘贴的内容",
+    "already_there": "已在此文件夹中",
+    "cannot_paste_into_itself": "文件夹不能粘贴到自身中",
+    "paste_failed": "粘贴失败：{{error}}"
   },
   "note_color": {
     "modal_title": "笔记颜色",
@@ -1788,7 +2003,14 @@
     "filter_placeholder": "按标题或标签筛选...",
     "filter_age": "按时间筛选",
     "age_all": "所有笔记",
-    "age_recent": "仅近期"
+    "age_recent": "仅近期",
+    "all_types": "所有类型",
+    "filter_type": "按类型筛选",
+    "type_html": "HTML",
+    "type_markdown": "Markdown",
+    "type_tasklist": "任务列表",
+    "type_excalidraw": "Excalidraw",
+    "empty": "未找到笔记。"
   },
   "update": {
     "new_available": "🎉 有新版本可用！",
@@ -1868,7 +2090,30 @@
     "template": "模板",
     "template_none": "暂无模板",
     "template_none_hint": "将笔记放入名为“模板”的文件夹或工作区",
-    "template_insert_failed": "无法插入模板"
+    "template_insert_failed": "无法插入模板",
+    "dictate": "听写",
+    "record_audio": "录音",
+    "insert": "插入",
+    "media": "媒体",
+    "color": "颜色",
+    "color_red": "红色",
+    "color_blue": "蓝色",
+    "color_green": "绿色",
+    "color_yellow": "黄色",
+    "color_purple": "紫色",
+    "color_orange": "橙色",
+    "color_black": "黑色",
+    "bg_yellow": "黄色背景",
+    "youtube": "YouTube",
+    "streaming_videos": "流媒体视频",
+    "bilibili": "Bilibili",
+    "invalid_url": "无效的 URL",
+    "bilibili_invalid_url": "请输入有效的 Bilibili URL",
+    "bilibili_invalid_format": "Bilibili URL 格式无效。请使用视频页面 URL（bilibili.com/video/BV...）",
+    "streaming_video_url_prompt": "请输入流媒体视频 URL（YouTube、Vimeo 等）：",
+    "bilibili_help": "输入 Bilibili 视频页面 URL（例如 bilibili.com/video/BV...）",
+    "bilibili_modal_title": "插入 Bilibili 视频",
+    "video_insert": "插入"
   },
   "api": {
     "settings": {
@@ -1893,7 +2138,9 @@
       "no_token_generated": "未生成链接",
       "server_error": "服务器错误: {{error}}",
       "storage_s3_quota_reached": "已达到 S3 存储上限:此实例最多允许该用户使用 {{max}} MB 的 S3 存储。",
-      "backups_s3_quota_reached": "已达到 S3 备份上限:此实例最多允许该用户使用 {{max}} MB 的备份存档。"
+      "backups_s3_quota_reached": "已达到 S3 备份上限:此实例最多允许该用户使用 {{max}} MB 的备份存档。",
+      "cannot_delete_last_workspace": "无法删除最后一个工作区",
+      "workspace_required": "需要指定工作区"
     }
   },
   "ui": {
@@ -2009,7 +2256,8 @@
     "note": {
       "new_note": "新笔记",
       "new_note_numbered": "新笔记 ({{number}})",
-      "title_placeholder": "标题？"
+      "title_placeholder": "标题？",
+      "untitled": "无标题"
     },
     "editor": {
       "placeholder_desktop": "输入文本，使用 / 打开命令菜单，粘贴图片或在光标处拖放图片。",
@@ -2162,7 +2410,8 @@
       "own_account": "您的账户",
       "sign_out": "退出登录",
       "invalid": "无法选择此账户。"
-    }
+    },
+    "or": "或"
   },
   "restore_import": {
     "page": {
@@ -2177,7 +2426,8 @@
       "complete_backup_restored": "{{message}}",
       "notes_imported": "已将 {{count}} 篇笔记导入到工作区 \"{{workspace}}\" 的文件夹 \"{{folder}}\" 中。",
       "attachments_imported": "{{message}}",
-      "notes_imported_zip": "已从 ZIP 导入 {{count}} 篇笔记到工作区 \"{{workspace}}\" 的文件夹 \"{{folder}}\" 中。"
+      "notes_imported_zip": "已从 ZIP 导入 {{count}} 篇笔记到工作区 \"{{workspace}}\" 的文件夹 \"{{folder}}\" 中。",
+      "notes_imported_with_folders": "已在工作区“{{workspace}}”中导入 {{count}} 条笔记并创建 {{folders}} 个文件夹。"
     },
     "skipped_attachments": {
       "header": "已跳过的被阻止附件文件：",
@@ -2214,7 +2464,13 @@
       "failed_extract_content": "无法从 {{file}} 解压内容。",
       "s3_restore_forbidden": "此账户不允许从 S3 恢复。",
       "s3_restore_invalid_key": "无效的备份归档。",
-      "s3_restore_download_error": "无法从存储桶获取归档:{{error}}"
+      "s3_restore_download_error": "无法从存储桶获取归档:{{error}}",
+      "cannot_find_attachments_directory": "找不到附件目录",
+      "database_error_for_file": "{{file}} 的数据库错误：{{message}}",
+      "errors_prefix": "错误：",
+      "failed_write_file": "无法写入文件 {{file}}",
+      "internal_server_error": "服务器内部错误",
+      "invalid_form_submission": "表单提交无效，请重试。"
     },
     "spinner": {
       "processing": "正在处理还原...",
@@ -2250,7 +2506,8 @@
         "entries_dir_not_found": "找不到条目目录",
         "upload_error": "上传错误",
         "invalid_file_type": "无效的文件类型（仅允许 {{allowed}}）",
-        "cannot_read_file": "无法读取文件"
+        "cannot_read_file": "无法读取文件",
+        "no_workspace_available": "没有可用的工作区"
       },
       "summary_with_location": "这将导入 {{fileText}} 到工作区 \"{{workspace}}\" 的文件夹 \"{{folder}}\" 中。",
       "summary_zip_with_location": "这将解压并把 ZIP 归档中的所有文件导入到工作区 \"{{workspace}}\" 的文件夹 \"{{folder}}\" 中。"
@@ -2380,7 +2637,8 @@
         "body": "在执行导入前，请先选择一个文件。"
       },
       "no_workspace_title": "未选择工作区",
-      "no_workspace_body": "请为导入的笔记选择一个工作区。"
+      "no_workspace_body": "请为导入的笔记选择一个工作区。",
+      "no_zip_selected_title": "未选择 ZIP 文件"
     },
     "inline": {
       "standard": {
@@ -2425,6 +2683,10 @@
       "error": "导入失败：{{error}}",
       "upload_interrupted": "上一次上传在完成 {{total}} 个分片中的 {{done}} 个后被中断，未导入任何内容。您可以重新开始导入。",
       "worker_lost": "导入在完成前已停止。请检查服务器日志，然后重新开始。"
+    },
+    "import_notes": {
+      "default_title": "导入的笔记",
+      "summary": "已导入 {{imported}} 条笔记，更新 {{updated}} 条。"
     }
   },
   "markdown_guide": {
@@ -2607,7 +2869,8 @@
       "error_incorrect": "密码错误，请重试。",
       "additional_password_required": "此笔记需要额外密码。请输入下一个密码以继续。",
       "placeholder": "输入密码",
-      "unlock": "解锁"
+      "unlock": "解锁",
+      "workspace_heading": "受密码保护的工作区"
     },
     "errors": {
       "token_missing": "缺少链接",
@@ -2628,11 +2891,17 @@
       "discard_confirm": "放弃更改？",
       "locked": "其他人正在编辑此笔记，请稍后再试。",
       "lock_lost": "其他人正在编辑此笔记，您的最新更改无法保存。"
-    }
+    },
+    "tree_tools": "文件夹树",
+    "tree_search_hint": "搜索结果会自动展开显示。",
+    "shared_note_not_found_or_denied": "未找到分享的笔记或访问被拒绝。这可能发生在恢复之后。管理员可能需要在“设置 > 管理工具”中重建主数据库来修复分享链接。",
+    "token_update_failed": "更新令牌失败"
   },
   "public_folder": {
     "filter_placeholder": "按笔记标题筛选",
-    "no_filter_results": "无结果。"
+    "no_filter_results": "无结果。",
+    "view_notes": "以列表查看",
+    "view_kanban": "以看板查看"
   },
   "icon_names": {
     "briefcase": "公文包",
@@ -3038,7 +3307,10 @@
     "angry": "生气",
     "meh": "面无表情",
     "sun-moon": "日夜",
-    "handshake": "握手"
+    "handshake": "握手",
+    "euro": "欧元",
+    "globe": "地球",
+    "puzzle": "拼图"
   },
   "folder_icon": {
     "default": "默认"
@@ -3227,7 +3499,11 @@
       "delete_warning_item_s3": "其存储在 S3 存储桶中的附件和备份归档",
       "delete_warning_no_recovery": "无法恢复：不会保留任何内容，也不会事先创建备份。如果这些数据仍然重要，请在删除前下载完整的备份 ZIP 文件。",
       "delete_confirm_label": "输入“{{username}}”以确认：",
-      "delete_confirm_placeholder": "输入用户名以确认"
+      "delete_confirm_placeholder": "输入用户名以确认",
+      "delete_id_1_locked": "无法删除 ID 为 1 的用户",
+      "oidc_subject": "OIDC Subject（UUID）",
+      "oidc_subject_help": "可选：来自你的 OIDC 提供方（LLDAP、Authelia 等）的 UUID",
+      "oidc_subject_placeholder": "例如 510ec799-02f8-42e0-..."
     },
     "profile": {
       "title": "我的资料",
@@ -3324,7 +3600,13 @@
       "not_configured": "未配置",
       "not_configured_yet": "待配置",
       "hint": "{{provider}} 同步已禁用。管理员可以在设置 > 管理工具中启用它。",
-      "hint_enable": "Git 同步已禁用。管理员可以在设置 > 管理工具中启用它。"
+      "hint_enable": "Git 同步已禁用。管理员可以在设置 > 管理工具中启用它。",
+      "repository": "仓库",
+      "provider": "服务提供方",
+      "api_base": "API 基础 URL",
+      "author_name": "作者姓名",
+      "author_email": "作者邮箱",
+      "save": "保存配置"
     },
     "auto_sync": {
       "title": "自动同步",
@@ -3369,7 +3651,9 @@
       "push_success": "成功推送 {{count}} 条笔记，删除 {{deleted}} 个文件（{{errors}} 个错误）",
       "push_error": "推送失败：{{error}}",
       "pull_success": "拉取 {{pulled}} 条新笔记并更新 {{updated}} 条现有笔记，删除 {{deleted}} 条笔记（{{errors}} 个错误）",
-      "pull_error": "拉取失败：{{error}}"
+      "pull_error": "拉取失败：{{error}}",
+      "config_saved": "配置保存成功。",
+      "config_save_error": "配置保存失败。"
     },
     "debug": {
       "title": "调试信息",
@@ -3640,6 +3924,9 @@
       "password": "密码",
       "oidc": "SSO"
     }
+  },
+  "backlinks": {
+    "title": "反向链接"
   },
   "profile": {
     "card": "我的资料",
@@ -4198,7 +4485,133 @@
     "tool_update": "正在编辑笔记 #{{id}}",
     "tool_create": "正在创建笔记：{{title}}",
     "context_label": "笔记：",
-    "context_hint": "当您说“这条笔记”时，助手使用的笔记。"
+    "context_hint": "当您说“这条笔记”时，助手使用的笔记。",
+    "model_label": "模型：",
+    "model_hint": "打开 AI 助手设置。",
+    "back_to_assistant": "返回 AI 助手",
+    "workspace_label": "工作区：",
+    "tool_tags": "正在更新笔记 #{{id}} 的标签",
+    "tool_list_tags": "正在列出标签",
+    "tool_list_folders": "正在列出文件夹",
+    "tool_create_folder": "正在创建文件夹：{{path}}",
+    "tool_rename_folder": "正在将文件夹“{{folder}}”重命名为“{{name}}”",
+    "tool_move": "正在将笔记 #{{id}} 移到 {{folder}}",
+    "tool_move_root": "正在将笔记 #{{id}} 移出其文件夹",
+    "tool_favorite_on": "正在将笔记 #{{id}} 加入收藏",
+    "tool_favorite_off": "正在将笔记 #{{id}} 移出收藏",
+    "tool_folder_favorite": "正在更新文件夹“{{folder}}”的收藏状态",
+    "tool_reminder": "正在为笔记 #{{id}} 设置提醒",
+    "tool_reminder_remove": "正在移除笔记 #{{id}} 的提醒",
+    "tool_task_add": "正在添加任务：{{text}}",
+    "tool_task_update": "正在更新任务“{{task}}”",
+    "tool_task_delete": "正在移除任务“{{task}}”",
+    "tool_checklist": "正在更新笔记 #{{id}} 中的复选框",
+    "tool_delete": "正在将笔记 #{{id}} 移到回收站",
+    "tool_delete_folder": "正在将文件夹“{{folder}}”及其笔记移到回收站",
+    "scope_modal_title": "一次一个工作区",
+    "scope_modal_text": "助手无法同时处理多个工作区。在这里，它只会搜索、读取和修改工作区“{{workspace}}”中的笔记。",
+    "scope_modal_continue": "继续"
+  },
+  "stt_settings": {
+    "title": "转录",
+    "config_title": "配置",
+    "description": "将 Poznote 连接到语音识别服务器，把语音转成笔记文字。任何支持 OpenAI 音频 API 的服务器都可以，包括自托管的 Whisper，音频不会离开运行它的机器。",
+    "enable_label": "启用转录",
+    "enable_description": "在每条笔记的斜杠菜单“插入”下添加“听写”项，并为音频附件添加“转录”操作。",
+    "users_label": "允许使用管理员配置的转录服务器的用户",
+    "users_description": "只有选中的用户可以使用本页配置进行听写和转录。新用户在你将其添加到这里之前没有访问权限。",
+    "users_filter_placeholder": "筛选用户",
+    "provider_label": "转录服务器",
+    "url_description": "提供 POST /v1/audio/transcriptions 的服务器的基础 URL。对于运行在 Docker 主机上的容器，请使用 http://host.docker.internal:8000",
+    "api_key_description": "本地服务器不需要时留空。使用 OpenAI 时必填。",
+    "model_description": "Whisper 模型，例如 Systran/faster-whisper-small。在上方检查访问即可列出服务器提供的模型。whisper.cpp 只使用启动时指定的模型并忽略此项，但仍需填写一个值。",
+    "model_none_found": "此服务器没有列出任何模型。如果你知道模型名称，请在下方字段中输入，或查阅服务器文档。",
+    "language_label": "口述语言",
+    "language_description": "两个字母的代码，例如 en、fr 或 de。留空则由服务器自动识别语言，Whisper 很擅长这一点；如果你总是用同一种语言听写，而短句常被误判为其他语言，请填写。",
+    "user_keys_label": "允许使用个人转录服务器",
+    "user_keys_description": "每个用户都会在自己的设置中获得“转录”卡片，可在其中填写自己的服务器和 API 密钥。这样做后，其音频会发送到该服务器，而不是本页的服务器，无论该用户是否在上方列表中。",
+    "footer_note": "录音会上传到 Poznote，再由 Poznote 转发给转录服务器，而不是从浏览器直接发送。Poznote 不保留任何副本：文字返回后音频即被丢弃，除非用户选择把录音附加到笔记。",
+    "messages": {
+      "saved": "配置保存成功。",
+      "save_error": "配置保存失败。"
+    },
+    "max_duration_label": "最长录音时长",
+    "max_duration_description": "以分钟为单位，范围 1 到 {{limit}}。“听写”和“录音”达到该时长时会自动停止，避免遗忘的标签页发送一小时的音频。对话框会显示已用时间与该上限的对比。不影响对已有附件的转录。"
+  },
+  "stt_settings_user": {
+    "title": "我的转录服务器",
+    "card": "我的转录服务器",
+    "card_help": "将你的听写发送到你自己的语音识别服务器。",
+    "description": "使用你自己的 API 密钥，将录音发送到你自己的语音识别服务器。你的配置会替代管理员设置的配置。",
+    "disabled_notice": "管理员未在此实例上允许使用个人转录服务器。",
+    "using_instance": "转录目前使用管理员设置的服务器。在下方启用你自己的配置即可改用你的服务器。",
+    "enable_label": "使用我自己的服务器",
+    "enable_description": "听写和附件转录将使用下方的服务器和 API 密钥，而不是实例的配置。",
+    "messages": {
+      "incomplete": "启用你自己的转录服务器前，请填写服务器 URL 和模型。"
+    }
+  },
+  "stt": {
+    "modal": {
+      "title": "听写",
+      "recording_hint": "开始说话，然后停止录音即可转录。录音会在 {{minutes}} 分钟后自动停止。",
+      "stop": "停止并转录",
+      "transcribing": "正在转录...",
+      "transcribing_file": "正在转录 {{file}}...",
+      "review_label": "转录结果",
+      "keep_audio": "同时将录音附加到此笔记",
+      "insert": "插入"
+    },
+    "attachment": {
+      "transcribe": "转录",
+      "transcribe_into_note": "转录到笔记"
+    },
+    "errors": {
+      "unsupported": "此浏览器无法录音。",
+      "insecure_context": "麦克风需要 HTTPS。请通过 https 或 localhost 打开 Poznote。",
+      "permission_denied": "Poznote 未获准使用麦克风。",
+      "no_microphone": "未找到麦克风。",
+      "microphone_failed": "无法打开麦克风。",
+      "empty_recording": "没有录到任何内容。",
+      "max_duration": "已达到最长录音时长，正在转录已录制的内容。",
+      "nothing_heard": "服务器在此录音中没有听到任何内容。",
+      "no_note": "请先打开一条笔记：没有地方放置文字。",
+      "failed": "转录失败：{{error}}",
+      "attach_failed": "文字已插入，但无法附加录音：{{error}}",
+      "note_locked": "此笔记当前无法在此处编辑，因此文字未插入。请从上方文本框中复制。"
+    },
+    "server_errors": {
+      "no_server": "未配置转录服务器",
+      "empty_result": "服务器没有返回转录结果",
+      "admin_required": "需要管理员权限",
+      "no_url": "未配置服务器 URL",
+      "unknown_action": "未知操作",
+      "not_configured": "此账户未配置转录",
+      "post_required": "需要 POST 请求",
+      "too_large_for_server": "录音过大，此服务器无法接收",
+      "no_audio": "未收到音频",
+      "empty_recording": "录音为空",
+      "too_large": "录音过大",
+      "not_audio_file": "该文件不是 Poznote 可以发送转录的音频",
+      "ids_required": "需要笔记 ID 和附件 ID",
+      "note_read_failed": "无法读取笔记",
+      "note_not_found": "未找到笔记",
+      "attachment_not_found": "未找到附件",
+      "attachment_not_audio": "该附件不是音频文件",
+      "attachment_missing": "存储中缺少该附件文件",
+      "attachment_too_large": "该录音过大，无法转录",
+      "timeout": "转录服务器在 {{seconds}} 秒内没有响应。请尝试更短的录音或更小的模型。"
+    }
+  },
+  "audio_recorder": {
+    "title": "录音",
+    "hint": "正在录音。停止后即可将音频插入笔记。录音会在 {{minutes}} 分钟后自动停止。",
+    "stop": "停止并插入",
+    "saving": "正在保存录音...",
+    "max_duration": "已达到最长录音时长，正在插入已录制的内容。",
+    "upload_failed": "无法保存录音：{{error}}",
+    "download": "下载录音",
+    "no_note": "请先打开一条笔记：录音会保存为该笔记的附件。"
   },
   "diary": {
     "title": "日记",
