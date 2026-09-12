@@ -24,13 +24,11 @@ on:
       - dev
     paths:
       - '**.md'
-      - 'images/flags/**'
       - 'tools/docs-i18n.py'
       - '.github/workflows/ci-docs.yml'
   pull_request:
     paths:
       - '**.md'
-      - 'images/flags/**'
       - 'tools/docs-i18n.py'
       - '.github/workflows/ci-docs.yml'
 

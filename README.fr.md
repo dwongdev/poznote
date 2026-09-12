@@ -1,12 +1,12 @@
 <!-- lang-selector -->
 <p align="center">
-  <a href="README.md"><img src="images/flags/gb.svg" alt="English" title="English" width="24"></a>&nbsp;
-  <a href="README.fr.md"><img src="images/flags/fr.svg" alt="Français" title="Français" width="24"></a>&nbsp;
-  <a href="README.de.md"><img src="images/flags/de.svg" alt="Deutsch" title="Deutsch" width="24"></a>&nbsp;
-  <a href="README.es.md"><img src="images/flags/es.svg" alt="Español" title="Español" width="24"></a>&nbsp;
-  <a href="README.pt.md"><img src="images/flags/br.svg" alt="Português" title="Português" width="24"></a>&nbsp;
-  <a href="README.ru.md"><img src="images/flags/ru.svg" alt="Русский" title="Русский" width="24"></a>&nbsp;
-  <a href="README.zh-cn.md"><img src="images/flags/cn.svg" alt="简体中文" title="简体中文" width="24"></a>
+  🌐 <a href="README.md">English</a> ·
+  <b>Français</b> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.pt.md">Português</a> ·
+  <a href="README.ru.md">Русский</a> ·
+  <a href="README.zh-cn.md">简体中文</a>
 </p>
 <!-- /lang-selector -->
 

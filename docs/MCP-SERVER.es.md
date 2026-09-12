@@ -1,12 +1,12 @@
 <!-- lang-selector -->
 <p align="center">
-  <a href="MCP-SERVER.md"><img src="../images/flags/gb.svg" alt="English" title="English" width="24"></a>&nbsp;
-  <a href="MCP-SERVER.fr.md"><img src="../images/flags/fr.svg" alt="Français" title="Français" width="24"></a>&nbsp;
-  <a href="MCP-SERVER.de.md"><img src="../images/flags/de.svg" alt="Deutsch" title="Deutsch" width="24"></a>&nbsp;
-  <a href="MCP-SERVER.es.md"><img src="../images/flags/es.svg" alt="Español" title="Español" width="24"></a>&nbsp;
-  <a href="MCP-SERVER.pt.md"><img src="../images/flags/br.svg" alt="Português" title="Português" width="24"></a>&nbsp;
-  <a href="MCP-SERVER.ru.md"><img src="../images/flags/ru.svg" alt="Русский" title="Русский" width="24"></a>&nbsp;
-  <a href="MCP-SERVER.zh-cn.md"><img src="../images/flags/cn.svg" alt="简体中文" title="简体中文" width="24"></a>
+  🌐 <a href="MCP-SERVER.md">English</a> ·
+  <a href="MCP-SERVER.fr.md">Français</a> ·
+  <a href="MCP-SERVER.de.md">Deutsch</a> ·
+  <b>Español</b> ·
+  <a href="MCP-SERVER.pt.md">Português</a> ·
+  <a href="MCP-SERVER.ru.md">Русский</a> ·
+  <a href="MCP-SERVER.zh-cn.md">简体中文</a>
 </p>
 <!-- /lang-selector -->
 

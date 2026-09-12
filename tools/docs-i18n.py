@@ -12,8 +12,8 @@ relative image paths are the same in both.
 Translators keep every link target and #anchor exactly as in English. `fix`
 then does three things on every page:
 
-  1. writes the language selector, a centred row of flags, between the
-     lang-selector markers at the top of the page, English included;
+  1. writes the language selector between the lang-selector markers at the
+     top of the page, English included;
   2. points relative links to a translated page at the same language
      (docs/MCP-SERVER.md -> docs/MCP-SERVER.fr.md); API-REST.md and the other
      untranslated pages keep their English link;
@@ -56,19 +56,6 @@ LANGUAGES = {
     "ru": "Русский",
     "zh-cn": "简体中文",
 }
-
-# Flag shown for each language, from images/flags/ (flag-icons, see vendor.json).
-# Portuguese gets Brazil's flag: the pt translations are Brazilian Portuguese.
-FLAGS = {
-    "en": "gb",
-    "fr": "fr",
-    "de": "de",
-    "es": "es",
-    "pt": "br",
-    "ru": "ru",
-    "zh-cn": "cn",
-}
-FLAG_WIDTH = 24
 
 SELECTOR_START = "<!-- lang-selector -->"
 SELECTOR_END = "<!-- /lang-selector -->"
@@ -212,19 +199,18 @@ def relative(from_rel, to_rel):
 
 
 def selector_block(page, lang):
-    """A centred row of flags. The current language links to its own page too:
-    an image outside a link is wrapped by GitHub in a link to the raw file."""
-    here = translated_path(page, lang)
+    """A centred line of language names, the current one in bold."""
     items = []
     for code, name in LANGUAGES.items():
-        target = relative(here, translated_path(page, code))
-        flag = relative(here, f"images/flags/{FLAGS[code]}.svg")
-        items.append(f"<a href=\"{target}\"><img src=\"{flag}\" alt=\"{name}\" "
-                     f"title=\"{name}\" width=\"{FLAG_WIDTH}\"></a>")
+        if code == lang:
+            items.append(f"<b>{name}</b>")
+        else:
+            target = relative(translated_path(page, lang), translated_path(page, code))
+            items.append(f"<a href=\"{target}\">{name}</a>")
     return "\n".join([
         SELECTOR_START,
         "<p align=\"center\">",
-        "  " + "&nbsp;\n  ".join(items),
+        "  🌐 " + " ·\n  ".join(items),
         "</p>",
         SELECTOR_END,
     ])
@@ -436,10 +422,6 @@ def check():
         for i, line in doc.prose:
             if EM_DASH_RE.search(INLINE_CODE_RE.sub("", line)):
                 report(rel, f"line {i + 1}: em dash in prose")
-
-    for code, flag in FLAGS.items():
-        if not (ROOT / f"images/flags/{flag}.svg").is_file():
-            report(f"images/flags/{flag}.svg", f"missing, used by the {code} selector entry")
 
     for p in problems:
         print(p)
