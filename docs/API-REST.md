@@ -175,10 +175,19 @@ List all notes for a user with optional filtering and sorting.
 | `favorite` | boolean | Filter favorites only |
 | `sort` | string | Sort order: `updated_desc`, `created_desc`, `heading_asc` |
 | `get_folders` | boolean | Include folder information |
+| `limit` | integer | Page size, 1 to 1000. Omit to get every matching note |
+| `offset` | integer | Number of matching notes to skip, for the next page |
 
 ```bash
 curl -u 'username:password' -H "X-User-ID: 1" \
   http://YOUR_SERVER/api/v1/notes
+```
+
+The response carries `count`, the number of notes in this answer, and `total`, the number of notes the filters match, with `offset`, `limit` and `has_more`. A page is therefore never mistaken for the whole list: while `has_more` is true, ask again with `offset` raised by the page size.
+
+```bash
+curl -u 'username:password' -H "X-User-ID: 1" \
+  "http://YOUR_SERVER/api/v1/notes?workspace=Personal&limit=50&offset=50"
 ```
 
 Filter notes by workspace and folder:
