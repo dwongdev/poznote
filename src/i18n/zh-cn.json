@@ -1974,7 +1974,8 @@
       "pin": "固定标签页",
       "unpin": "取消固定标签页",
       "close": "关闭",
-      "close_all": "关闭所有"
+      "close_all": "关闭所有",
+      "close_others": "关闭除此之外的所有标签页"
     },
     "close_all_tabs": "关闭所有标签页"
   },

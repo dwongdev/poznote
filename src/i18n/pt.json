@@ -1976,7 +1976,8 @@
       "pin": "Fixar aba",
       "unpin": "Desafixar aba",
       "close": "Fechar",
-      "close_all": "Fechar todas"
+      "close_all": "Fechar todas",
+      "close_others": "Fechar todas exceto esta"
     },
     "close_all_tabs": "Fechar todas as abas"
   },

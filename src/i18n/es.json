@@ -1976,7 +1976,8 @@
       "pin": "Fijar pestaña",
       "unpin": "Desfijar pestaña",
       "close": "Cerrar",
-      "close_all": "Cerrar todas"
+      "close_all": "Cerrar todas",
+      "close_others": "Cerrar todas excepto esta"
     },
     "close_all_tabs": "Cerrar todas las pestañas"
   },

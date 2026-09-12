@@ -897,6 +897,33 @@
         render();
     }
 
+    /**
+     * Close every tab except the given one. Pinned tabs stay open, like with
+     * "Close all". The kept tab becomes the active one.
+     */
+    function closeOtherTabs(tabId) {
+        var keep = _findTabById(tabId);
+        if (!keep) return;
+        if (keep.id !== activeTabId) _saveScrollPosition();
+
+        tabs = tabs.filter(function (t) {
+            if (t.id === tabId || _isPinnedTab(t)) return true;
+            delete _scrollPositions[t.id];
+            return false;
+        });
+
+        if (keep.id === activeTabId) {
+            _saveToStorage();
+            render();
+            return;
+        }
+
+        activeTabId = keep.id;
+        _saveToStorage();
+        render();
+        _loadTabContent(keep);
+    }
+
     // ── Tab context menu ───────────────────────────────────────────────────
 
     function _removeContextMenu() {
@@ -948,15 +975,18 @@
             menu.appendChild(closeItem);
         }
 
-        if (tabs.length > 1) {
-            var closeAllItem = document.createElement('div');
-            closeAllItem.className = 'app-tab-context-item app-tab-context-item-danger';
-            closeAllItem.innerHTML = _t('tabs.context_menu.close_all', 'Close all tabs');
-            closeAllItem.addEventListener('click', function () {
+        var hasOtherClosable = tabs.some(function (t) {
+            return t.id !== tabId && !_isPinnedTab(t);
+        });
+        if (hasOtherClosable) {
+            var closeOthersItem = document.createElement('div');
+            closeOthersItem.className = 'app-tab-context-item app-tab-context-item-danger';
+            closeOthersItem.innerHTML = _t('tabs.context_menu.close_others', 'Close all except this one');
+            closeOthersItem.addEventListener('click', function () {
                 _removeContextMenu();
-                closeAllTabs();
+                closeOtherTabs(tabId);
             });
-            menu.appendChild(closeAllItem);
+            menu.appendChild(closeOthersItem);
         }
 
         document.body.appendChild(menu);

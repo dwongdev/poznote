@@ -1976,7 +1976,8 @@
       "pin": "Tab anheften",
       "unpin": "Tab lösen",
       "close": "Schließen",
-      "close_all": "Alle schließen"
+      "close_all": "Alle schließen",
+      "close_others": "Alle außer diesem schließen"
     },
     "close_all_tabs": "Alle Tabs schließen"
   },

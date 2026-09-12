@@ -1478,7 +1478,8 @@
       "pin": "Pin tab",
       "unpin": "Unpin tab",
       "close": "Close",
-      "close_all": "Close all"
+      "close_all": "Close all",
+      "close_others": "Close all except this one"
     },
     "close_all_tabs": "Close all tabs"
   },
