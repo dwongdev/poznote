@@ -213,6 +213,27 @@ class PoznoteClient:
             return data.get("notes", [])
         return []
 
+    def convert_content(self, content: str, source_type: str, target_type: str, user_id: str | int | None = None) -> str:
+        """Convert a piece of content between HTML ('note') and Markdown
+
+        Uses the same converters as whole-note conversion and the web
+        "/template" command, so a template pasted across note types looks the
+        same wherever it was inserted from.
+        """
+        if source_type == target_type or not content.strip():
+            return content
+        to_markdown = target_type == "markdown"
+        response = self.client.post(
+            "/convert-html" if to_markdown else "/convert-markdown",
+            json={"html": content} if to_markdown else {"markdown": content},
+            headers=self._headers_for_user(user_id),
+        )
+        response.raise_for_status()
+        data = response.json()
+        if data.get("success") is False:
+            raise ValueError(data.get("error") or "Conversion failed")
+        return str(data.get("markdown" if to_markdown else "html") or "")
+
     def create_note(
         self,
         title: str,
