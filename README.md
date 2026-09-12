@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <b>English</b> ·
+  <b>English</b> ·
   <a href="README.fr.md">Français</a> ·
   <a href="README.de.md">Deutsch</a> ·
   <a href="README.es.md">Español</a> ·

@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <b>English</b> ·
+  <b>English</b> ·
   <a href="MCP-SERVER.fr.md">Français</a> ·
   <a href="MCP-SERVER.de.md">Deutsch</a> ·
   <a href="MCP-SERVER.es.md">Español</a> ·

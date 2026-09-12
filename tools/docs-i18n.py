@@ -210,7 +210,7 @@ def selector_block(page, lang):
     return "\n".join([
         SELECTOR_START,
         "<p align=\"center\">",
-        "  🌐 " + " ·\n  ".join(items),
+        "  " + " ·\n  ".join(items),
         "</p>",
         SELECTOR_END,
     ])

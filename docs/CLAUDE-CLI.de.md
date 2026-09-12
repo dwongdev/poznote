@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <a href="CLAUDE-CLI.md">English</a> ·
+  <a href="CLAUDE-CLI.md">English</a> ·
   <a href="CLAUDE-CLI.fr.md">Français</a> ·
   <b>Deutsch</b> ·
   <a href="CLAUDE-CLI.es.md">Español</a> ·

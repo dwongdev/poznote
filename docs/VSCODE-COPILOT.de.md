@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <a href="VSCODE-COPILOT.md">English</a> ·
+  <a href="VSCODE-COPILOT.md">English</a> ·
   <a href="VSCODE-COPILOT.fr.md">Français</a> ·
   <b>Deutsch</b> ·
   <a href="VSCODE-COPILOT.es.md">Español</a> ·

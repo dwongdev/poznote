@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <b>English</b> ·
+  <b>English</b> ·
   <a href="AI-ASSISTANT.fr.md">Français</a> ·
   <a href="AI-ASSISTANT.de.md">Deutsch</a> ·
   <a href="AI-ASSISTANT.es.md">Español</a> ·

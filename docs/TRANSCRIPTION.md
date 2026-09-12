@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <b>English</b> ·
+  <b>English</b> ·
   <a href="TRANSCRIPTION.fr.md">Français</a> ·
   <a href="TRANSCRIPTION.de.md">Deutsch</a> ·
   <a href="TRANSCRIPTION.es.md">Español</a> ·

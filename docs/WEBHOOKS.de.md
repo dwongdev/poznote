@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <a href="WEBHOOKS.md">English</a> ·
+  <a href="WEBHOOKS.md">English</a> ·
   <a href="WEBHOOKS.fr.md">Français</a> ·
   <b>Deutsch</b> ·
   <a href="WEBHOOKS.es.md">Español</a> ·

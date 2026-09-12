@@ -1,6 +1,6 @@
 <!-- lang-selector -->
 <p align="center">
-  🌐 <a href="TROUBLESHOOTING.md">English</a> ·
+  <a href="TROUBLESHOOTING.md">English</a> ·
   <a href="TROUBLESHOOTING.fr.md">Français</a> ·
   <b>Deutsch</b> ·
   <a href="TROUBLESHOOTING.es.md">Español</a> ·
