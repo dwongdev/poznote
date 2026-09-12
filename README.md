@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <b>English</b> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.pt.md">Português</a> ·
+  <a href="README.ru.md">Русский</a> ·
+  <a href="README.zh-cn.md">简体中文</a>
+</p>
+<!-- /lang-selector -->
+
 
 <p align="center">
   <img src="images/poznote-logo-text.png" alt="Poznote Logo" width="400">
@@ -593,7 +605,7 @@ Poznote supports two primary note formats, each tailored for different workflows
 *   **Editor:** Markdown syntax editor with real-time preview.
 *   **Storage:** Saved as `.md` files in the user data directory.
 *   **Exclusive Features:**
-    *   **Mermaid Diagrams:** </strong> Native support for generating diagrams (flowcharts, sequence, etc.) via ` ```mermaid ` code blocks.
+    *   **Mermaid Diagrams:** Native support for generating diagrams (flowcharts, sequence, etc.) via ` ```mermaid ` code blocks.
     *   **Math Equations:** Robust LaTeX support for mathematical formulas using `$ inline $` and `$$ block $$` syntax.
     *   **Portability:** Standard Markdown format compatible with any external editor or static site generator.
 </details>
@@ -634,6 +646,7 @@ Poznote supports two primary note formats, each tailored for different workflows
 *   **Usage:** Write one note per day, journal-style, from a dedicated Diary board.
 *   **Workflow:** The "Today's entry" button opens today's note, creating it if needed, titled with the current date and stored automatically in a `Diary/YYYY/MM` folder structure.
 *   **Board View:** Entries are displayed as cards grouped by month, newest first, with a filter to quickly find past entries.
+*   **Journal View:** The scroll button next to the view controls switches to one reading column: every entry with its full content, newest first, loaded as you scroll. The filter works there too.
 *   **Format:** New entries are created as HTML or Markdown notes, depending on the "Diary entry format" setting under **Settings > Behavior**.
 </details>
 
@@ -1241,18 +1254,11 @@ The AI server is called from the Poznote server, never from your browser. With a
 
 ## Transcription (speech to text)
 
-Poznote can turn voice into note text through a speech-to-text server you run yourself. It embeds no speech model: it talks to any server exposing the OpenAI audio API (`POST /v1/audio/transcriptions`), which every self-hostable Whisper distribution speaks, [Speaches](https://github.com/speaches-ai/speaches), [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and [LocalAI](https://localai.io) among them. Point it at a container on your own machine and the audio never leaves it.
+Turn voice into note text with a speech-to-text server you run yourself. Poznote embeds no speech model: it talks to any server exposing the OpenAI audio API (`POST /v1/audio/transcriptions`), such as a self-hosted Whisper, so the audio never has to leave your machine.
 
-Once configured, two things appear:
+Once an administrator enables it in **Settings → Admin Tools → Transcription**, you get **Dictate** under **Insert** in the slash menu, and a **Transcribe** button on audio attachments.
 
-- **Dictate**, in the slash menu of every note. Type `/` and pick **Dictate**, speak, stop, and the transcript comes back in a box where you can correct it before it goes into the note, at the cursor, in rich-text and Markdown notes alike. A checkbox offers to keep the recording as an attachment; unticked, which is the default, the audio is discarded once the text comes back.
-- **Transcribe**, on audio attachments. Any `mp3`, `wav`, `ogg`, `m4a` or `flac` file attached to a note gets a microphone button in the attachments dialog, which is what you want for a voice memo recorded on your phone and dropped into Poznote.
-
-To enable it, go to **Settings → Admin Tools → Transcription** (administrator only), pick a server, use **Check access and list models**, and tick the users allowed to use it. Access is granted profile by profile, and the administrator can also allow personal servers, which gives every user a **My transcription server** card in their own settings.
-
-For the full guide, covering the three server options with ready-to-run Docker commands, choosing a model, spoken language, and why the microphone needs HTTPS, see the [Transcription documentation](docs/TRANSCRIPTION.md).
-
-Recordings are uploaded to Poznote and forwarded to the transcription server from there, never from your browser. Poznote keeps no copy of the audio unless you ask it to attach the recording.
+Setting up a server, choosing a model, and everything else is in the [Transcription documentation](docs/TRANSCRIPTION.md).
 
 ## MCP Server
 

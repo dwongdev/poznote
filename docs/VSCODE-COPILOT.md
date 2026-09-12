@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <b>English</b> ·
+  <a href="VSCODE-COPILOT.fr.md">Français</a> ·
+  <a href="VSCODE-COPILOT.de.md">Deutsch</a> ·
+  <a href="VSCODE-COPILOT.es.md">Español</a> ·
+  <a href="VSCODE-COPILOT.pt.md">Português</a> ·
+  <a href="VSCODE-COPILOT.ru.md">Русский</a> ·
+  <a href="VSCODE-COPILOT.zh-cn.md">简体中文</a>
+</p>
+<!-- /lang-selector -->
+
 # Using Poznote MCP Server with VS Code Copilot
 
 This guide explains how to configure and use the Poznote MCP server with VS Code Copilot.
@@ -454,7 +466,7 @@ Full details: [MCP Server Security](MCP-SERVER.md#security).
 - [Main MCP Server Documentation](MCP-SERVER.md)
 - [VS Code MCP Official Documentation](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 - [Claude CLI Setup](CLAUDE-CLI.md)
-- [Security Considerations](MCP-SERVER.md#security-considerations)
+- [Security Considerations](MCP-SERVER.md#security)
 
 ## Support
 

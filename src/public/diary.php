@@ -3,7 +3,8 @@
  * Diary - daily notes board. Shows the notes stored under the Diary folder
  * (Diary/YYYY/MM) as cards grouped by month, newest first, with a one-click
  * "Today's entry" button that opens (or creates) the note titled with
- * today's date.
+ * today's date. The journal toggle swaps the board for one reading column of
+ * full entries (js/diary-page.js, bodies from api/v1/diary/entries.php).
  */
 require_once __DIR__ . '/../page_bootstrap.php';
 
@@ -41,15 +42,6 @@ function diaryBuildSwitchUrl(string $pageWorkspace, int $diaryId): string {
     return $url;
 }
 
-/**
- * The day a diary entry belongs to, as YYYY-MM-DD: the day its title
- * designates when the title is a date in a supported format (so renaming an
- * entry re-dates it), otherwise its creation date.
- */
-function diaryEntryDate(string $heading, string $created): string {
-    return parseDiaryEntryTitle($heading) ?? $created;
-}
-
 function diaryBuildNoteData(array $note, string $pageWorkspace): array {
     $noteId  = (int)$note['id'];
     $preview = buildNoteCardPreview($noteId, (string)($note['type'] ?? 'note'));
@@ -59,10 +51,18 @@ function diaryBuildNoteData(array $note, string $pageWorkspace): array {
     $iconRaw = !empty($note['icon']) ? convertFontAwesomeToLucide($note['icon']) : '';
     $iconColor = !empty($note['icon_color']) ? (string)$note['icon_color'] : '';
     $created = convertUtcToUserTimezone((string)($note['created'] ?? ''), 'Y-m-d');
+    $titleDate = parseDiaryEntryTitle(trim((string)($note['heading'] ?? '')));
     return [
         'id'        => $noteId,
         'heading'   => $heading,
-        'entryDate' => diaryEntryDate(trim((string)($note['heading'] ?? '')), $created),
+        'type'      => (string)($note['type'] ?? 'note'),
+        // The day the entry belongs to: the one its title designates when the
+        // title is a date in a supported format (so renaming an entry re-dates
+        // it), otherwise its creation date.
+        'entryDate' => $titleDate ?? $created,
+        // The journal view shows a dated title as a spelled-out day, any other
+        // title as it is.
+        'dated'     => $titleDate !== null,
         // newtab=1 tells tabs.js to open the note as a new internal tab (see js/tabs.js).
         'url'       => 'index.php?note=' . $noteId . '&newtab=1' . ($pageWorkspace !== '' ? '&workspace=' . urlencode($pageWorkspace) : ''),
         'text'      => $preview['text'],
@@ -151,6 +151,21 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 </head>
 <body class="favorites-page dashboard-page diary-page has-icon-sidebar"
       data-workspace="<?php echo htmlspecialchars($pageWorkspace, ENT_QUOTES, 'UTF-8'); ?>">
+	<script>
+	// Journal mode and the dates panel's state before the first paint, so the
+	// page does not render the board's layout and then jump (js/diary-page.js
+	// takes over on DOMContentLoaded).
+	(function () {
+		try {
+			var store = window.__poznoteUserStorage || window.localStorage;
+			if (store.getItem('diaryViewMode') === 'journal') document.body.classList.add('diary-journal-active');
+			// Open by default (unlike the note outline): closed only once the reader closed it.
+			if (window.innerWidth > 800 && store.getItem('diaryOutlineCollapsed') === 'true') document.body.classList.add('outline-collapsed');
+			var width = parseInt(window.localStorage.getItem('outlineWidth'), 10);
+			if (width >= 200 && width <= 500) document.documentElement.style.setProperty('--outline-width', width + 'px');
+		} catch (e) { /* storage unavailable */ }
+	})();
+	</script>
 
 	<?php include __DIR__ . '/../icon_sidebar.php'; ?>
 
@@ -171,15 +186,28 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 			<?php if (count($diaryRoots) > 1): ?>
 			<nav class="diary-switcher">
 				<?php foreach ($diaryRoots as $root): ?>
-				<a class="diary-switch-btn<?php echo ($selectedDiary !== null && $root['id'] === $selectedDiary['id']) ? ' diary-switch-active' : ''; ?>"
-				   href="<?php echo htmlspecialchars(diaryBuildSwitchUrl($pageWorkspace, $root['id']), ENT_QUOTES, 'UTF-8'); ?>">
-					<i class="lucide lucide-book-open"></i>
-					<?php echo htmlspecialchars($root['name'], ENT_QUOTES, 'UTF-8'); ?>
-				</a>
+				<?php $rootNameAttr = htmlspecialchars($root['name'], ENT_QUOTES, 'UTF-8'); ?>
+				<div class="diary-switch-btn<?php echo ($selectedDiary !== null && $root['id'] === $selectedDiary['id']) ? ' diary-switch-active' : ''; ?>">
+					<a class="diary-switch-link" href="<?php echo htmlspecialchars(diaryBuildSwitchUrl($pageWorkspace, $root['id']), ENT_QUOTES, 'UTF-8'); ?>">
+						<i class="lucide lucide-book-open"></i>
+						<?php echo $rootNameAttr; ?>
+					</a>
+					<button type="button" class="diary-switch-delete" data-diary-id="<?php echo (int)$root['id']; ?>" data-diary-name="<?php echo $rootNameAttr; ?>"
+						title="<?php echo t_h('diary.delete_title', [], 'Delete diary'); ?>" aria-label="<?php echo t_h('diary.delete_title', [], 'Delete diary'); ?>">
+						<i class="lucide lucide-trash-2"></i>
+					</button>
+				</div>
 				<?php endforeach; ?>
 			</nav>
 			<?php endif; ?>
 			<div class="board-filter-row">
+			<button type="button" id="diaryJournalToggle" class="board-view-btn diary-journal-toggle" aria-pressed="false" title="<?php echo t_h('diary.journal_view', [], 'Journal view'); ?>">
+				<i class="lucide lucide-scroll"></i>
+			</button>
+			<?php // Phones have no edge handle: the dates panel opens from here instead. ?>
+			<button type="button" id="diaryOutlineMobileBtn" class="board-view-btn diary-outline-mobile-btn" title="<?php echo t_h('common.outline.title', [], 'Outline'); ?>">
+				<i class="lucide lucide-list"></i>
+			</button>
 			<?php renderBoardViewMenu('diary'); ?>
 			<div id="dashboardTopbarFilter" class="dashboard-topbar-filter">
 				<i class="lucide lucide-search dashboard-filter-icon"></i>
@@ -209,11 +237,31 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 		<div id="diaryContent" class="diary-content"></div>
 	</div>
 
+	<?php // Dates of the journal view, same panel as the note outline (css/outline.css). ?>
+	<div class="outline-mobile-backdrop" id="outlineMobileBackdrop"></div>
+	<div class="outline-resize-handle diary-outline-handle" id="outlineResizeHandle">
+		<button type="button" id="toggleOutlineBtn" class="toggle-outline-btn"
+			aria-label="<?php echo t_h('common.outline.title', [], 'Outline'); ?>"
+			title="<?php echo t_h('common.outline.title', [], 'Outline'); ?>">
+			<i class="lucide lucide-chevron-right"></i>
+		</button>
+	</div>
+	<aside id="outline-panel" class="diary-outline">
+		<div class="outline-header">
+			<h2 class="outline-title"><?php echo t_h('common.outline.title', [], 'Outline'); ?></h2>
+			<button type="button" class="outline-close-btn" aria-label="<?php echo t_h('common.close', [], 'Close'); ?>" title="<?php echo t_h('common.close', [], 'Close'); ?>">
+				<i class="lucide lucide-x"></i>
+			</button>
+		</div>
+		<ul class="outline-nav" id="diaryOutlineNav"></ul>
+	</aside>
+
 	<script>
 	window.DIARY_DATA = {
 		notes: <?php echo json_encode($diaryNotes, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP); ?>,
 		todayNoteId: <?php echo json_encode($todayNoteId); ?>,
 		todayTitle: <?php echo json_encode($todayTitle); ?>,
+		todayIso: <?php echo json_encode($todayIso); ?>,
 		folderPath: <?php echo json_encode($diaryFolderPath); ?>,
 		workspace: <?php echo json_encode($diaryWorkspace); ?>,
 		noteType: <?php echo json_encode(getDiaryDefaultNoteType()); ?>,
@@ -227,6 +275,16 @@ $cache_v = urlencode(poznoteBuildAssetCacheVersion(getAppVersion()));
 			newDiaryTitle: <?php echo json_encode(t('diary.new_modal_title', [], 'Create a new diary')); ?>,
 			newDiaryPlaceholder: <?php echo json_encode(t('diary.new_name_placeholder', [], 'Diary name')); ?>,
 			newDiaryError: <?php echo json_encode(t('diary.new_create_error', [], 'Could not create the diary.')); ?>,
+			deleteDiaryTitle: <?php echo json_encode(t('diary.delete_title', [], 'Delete diary')); ?>,
+			deleteDiaryConfirm: <?php echo json_encode(t('diary.delete_confirm', [], 'Delete the diary "{{name}}"? Its folders are removed and all its entries are moved to the trash.')); ?>,
+			deleteDiaryError: <?php echo json_encode(t('diary.delete_error', [], 'Could not delete the diary.')); ?>,
+			deleteLabel: <?php echo json_encode(t('common.delete', [], 'Delete')); ?>,
+			journalOpen: <?php echo json_encode(t('diary.journal_open', [], 'Open the note')); ?>,
+			journalTrash: <?php echo json_encode(t('diary.journal_trash', [], 'Move to trash')); ?>,
+			journalTrashConfirm: <?php echo json_encode(t('diary.journal_trash_confirm', [], 'Move "{{title}}" to the trash?')); ?>,
+			journalTrashError: <?php echo json_encode(t('diary.journal_trash_error', [], 'Could not move this entry to the trash.')); ?>,
+			journalEmptyEntry: <?php echo json_encode(t('diary.journal_empty_entry', [], 'This entry is empty.')); ?>,
+			journalLoadError: <?php echo json_encode(t('diary.journal_load_error', [], 'Could not load this entry.')); ?>,
 			create: <?php echo json_encode(t('common.create', [], 'Create')); ?>,
 			cancel: <?php echo json_encode(t('common.cancel', [], 'Cancel')); ?>
 		}

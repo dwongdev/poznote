@@ -1267,16 +1267,17 @@ $modalsPasswordDisabledHelp = $modalsPasswordDisabledReason === 'sso_only'
 -->
 <div id="dictateModal" class="modal">
     <div class="modal-content dictate-modal-content">
-        <h3><i class="lucide lucide-mic"></i> <?php echo t_h('stt.modal.title', [], 'Dictate'); ?></h3>
+        <h3><i class="lucide lucide-mic"></i> <span id="dictateTitle"><?php echo t_h('stt.modal.title', [], 'Dictate'); ?></span></h3>
 
         <div class="dictate-panel" id="dictateRecordPanel">
             <div class="dictate-level" id="dictateLevel" aria-hidden="true"><span class="dictate-level-bar" id="dictateLevelBar"></span></div>
-            <div class="dictate-timer" id="dictateTimer">0:00</div>
-            <p class="dictate-hint" id="dictateHint"><?php echo t_h('stt.modal.recording_hint', [], 'Speak, then stop the recording to have it transcribed.'); ?></p>
+            <?php $dictateMaxMinutes = function_exists('poznoteSttMaxRecordingMinutes') ? poznoteSttMaxRecordingMinutes() : 10; ?>
+            <div class="dictate-timer"><span id="dictateTimer">0:00</span><span class="dictate-timer-limit"> / <span id="dictateTimerLimit"><?php echo $dictateMaxMinutes; ?>:00</span></span></div>
+            <p class="dictate-hint" id="dictateHint"><?php echo t_h('stt.modal.recording_hint', ['minutes' => $dictateMaxMinutes], 'Speak, then stop the recording to have it transcribed. It stops on its own after {{minutes}} min.'); ?></p>
         </div>
 
         <div class="dictate-panel" id="dictateWorkPanel" hidden>
-            <p class="dictate-hint"><i class="lucide lucide-loader"></i> <span id="dictateWorkLabel"><?php echo t_h('stt.modal.transcribing', [], 'Transcribing...'); ?></span></p>
+            <p class="dictate-hint"><i class="lucide lucide-loader-2 lucide-spin"></i> <span id="dictateWorkLabel"><?php echo t_h('stt.modal.transcribing', [], 'Transcribing...'); ?></span></p>
         </div>
 
         <div class="dictate-panel" id="dictateReviewPanel" hidden>
@@ -1292,7 +1293,7 @@ $modalsPasswordDisabledHelp = $modalsPasswordDisabledReason === 'sso_only'
 
         <div class="modal-buttons">
             <button type="button" class="btn-cancel" id="dictateCancelBtn"><?php echo t_h('common.cancel'); ?></button>
-            <button type="button" class="btn-primary" id="dictateStopBtn"><i class="lucide lucide-square"></i> <?php echo t_h('stt.modal.stop', [], 'Stop and transcribe'); ?></button>
+            <button type="button" class="btn-primary" id="dictateStopBtn"><?php echo t_h('stt.modal.stop', [], 'Stop and transcribe'); ?></button>
             <button type="button" class="btn-primary" id="dictateInsertBtn" hidden><?php echo t_h('stt.modal.insert', [], 'Insert'); ?></button>
         </div>
     </div>

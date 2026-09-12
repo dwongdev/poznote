@@ -1837,7 +1837,7 @@
                 id: 'template-none',
                 icon: 'lucide-info',
                 label: t('slash_menu.template_none', null, 'No templates yet'),
-                hint: t('slash_menu.template_none_hint', null, 'Put notes in a folder named "Templates"'),
+                hint: t('slash_menu.template_none_hint', null, 'Put notes in a folder or a workspace named "Templates"'),
                 disabled: true
             });
         }
@@ -2032,7 +2032,7 @@
                 id: 'dictate',
                 icon: 'lucide lucide-mic',
                 label: t('slash_menu.dictate', null, 'Dictate'),
-                aliases: ['dictate', 'voice', 'speech', 'record', 'transcribe'],
+                aliases: ['dictate', 'voice', 'speech', 'transcribe'],
                 action: function () {
                     if (typeof window.openDictationModal === 'function') {
                         // The menu is still closing and the caret still moving;
@@ -2042,6 +2042,20 @@
                     }
                 }
             } : null,
+            // A plain audio recording inserted as an attachment player. Needs no
+            // transcription server, so it is offered to everyone.
+            recordAudio: {
+                id: 'record-audio',
+                icon: 'lucide lucide-circle-dot',
+                label: t('slash_menu.record_audio', null, 'Record audio'),
+                aliases: ['record', 'recorder', 'voice note', 'audio note'],
+                action: function () {
+                    if (typeof window.openAudioRecorder === 'function') {
+                        // Same settle delay as Dictate: the dialog reads the caret
+                        setTimeout(function () { window.openAudioRecorder(); }, 10);
+                    }
+                }
+            },
             cancel: {
                 id: 'cancel',
                 icon: 'lucide-times-circle',
@@ -2228,6 +2242,7 @@
                             insertDate();
                         }
                     },
+                    common.dictate,
                     common.excalidraw,
                     common.emoji,
                     {
@@ -2252,7 +2267,6 @@
                     }
                 ]
             },
-            common.dictate,
             {
                 id: 'link-menu',
                 icon: 'lucide-link',
@@ -2414,7 +2428,8 @@
                                 window.insertAudioFile();
                             }
                         }
-                    }
+                    },
+                    common.recordAudio
                 ]
             },
             getTemplateSlashCommand(),
@@ -2568,6 +2583,7 @@
                             insertDateMarkdown();
                         }
                     },
+                    common.dictate,
                     common.excalidraw,
                     common.emoji,
                     {
@@ -2588,7 +2604,6 @@
                     }
                 ]
             },
-            common.dictate,
             {
                 id: 'link-menu',
                 icon: 'lucide-link',
@@ -2770,7 +2785,8 @@
                                 window.insertAudioFileMarkdown();
                             }
                         }
-                    }
+                    },
+                    common.recordAudio
                 ]
             },
             getTemplateSlashCommand(),
@@ -4822,7 +4838,7 @@
     }
 
     // Generic media upload: handles both MP4 video and audio uploads. mediaType: 'video' | 'audio'
-    function insertUploadedMedia(mediaType, isMarkdown, preferredNoteEntry, preferredEditableElement, savedRange, savedCodeMirrorSelection) {
+    function insertUploadedMedia(mediaType, isMarkdown, preferredNoteEntry, preferredEditableElement, savedRange, savedCodeMirrorSelection, preset) {
         var isVideo = (mediaType === 'video');
         var logPrefix = isVideo ? '[MP4]' : '[AUDIO]';
         var acceptType = isVideo ? 'video/mp4' : 'audio/*';
@@ -4857,6 +4873,14 @@
             return;
         }
 
+        // A file already in hand, such as a recording made in the page
+        // (js/speech-to-text.js), skips the picker and goes through the same
+        // upload and embed as a chosen file
+        if (preset && preset.file) {
+            uploadAndInsertFile(preset.file);
+            return;
+        }
+
         var fileInput = document.createElement('input');
         fileInput.type = 'file';
         fileInput.accept = acceptType;
@@ -4864,7 +4888,26 @@
 
         fileInput.addEventListener('change', function () {
             try {
-                var file = fileInput.files && fileInput.files[0];
+                uploadAndInsertFile(fileInput.files && fileInput.files[0]);
+            } finally {
+                if (fileInput.parentNode) {
+                    document.body.removeChild(fileInput);
+                }
+            }
+        });
+
+        // Cleanup if user cancels the file selection
+        fileInput.addEventListener('cancel', function () {
+            if (fileInput.parentNode) {
+                document.body.removeChild(fileInput);
+            }
+        });
+
+        document.body.appendChild(fileInput);
+        fileInput.click();
+
+        function uploadAndInsertFile(file) {
+            try {
                 if (!file) return;
 
                 if (!validateFn(file)) {
@@ -5017,25 +5060,14 @@
                         } else {
                             alert(failMsg);
                         }
+                        if (preset && typeof preset.onError === 'function') {
+                            preset.onError(error);
+                        }
                     });
             } catch (e) {
-                console.error(logPrefix + ' Exception in change handler:', e);
-            } finally {
-                if (fileInput.parentNode) {
-                    document.body.removeChild(fileInput);
-                }
+                console.error(logPrefix + ' Exception while uploading ' + mediaType + ':', e);
             }
-        });
-
-        // Cleanup if user cancels the file selection
-        fileInput.addEventListener('cancel', function () {
-            if (fileInput.parentNode) {
-                document.body.removeChild(fileInput);
-            }
-        });
-
-        document.body.appendChild(fileInput);
-        fileInput.click();
+        }
     }
 
     // Backward-compatible wrapper for MP4 video uploads
@@ -5044,8 +5076,8 @@
     }
 
     // Backward-compatible wrapper for audio uploads
-    function insertUploadedAudio(isMarkdown, preferredNoteEntry, preferredEditableElement, savedRange, savedCodeMirrorSelection) {
-        insertUploadedMedia('audio', isMarkdown, preferredNoteEntry, preferredEditableElement, savedRange, savedCodeMirrorSelection);
+    function insertUploadedAudio(isMarkdown, preferredNoteEntry, preferredEditableElement, savedRange, savedCodeMirrorSelection, preset) {
+        insertUploadedMedia('audio', isMarkdown, preferredNoteEntry, preferredEditableElement, savedRange, savedCodeMirrorSelection, preset);
     }
 
     // ============================================================================
@@ -5077,7 +5109,10 @@
         }
 
         const savedCodeMirrorSelection = options.codeMirrorSelection || getCodeMirrorSelectionSnapshot(editableElement);
-        insertUploadedAudio(isMarkdown, noteEntry, editableElement, savedRange, savedCodeMirrorSelection);
+        // options.file: a recording made in the page, uploaded without the picker;
+        // options.onUploadError lets the recorder offer it back if the upload fails
+        var preset = options.file ? { file: options.file, onError: options.onUploadError } : null;
+        insertUploadedAudio(isMarkdown, noteEntry, editableElement, savedRange, savedCodeMirrorSelection, preset);
     };
 
     // Insert YouTube video into HTML note (exposed globally)

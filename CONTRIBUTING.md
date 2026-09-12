@@ -52,7 +52,7 @@ git push --force-with-lease
 
 ## Checks
 
-Four checks run automatically on your pull request: PHP syntax, PHP unit tests, stylesheets, and JavaScript linting. On a first contribution a maintainer has to approve the run, so do not worry if they look stuck at first.
+Five checks run automatically on your pull request: PHP syntax, PHP unit tests, stylesheets, JavaScript linting, and the translated docs. On a first contribution a maintainer has to approve the run, so do not worry if they look stuck at first.
 
 You do not need to run anything locally. If you would rather catch a mistake before pushing, these are the same commands CI uses:
 
@@ -62,9 +62,10 @@ php tools/css-check.php                               # stylesheets
 find . -name "*.php" -print0 | xargs -0 -n1 php -l >/dev/null   # PHP syntax
 npx --yes oxlint@1.55.0 src poznote-url-saver \
     excalidraw-build markdown-editor-build            # JavaScript
+python3 tools/docs-i18n.py check                      # translated docs
 ```
 
-The first three only need PHP. The last one needs Node, and only its `correctness` errors fail the build, warnings are fine to leave alone.
+The first three only need PHP. The JavaScript one needs Node, and only its `correctness` errors fail the build, warnings are fine to leave alone. The docs one needs Python 3 and nothing else.
 
 ## Running a dev instance
 
@@ -80,6 +81,7 @@ docker compose -f docker-compose-dev.yml up -d
 - Keep a pull request to one subject. Small and focused gets reviewed faster.
 - Dark mode rules go in `src/public/css/dark-mode/`, written as `html[data-theme='dark'] X`, with single quotes and no other spelling. See [src/public/css/README.md](src/public/css/README.md).
 - User facing strings go through the translation helpers, never hardcoded.
+- The README and the pages in `docs/` (except `API-REST.md`) exist in every app language, as `README.fr.md`, `docs/WEBHOOKS.de.md` and so on. Rewording the English page alone passes CI. Adding or removing a heading, a code block, an image or a link fails the docs check until the translations follow: say so in the pull request if you would rather leave them to a maintainer. When you edit a translation, keep the same headings as the English page, leave link targets and anchors in English, then run `python3 tools/docs-i18n.py fix` and `python3 tools/docs-i18n.py check`.
 - Do not edit a generated bundle under `src/public/js/excalidraw-dist` or `src/public/js/codemirror-dist` without rebuilding it from its source directory.
 
 ## Bugs and ideas

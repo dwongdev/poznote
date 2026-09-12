@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <b>English</b> ·
+  <a href="CLAUDE-CLI.fr.md">Français</a> ·
+  <a href="CLAUDE-CLI.de.md">Deutsch</a> ·
+  <a href="CLAUDE-CLI.es.md">Español</a> ·
+  <a href="CLAUDE-CLI.pt.md">Português</a> ·
+  <a href="CLAUDE-CLI.ru.md">Русский</a> ·
+  <a href="CLAUDE-CLI.zh-cn.md">简体中文</a>
+</p>
+<!-- /lang-selector -->
+
 # Using Poznote MCP Server with Claude CLI
 
 This guide explains how to configure and use the Poznote MCP server with Claude CLI (Command Line Interface).

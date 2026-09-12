@@ -144,3 +144,30 @@ def test_move_folder_surfaces_a_refusal():
 
     assert payload["success"] is False
     assert "already exists" in payload["error"]
+
+
+@patch("poznote_mcp.client.httpx.Client")
+def test_parent_zero_moves_a_folder_to_the_root(mock_client_cls):
+    """0 has to reach the API: it is how a folder goes back to the root of its
+    own workspace, and a falsy check would drop it."""
+    http_client = MagicMock()
+    http_client.post.return_value = _mock_response({"success": True, "folder": {"id": 9, "parent_id": None}})
+    mock_client_cls.return_value = http_client
+
+    client = PoznoteClient(base_url="http://example.test/api/v1", service_token="secret-token")
+    client.move_folder(9, new_parent_folder_id=0)
+
+    _, kwargs = http_client.post.call_args
+    assert kwargs["json"] == {"new_parent_folder_id": 0}
+
+
+def test_move_folder_tool_accepts_the_root():
+    client = MagicMock()
+    client.move_folder.return_value = {"id": 9, "parent_id": None, "path": "Projects"}
+
+    with patch.object(server, "_get_client_or_error", return_value=(client, None)):
+        payload = json.loads(server.move_folder(folder_id=9, new_parent_folder_id=0))
+
+    assert payload["success"] is True
+    _, kwargs = client.move_folder.call_args
+    assert kwargs["new_parent_folder_id"] == 0

@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <b>English</b> ·
+  <a href="AI-ASSISTANT.fr.md">Français</a> ·
+  <a href="AI-ASSISTANT.de.md">Deutsch</a> ·
+  <a href="AI-ASSISTANT.es.md">Español</a> ·
+  <a href="AI-ASSISTANT.pt.md">Português</a> ·
+  <a href="AI-ASSISTANT.ru.md">Русский</a> ·
+  <a href="AI-ASSISTANT.zh-cn.md">简体中文</a>
+</p>
+<!-- /lang-selector -->
+
 # Poznote AI Assistant
 
 Integrated AI chat that can search and read your notes. It works with a local [Ollama](https://ollama.com) or [LM Studio](https://lmstudio.ai) instance, a cloud provider like [Anthropic (Claude)](https://www.anthropic.com) or OpenAI, or any OpenAI-compatible server.

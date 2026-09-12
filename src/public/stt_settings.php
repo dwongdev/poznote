@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_
     $model = trim((string)($_POST['stt_model'] ?? ''));
     $apiKey = trim((string)($_POST['stt_api_key'] ?? ''));
     $language = poznoteSttNormalizeLanguage($_POST['stt_language'] ?? '');
+    $maxRecordingMinutes = poznoteSttNormalizeMaxRecordingMinutes($_POST['stt_max_recording_minutes'] ?? '');
 
     $userKeysEnabled = isset($_POST['stt_user_keys_enabled']) ? '1' : '0';
 
@@ -53,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_
         && setGlobalSetting('stt_provider', $provider)
         && setGlobalSetting('stt_url', $url)
         && setGlobalSetting('stt_model', $model)
-        && setGlobalSetting('stt_language', $language);
+        && setGlobalSetting('stt_language', $language)
+        && setGlobalSetting('stt_max_recording_minutes', (string)$maxRecordingMinutes);
     // Masked placeholder means "keep the existing key"
     if ($saved && $apiKey !== '••••••••') {
         $saved = setGlobalSetting('stt_api_key', $apiKey);
@@ -135,7 +137,7 @@ $sttSettingsScope = 'instance';
                         </label>
                         <div class="check-label">
                             <span class="label-title"><?php echo t_h('stt_settings.enable_label', [], 'Enable transcription'); ?></span>
-                            <span class="label-desc"><?php echo t_h('stt_settings.enable_description', [], 'Adds a Dictate entry to the slash menu of every note, and a Transcribe action on audio attachments.'); ?></span>
+                            <span class="label-desc"><?php echo t_h('stt_settings.enable_description', [], 'Adds a Dictate entry under Insert in the slash menu of every note, and a Transcribe action on audio attachments.'); ?></span>
                         </div>
                     </div>
 
@@ -182,6 +184,19 @@ $sttSettingsScope = 'instance';
                     </div>
 
                     <?php include __DIR__ . '/../stt_settings_fields.php'; ?>
+
+                    <?php
+                    // Instance policy rather than part of the per-server block: it
+                    // bounds what any profile can dictate in one go, whichever
+                    // server ends up transcribing it.
+                    ?>
+                    <div class="git-field-group">
+                        <label class="git-field-label" for="stt_max_recording_minutes"><?php echo t_h('stt_settings.max_duration_label', [], 'Maximum recording length'); ?></label>
+                        <input type="number" name="stt_max_recording_minutes" id="stt_max_recording_minutes" class="git-field-input"
+                               value="<?php echo poznoteSttMaxRecordingMinutes(); ?>"
+                               min="1" max="<?php echo POZNOTE_STT_MAX_RECORDING_MINUTES_LIMIT; ?>" step="1" required>
+                        <span class="label-desc"><?php echo t_h('stt_settings.max_duration_description', ['limit' => POZNOTE_STT_MAX_RECORDING_MINUTES_LIMIT], 'In minutes, from 1 to {{limit}}. Dictate and Record audio stop on their own when they get there, so a tab left recording cannot send an hour of audio. The dialog shows the elapsed time against this limit. Transcribing an existing attachment is not affected.'); ?></span>
+                    </div>
 
                     <div class="form-check">
                         <label class="switch">

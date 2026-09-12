@@ -437,6 +437,48 @@ function getDiaryFolderIds(PDO $con, string $workspace, ?int $rootId = null): ar
 }
 
 /**
+ * Body of a diary entry as the journal view shows it, read-only: markdown
+ * parsed, a tasklist listed with its boxes, rich text as stored, then passed
+ * through the public-page sanitizer. The journal renders many notes at once
+ * outside the editor, so none of their markup gets to run anything there.
+ * Needs markdown_parser.php and public_helpers.php loaded.
+ */
+function renderDiaryJournalContent(string $content, string $type): string {
+    if (trim($content) === '') {
+        return '';
+    }
+
+    if ($type === 'tasklist') {
+        $items = json_decode($content, true);
+        if (!is_array($items)) {
+            return '';
+        }
+        $html = '';
+        foreach ($items as $item) {
+            if (!is_array($item)) continue;
+            $text = trim((string)($item['text'] ?? ''));
+            if ($text === '') continue;
+            $done = !empty($item['completed']);
+            $classes = trim(($done ? 'completed' : '') . (!empty($item['important']) ? ' important' : ''));
+            $html .= '<li' . ($classes !== '' ? ' class="' . $classes . '"' : '') . '>'
+                . '<input type="checkbox" disabled' . ($done ? ' checked' : '') . '> '
+                . '<span>' . htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</span></li>';
+        }
+        return $html !== '' ? '<ul class="diary-journal-tasks">' . $html . '</ul>' : '';
+    }
+
+    if ($type === 'markdown') {
+        $html = parseMarkdown($content);
+    } else {
+        // Audio embeds are iframes on a player page the sanitizer would drop,
+        // and older notes saved media tags escaped: same fixes as public_note.php.
+        $html = unescapeMediaInHtml(replacePublicAudioEmbedIframes($content));
+    }
+
+    return sanitizePublicNoteHtml((string)$html);
+}
+
+/**
  * Id of the diary entry for the given YYYY-MM-DD date, or null. The title is
  * matched through parseDiaryEntryTitle, so an entry written under a previously
  * configured title format is still found after the format changed.

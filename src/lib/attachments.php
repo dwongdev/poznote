@@ -777,6 +777,39 @@ function poznoteDetectAttachmentMimeType(?string $filePath = null, ?string $cont
     return null;
 }
 
+/**
+ * Audio types for the extensions that can only ever hold audio.
+ *
+ * .ogg is left out on purpose: it is also a video container.
+ */
+function poznoteAudioOnlyExtensionMimeTypes(): array {
+    return [
+        'mp3' => 'audio/mpeg', 'wav' => 'audio/wav', 'flac' => 'audio/flac', 'aac' => 'audio/aac',
+        'm4a' => 'audio/mp4', 'weba' => 'audio/webm', 'oga' => 'audio/ogg', 'opus' => 'audio/ogg',
+    ];
+}
+
+/**
+ * The type to store for an upload, from what finfo detected and the filename.
+ *
+ * finfo reads the container, not the content: an audio-only WebM, which is what
+ * Chrome and Firefox record, comes back as video/webm, and a Windows Voice
+ * Recorder .m4a as video/mp4. Stored like that, an audio file was shown as a
+ * video and never offered for transcription. When the extension can only be
+ * audio and finfo saw nothing more specific than the container, the audio type
+ * wins. Anything finfo recognised as something else is left alone.
+ */
+function poznoteResolveAttachmentMimeType(string $filename, ?string $detectedMimeType): string {
+    $detected = strtolower(trim(explode(';', (string)$detectedMimeType, 2)[0]));
+    $extension = strtolower((string)pathinfo($filename, PATHINFO_EXTENSION));
+    $audioType = poznoteAudioOnlyExtensionMimeTypes()[$extension] ?? null;
+    $containerTypes = ['', 'application/octet-stream', 'video/webm', 'video/mp4', 'video/ogg', 'video/quicktime'];
+    if ($audioType !== null && in_array($detected, $containerTypes, true)) {
+        return $audioType;
+    }
+    return $detectedMimeType ?: 'application/octet-stream';
+}
+
 function poznoteValidateAttachmentFile(string $filename, ?string $filePath = null, ?string $content = null): array {
     $filenameValidation = poznoteValidateAttachmentFilename($filename);
     if (!$filenameValidation['success']) {
@@ -797,7 +830,7 @@ function poznoteValidateAttachmentFile(string $filename, ?string $filePath = nul
     return [
         'success' => true,
         'filename' => $filenameValidation['filename'],
-        'mime_type' => $mimeType ?: 'application/octet-stream',
+        'mime_type' => poznoteResolveAttachmentMimeType($filenameValidation['filename'], $mimeType),
     ];
 }
 

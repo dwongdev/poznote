@@ -134,3 +134,40 @@ def test_a_missing_content_is_reported_before_any_workspace_lookup():
         payload = json.loads(server.create_note(title="T"))
 
     assert "content is required" in payload["error"]
+
+
+def test_list_folders_resolves_instead_of_taking_the_first_workspace():
+    """GET /folders without a workspace answers for whichever sorts first."""
+    client = _client(["Archives", "Poznote"], configured="Poznote")
+    client.list_folders.return_value = []
+
+    with patch.object(server, "_get_client_or_error", return_value=(client, None)):
+        payload = json.loads(server.list_folders())
+
+    _, kwargs = client.list_folders.call_args
+    assert kwargs["workspace"] == "Poznote"
+    assert payload["workspace"] == "Poznote"
+
+
+def test_list_folders_refuses_to_guess_between_workspaces():
+    client = _client(["Archives", "Poznote"])
+
+    with patch.object(server, "_get_client_or_error", return_value=(client, None)):
+        payload = json.loads(server.list_folders())
+
+    assert "No workspace given" in payload["error"]
+    client.list_folders.assert_not_called()
+
+
+def test_changing_the_default_setting_takes_effect_at_once():
+    client = _client(["Archives", "Poznote"], configured="Poznote")
+    client.update_setting.return_value = {"success": True}
+
+    with patch.object(server, "_get_client_or_error", return_value=(client, None)):
+        server.create_note(title="A", content="x")
+        client.get_setting.return_value = {"value": "Archives"}
+        server.update_app_setting(key="mcp_default_workspace", value="Archives")
+        server.create_note(title="B", content="x")
+
+    _, kwargs = client.create_note.call_args
+    assert kwargs["workspace"] == "Archives"

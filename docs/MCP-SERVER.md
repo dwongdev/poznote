@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <b>English</b> ·
+  <a href="MCP-SERVER.fr.md">Français</a> ·
+  <a href="MCP-SERVER.de.md">Deutsch</a> ·
+  <a href="MCP-SERVER.es.md">Español</a> ·
+  <a href="MCP-SERVER.pt.md">Português</a> ·
+  <a href="MCP-SERVER.ru.md">Русский</a> ·
+  <a href="MCP-SERVER.zh-cn.md">简体中文</a>
+</p>
+<!-- /lang-selector -->
+
 # Poznote MCP Server
 
 MCP (Model Context Protocol) server for Poznote — enables AI-powered note management through natural language.
@@ -94,7 +106,7 @@ A Poznote tab open in the browser picks up the changes made through MCP within a
 - `get_app_setting` — Get the value of a specific application setting
 - `update_app_setting` — Update the value of a specific application setting
 
-**Which workspace a write goes to.** Always name the `workspace` on `create_note` and `create_folder`: it is the only way to be sure. When one is omitted, the server resolves it in a fixed order and never guesses: the `mcp_default_workspace` setting when it names a workspace that exists, then the account's only workspace when it has just one. With several workspaces and no setting, the call is refused and the answer lists them, rather than landing the note in whichever workspace happens to sort first (which used to move on its own, for instance the first time archiving a note created "Archives"). Set the default with `update_app_setting("mcp_default_workspace", "<name>")`.
+**Which workspace a call goes to.** Always name the `workspace` on `create_note`, `create_folder` and `list_folders` (folders always belong to one workspace): it is the only way to be sure. When one is omitted, the server resolves it in a fixed order and never guesses: the `mcp_default_workspace` setting when it names a workspace that exists, then the account's only workspace when it has just one. With several workspaces and no setting, the call is refused and the answer lists them, rather than landing the note in whichever workspace happens to sort first (which used to move on its own, for instance the first time archiving a note created "Archives"). Set the default with `update_app_setting("mcp_default_workspace", "<name>")`.
 
 **Attachments.** `add_attachment(note_id, filename, content_base64)` stores a file on a note exactly as a drag-and-drop in the web UI does, so a generated chart or a log file can be attached without a human in the loop; a `data:` URI is accepted as the content. Poznote's own rules still apply, so an executable type and a full storage quota come back as a refusal carrying the reason. The bytes travel base64-encoded inside the tool call, so the tool caps an upload at 25 MB and points at the web UI for anything larger.
 
@@ -104,7 +116,7 @@ A Poznote tab open in the browser picks up the changes made through MCP within a
 
 **Diaries.** A diary is not just a folder named Diary: it is a root folder carrying the `is_diary` flag, and the "New diary entry" button of the UI files its dated notes into the flagged root. Create one with `create_folder(folder_name="Journal", is_diary=true)`, and `list_folders` tells you which folders are diaries. Passing a name that a root folder already carries turns that folder into a diary and keeps its notes. Diary entries themselves are ordinary notes: file them with `create_note(folder="Journal/2026/09")`.
 
-**Templates.** A template is an ordinary note kept in a folder named `Templates` (any depth below it counts) or anywhere in a workspace of that name; the word is recognised in every shipped language, so a `Modèles` folder works too. `list_templates` returns them with their ids, and `create_note(from_template_id=…)` starts a new note from one, taking the template's own format unless you pass a `note_type`. Passing `content` as well appends it after the template body.
+**Templates.** A template is an ordinary note kept in a folder named `Templates` (any depth below it counts) or anywhere in a workspace of that name; the word is recognised in every shipped language, so a `Modèles` folder works too. `list_templates` returns them with their ids, and `create_note(from_template_id=…)` starts a new note from one, in the template's own format; ask for `note_type="markdown"` and an HTML template is converted, the way the `/template` command converts it in the editor. A template cannot start a task list or a drawing. Passing `content` as well appends it after the template body.
 
 **Reminders and tasks.** `reminder_at` (on `create_note`/`update_note` and `set_reminder`) is an ISO datetime such as `2026-09-01T09:00:00+02:00`; include an offset, or the time is read as UTC. Task due dates (`due_at`) are different: they are local wall-clock values, `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM` with no offset, resolved through the user's configured timezone, and a date without a time reminds at 09:00. Repeat intervals use `<count><unit>` with unit `i`/`h`/`d`/`w`/`m`/`y`, for example `30i`, `1d` or `2w`.
 

@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var body = new URLSearchParams();
         body.append('url', url);
         body.append('scope', scope);
+        // Lets the server read the answer the way this kind of server gives it
+        // (whisper.cpp has no model listing, Speaches mixes in its TTS voices)
+        body.append('provider', providerSel.value);
         if (apiKey) body.append('api_key', apiKey);
 
         fetch('api_transcribe.php?action=test', {
@@ -128,7 +131,7 @@ function setupSttUserFilter() {
 
     function fold(text) {
         text = (text || '').toLowerCase();
-        return text.normalize ? text.normalize('NFD').replace(/[̀-ͯ]/g, '') : text;
+        return text.normalize ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
     }
 
     var haystacks = rows.map(function (row) { return fold(row.textContent); });

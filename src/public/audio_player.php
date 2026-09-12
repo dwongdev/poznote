@@ -61,5 +61,33 @@ if ($workspace) {
 </head>
 <body>
 <audio controls preload="metadata" src="<?php echo $src; ?>"></audio>
+<script>
+// A right-click in this frame never reaches the note around it: hand it to the
+// attachment menu there (js/note-attachment-menu.js), and let any other click
+// close that menu. Hosts without the menu keep the browser's own.
+(function () {
+  function host(name) {
+    try {
+      return (window.frameElement && window.parent && typeof window.parent[name] === 'function') ? window.parent[name] : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  document.addEventListener('contextmenu', function (event) {
+    var open = host('openNoteAttachmentMenuFromFrame');
+    if (open && open(window.frameElement, event.clientX, event.clientY)) {
+      event.preventDefault();
+    }
+  });
+  document.addEventListener('mousedown', function (event) {
+    var close = event.button !== 2 ? host('closeNoteAttachmentMenu') : null;
+    if (close) close();
+  });
+  document.addEventListener('keydown', function (event) {
+    var close = event.key === 'Escape' ? host('closeNoteAttachmentMenu') : null;
+    if (close) close();
+  });
+})();
+</script>
 </body>
 </html>

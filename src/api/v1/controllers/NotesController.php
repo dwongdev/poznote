@@ -707,12 +707,20 @@ class NotesController {
                 }
             }
             
-            // How many notes the filters match, whatever the page asked for.
-            // Counting before paging is what lets a caller tell "this is the
-            // whole workspace" from "there is more after this page".
-            $countStmt = $this->con->prepare("SELECT COUNT(*) FROM entries" . $where);
-            $countStmt->execute($params);
-            $total = (int)$countStmt->fetchColumn();
+            // How many notes the filters match, whatever the page asked for:
+            // that is what lets a caller tell "this is the whole workspace"
+            // from "there is more after this page". Only a paged request needs
+            // a separate COUNT(*); without limit or offset every match comes
+            // back, so the count is the size of the result, and the web UI's
+            // listings (search included, which runs search_clean_entry() over
+            // every note) do not pay for the query twice.
+            $isPaged = $limit !== null || $offset > 0;
+            $total = null;
+            if ($isPaged) {
+                $countStmt = $this->con->prepare("SELECT COUNT(*) FROM entries" . $where);
+                $countStmt->execute($params);
+                $total = (int)$countStmt->fetchColumn();
+            }
 
             $sql .= " ORDER BY " . $order_by;
 
@@ -736,6 +744,10 @@ class NotesController {
                 $row['color'] = $row['color'] ?? null;
                 $row['color_hex'] = $row['color'] !== null ? (resolveNoteColorHex($row['color']) ?: null) : null;
                 $notes[] = $row;
+            }
+
+            if ($total === null) {
+                $total = count($notes);
             }
             
             $this->sendSuccess([

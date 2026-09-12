@@ -35,14 +35,45 @@ function poznoteSttFixedUrls(): array {
     return ['openai' => 'https://api.openai.com'];
 }
 
-/**
- * Longest recording accepted, in seconds. The browser stops on its own at this
- * point rather than letting someone leave a tab recording all afternoon and
- * then hand a server a file it will chew on for minutes.
- */
-function poznoteSttMaxRecordingSeconds(): int {
-    return 600;
+/** Bounds of the maximum recording length setting, in minutes. */
+const POZNOTE_STT_MAX_RECORDING_MINUTES_DEFAULT = 10;
+const POZNOTE_STT_MAX_RECORDING_MINUTES_LIMIT = 60;
+
+/** Clamp a posted or stored value to the allowed range, default when unusable. */
+function poznoteSttNormalizeMaxRecordingMinutes($value): int {
+    $minutes = filter_var($value, FILTER_VALIDATE_INT);
+    if ($minutes === false) {
+        return POZNOTE_STT_MAX_RECORDING_MINUTES_DEFAULT;
+    }
+    return max(1, min(POZNOTE_STT_MAX_RECORDING_MINUTES_LIMIT, $minutes));
 }
+
+/**
+ * Longest dictation, in minutes, set by the administrator on the Transcription
+ * page. The browser stops and transcribes on its own when it gets there, so a
+ * tab left recording cannot hand the server an hour of audio.
+ *
+ * It is enforced in the browser, which is the only place that knows the
+ * duration without decoding the file; poznoteSttMaxUploadBytes() is the
+ * server-side backstop for anyone posting to the endpoint directly.
+ */
+function poznoteSttMaxRecordingMinutes(): int {
+    return poznoteSttNormalizeMaxRecordingMinutes(
+        getGlobalSetting('stt_max_recording_minutes', (string)POZNOTE_STT_MAX_RECORDING_MINUTES_DEFAULT)
+    );
+}
+
+function poznoteSttMaxRecordingSeconds(): int {
+    return poznoteSttMaxRecordingMinutes() * 60;
+}
+
+/**
+ * How long a transcription may run, in seconds. Kept under the 600 seconds
+ * nginx gives PHP (fastcgi_read_timeout in docker/nginx/default.conf) so the
+ * endpoint times out first and answers with a message rather than a 504 page.
+ * A reverse proxy in front of Poznote can still cut the request earlier.
+ */
+const POZNOTE_STT_UPSTREAM_TIMEOUT_SECONDS = 570;
 
 /** Largest audio payload accepted by the transcription endpoint, in bytes. */
 function poznoteSttMaxUploadBytes(): int {
@@ -101,6 +132,50 @@ function poznoteSttExtensionForMimeType(string $mimeType): string {
     // A type can carry parameters: "audio/webm;codecs=opus"
     $bare = strtolower(trim(explode(';', $mimeType)[0]));
     return $map[$bare] ?? 'wav';
+}
+
+/**
+ * Audio extensions that decide transcription eligibility on their own, and the
+ * type each one is sent to the server with.
+ */
+function poznoteSttAudioExtensionTypes(): array {
+    return [
+        'mp3' => 'audio/mpeg', 'wav' => 'audio/wav', 'ogg' => 'audio/ogg', 'oga' => 'audio/ogg',
+        'opus' => 'audio/ogg', 'm4a' => 'audio/mp4', 'flac' => 'audio/flac', 'aac' => 'audio/aac',
+    ];
+}
+
+/**
+ * Whether an attachment can be sent for transcription.
+ *
+ * Not poznoteAttachmentPreviewKind(): that one checks video/ before audio/, and
+ * Windows uploads a Voice Recorder .m4a as video/mp4, so a plain voice memo came
+ * out as a video and was refused. For transcription an audio extension wins over
+ * the recorded type. A .webm or .mp4 stays out unless its type says audio: the
+ * extension alone cannot tell a voice note from a film.
+ */
+function poznoteSttAttachmentIsTranscribable(array $attachment): bool {
+    $extension = strtolower((string)pathinfo((string)($attachment['original_filename'] ?? $attachment['filename'] ?? ''), PATHINFO_EXTENSION));
+    if (isset(poznoteSttAudioExtensionTypes()[$extension])) {
+        return true;
+    }
+    $mimeType = strtolower(trim((string)($attachment['file_type'] ?? $attachment['mime_type'] ?? $attachment['type'] ?? '')));
+    return strpos($mimeType, 'audio/') === 0;
+}
+
+/**
+ * Type to send the server for a stored attachment: the extension's audio type
+ * when it has one (the recorded type can be the video/mp4 above), otherwise the
+ * recorded type, otherwise a generic one.
+ */
+function poznoteSttAttachmentMimeType(array $attachment): string {
+    $extension = strtolower((string)pathinfo((string)($attachment['original_filename'] ?? $attachment['filename'] ?? ''), PATHINFO_EXTENSION));
+    $byExtension = poznoteSttAudioExtensionTypes()[$extension] ?? '';
+    if ($byExtension !== '') {
+        return $byExtension;
+    }
+    $mimeType = strtolower(trim((string)($attachment['file_type'] ?? $attachment['mime_type'] ?? $attachment['type'] ?? '')));
+    return $mimeType !== '' ? $mimeType : 'application/octet-stream';
 }
 
 /**

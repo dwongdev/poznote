@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <b>English</b> ·
+  <a href="WEBHOOKS.fr.md">Français</a> ·
+  <a href="WEBHOOKS.de.md">Deutsch</a> ·
+  <a href="WEBHOOKS.es.md">Español</a> ·
+  <a href="WEBHOOKS.pt.md">Português</a> ·
+  <a href="WEBHOOKS.ru.md">Русский</a> ·
+  <a href="WEBHOOKS.zh-cn.md">简体中文</a>
+</p>
+<!-- /lang-selector -->
+
 # Webhooks
 
 Poznote can notify external services when something happens on the instance by sending **outgoing webhooks**: HTTP POST requests with a JSON payload, delivered to the endpoints you register. This makes it easy to plug Poznote into automation tools such as n8n, Zapier, or your own scripts.

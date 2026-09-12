@@ -48,6 +48,12 @@
     line-height: 1.1;
 }
 
+/* The limit sits next to the elapsed time at the same size, only quieter:
+   two sizes on one line would need optical alignment for no gain. */
+.dictate-timer-limit {
+    color: var(--pz-text-subtle);
+}
+
 .dictate-hint {
     margin: 0;
     text-align: center;
@@ -55,15 +61,10 @@
     font-size: 0.9rem;
 }
 
-/* The spinner is the same lucide icon the rest of the app uses for waiting,
-   turned by hand because it is an <i>, not an animated glyph. */
-.dictate-hint .lucide-loader {
-    animation: dictate-spin 1s linear infinite;
+/* The app's own spinner (lucide-loader-2 lucide-spin, as in the other waiting
+   states), so only the gap before the label is ours. */
+.dictate-hint .lucide-loader-2 {
     margin-right: 6px;
-}
-
-@keyframes dictate-spin {
-    to { transform: rotate(360deg); }
 }
 
 .dictate-review-label {

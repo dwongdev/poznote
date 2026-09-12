@@ -662,8 +662,10 @@ def create_note(
             of the workspace carries it; when several do, the call is refused
             and lists them, so pass the full path or use move_note_to_folder.
         note_type: Note type/format. Supported: 'note' (HTML, default), 'markdown', 'tasklist'.
-            Ignored when from_template_id is given without a note_type of your
-            own: the template's own format is used.
+            With from_template_id, the template's own format is used unless
+            you ask for 'markdown' (an HTML template is then converted, as the
+            web "/template" command does); a template cannot start a
+            'tasklist' or 'excalidraw' note.
         from_template_id: ID of a template note (see list_templates) whose
             content the new note starts from.
         user_id: User profile ID to access (optional, overrides default)
@@ -684,6 +686,7 @@ def create_note(
     # asked for one. Reading it here rather than server-side keeps create_note
     # a single tool call for the agent while the REST API stays unchanged.
     template_note_type = None
+    template_body = None
     if from_template_id is not None:
         try:
             template = client.get_note(int(from_template_id), workspace=None, user_id=user_id)
@@ -694,10 +697,9 @@ def create_note(
                 {"error": f"Template note {from_template_id} not found"}, ensure_ascii=False
             )
         template_body = template.get("content", "") or ""
-        template_note_type = template.get("type")
-        content = template_body if content is None else template_body + str(content)
+        template_note_type = "markdown" if template.get("type") == "markdown" else "note"
 
-    if content is None:
+    if content is None and template_body is None:
         return json.dumps(
             {"error": "content is required (or pass from_template_id to take it from a template)"},
             ensure_ascii=False,
@@ -720,11 +722,44 @@ def create_note(
                 ensure_ascii=False,
             )
 
-    # 'note' is this tool's default, so it cannot be told apart from a caller
-    # who asked for HTML; a template's own format wins over it, which keeps a
-    # Markdown template from being pasted into a rich-text note.
-    if template_note_type in {"note", "markdown"} and note_type == "note":
-        note_type = template_note_type
+    if template_body is not None:
+        # A template is pasted text (only HTML and Markdown notes are offered
+        # as templates): a task list or a drawing has no text to start from,
+        # and pasting one in would store content that is not valid for them.
+        if note_type in {"tasklist", "excalidraw"}:
+            return json.dumps(
+                {
+                    "error": f"A template cannot start a {note_type} note: templates are HTML or Markdown text.",
+                    "note_type": note_type,
+                },
+                ensure_ascii=False,
+            )
+
+        # 'note' is this tool's default, so it cannot be told apart from a
+        # caller who asked for HTML; a template's own format wins over it.
+        if note_type == "note":
+            note_type = template_note_type
+
+        # A Markdown note asked for from an HTML template: convert, as the
+        # web "/template" command does, rather than paste raw HTML.
+        if note_type != template_note_type:
+            try:
+                template_body = client.convert_content(template_body, template_note_type, note_type, user_id=user_id)
+            except Exception as exc:
+                return json.dumps(
+                    {"error": "The template could not be converted to the requested format", "detail": str(exc)[:500]},
+                    ensure_ascii=False,
+                )
+
+        if content is None:
+            content = template_body
+        else:
+            extra = str(content)
+            if note_type == "markdown" and template_body and not template_body.endswith("\n"):
+                # Glued on, the added text would continue the template's last
+                # line (and a heading or list item with it).
+                template_body += "\n\n"
+            content = template_body + extra
 
     content = _normalize_content(content, note_type)
 
@@ -1354,22 +1389,32 @@ def list_folders(workspace: Optional[str] = None, user_id: Optional[int] = None)
     roots the "New diary entry" button files dated notes into.
 
     Args:
-        workspace: Workspace name (optional)
+        workspace: Workspace whose folders to list. Folders always belong to
+            one workspace, so omitting it means the account's default (the
+            mcp_default_workspace setting, or the only workspace there is);
+            with several workspaces and no setting, the call is refused and
+            lists them rather than silently picking whichever sorts first.
         user_id: User profile ID to access (optional, overrides default)
     """
     client, err = _get_client_or_error()
     if err:
         return err
+
+    # GET /folders without a workspace answers for getFirstWorkspaceName(),
+    # the same drifting default create_note used to fall into (#1373).
+    workspace, err = _resolve_workspace(client, workspace, user_id)
+    if err:
+        return err
+
     try:
         folders = client.list_folders(workspace=workspace, user_id=user_id)
     except Exception as exc:
         return _api_error_json(exc)
     result = {
         "count": len(folders),
+        "workspace": workspace,
         "folders": folders,
     }
-    if workspace is not None:
-        result["workspace"] = workspace
 
     return json.dumps(result, indent=2, ensure_ascii=False)
 
@@ -1723,15 +1768,16 @@ def move_folder(
     """Move a folder under another parent and/or into another workspace
 
     Its subfolders and every note inside them move with it, keeping their ids.
-    Pass neither parent argument to put the folder at the root of its
-    destination.
+    Moving to another workspace without a parent puts the folder at the root
+    of that workspace; to move it to the root of its own workspace, pass
+    new_parent_folder_id=0.
 
     Args:
         folder_id: ID of the folder to move
         target_workspace: Workspace to move the folder to (optional; it stays
             in its own workspace when omitted)
         new_parent_folder_id: ID of the folder it becomes a child of. Must be
-            in the destination workspace.
+            in the destination workspace. 0 means the root.
         new_parent_folder: Path of that parent folder, when its id is not at
             hand. The folder must already exist.
         user_id: User profile ID to access (optional, overrides default)
@@ -1989,6 +2035,9 @@ def update_app_setting(key: str, value: str, user_id: Optional[int] = None) -> s
         result = client.update_setting(key, value, user_id=user_id)
     except Exception as exc:
         return _api_error_json(exc)
+    if key == DEFAULT_WORKSPACE_SETTING:
+        # Otherwise the old default keeps being served for up to a minute.
+        _forget_default_workspace()
     return json.dumps(result, indent=2, ensure_ascii=False)
 
 

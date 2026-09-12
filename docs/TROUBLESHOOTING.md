@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <b>English</b> ·
+  <a href="TROUBLESHOOTING.fr.md">Français</a> ·
+  <a href="TROUBLESHOOTING.de.md">Deutsch</a> ·
+  <a href="TROUBLESHOOTING.es.md">Español</a> ·
+  <a href="TROUBLESHOOTING.pt.md">Português</a> ·
+  <a href="TROUBLESHOOTING.ru.md">Русский</a> ·
+  <a href="TROUBLESHOOTING.zh-cn.md">简体中文</a>
+</p>
+<!-- /lang-selector -->
+
 # Troubleshooting Installation
 
 <details>
