@@ -1867,7 +1867,7 @@
     "tasklist_embed": "任务列表",
     "template": "模板",
     "template_none": "暂无模板",
-    "template_none_hint": "将笔记放入名为“模板”或“Templates”的文件夹",
+    "template_none_hint": "将笔记放入名为“模板”的文件夹或工作区",
     "template_insert_failed": "无法插入模板"
   },
   "api": {

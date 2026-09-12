@@ -1873,7 +1873,7 @@
     "tasklist_embed": "Lista de tarefas",
     "template": "Modelo",
     "template_none": "Ainda não há modelos",
-    "template_none_hint": "Coloque notas numa pasta chamada \"Modelos\" ou \"Templates\"",
+    "template_none_hint": "Coloque notas numa pasta ou num espaço de trabalho chamado \"Modelos\"",
     "template_insert_failed": "Não foi possível inserir o modelo"
   },
   "api": {

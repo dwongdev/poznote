@@ -1874,7 +1874,7 @@
     "tasklist_embed": "Aufgabenliste",
     "template": "Vorlage",
     "template_none": "Noch keine Vorlagen",
-    "template_none_hint": "Lege Notizen in einen Ordner namens „Vorlagen“ oder „Templates“",
+    "template_none_hint": "Lege Notizen in einen Ordner oder einen Arbeitsbereich namens „Vorlagen“",
     "template_insert_failed": "Die Vorlage konnte nicht eingefügt werden"
   },
   "api": {

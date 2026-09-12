@@ -1960,7 +1960,7 @@
     "tasklist_embed": "Liste de tâches",
     "template": "Modèle",
     "template_none": "Aucun modèle pour l'instant",
-    "template_none_hint": "Placez des notes dans un dossier nommé « Modèles » ou « Templates »",
+    "template_none_hint": "Placez des notes dans un dossier ou un espace de travail nommé « Modèles »",
     "template_insert_failed": "Impossible d'insérer le modèle"
   },
   "api": {

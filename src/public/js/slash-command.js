@@ -1837,7 +1837,7 @@
                 id: 'template-none',
                 icon: 'lucide-info',
                 label: t('slash_menu.template_none', null, 'No templates yet'),
-                hint: t('slash_menu.template_none_hint', null, 'Put notes in a folder named "Templates"'),
+                hint: t('slash_menu.template_none_hint', null, 'Put notes in a folder or a workspace named "Templates"'),
                 disabled: true
             });
         }

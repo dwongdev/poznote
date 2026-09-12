@@ -1875,7 +1875,7 @@
     "tasklist_embed": "Lista de tareas",
     "template": "Plantilla",
     "template_none": "Aún no hay plantillas",
-    "template_none_hint": "Coloca notas en una carpeta llamada «Plantillas» o «Templates»",
+    "template_none_hint": "Coloca notas en una carpeta o un espacio de trabajo llamado «Plantillas»",
     "template_insert_failed": "No se pudo insertar la plantilla"
   },
   "api": {
