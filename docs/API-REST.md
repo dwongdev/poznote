@@ -1570,6 +1570,8 @@ curl -u 'username:password' -H "X-User-ID: 1" \
   "http://YOUR_SERVER/api/v1/folders?workspace=Personal&tree=true"
 ```
 
+Each folder carries its `path` and `is_diary`, true for the diary roots of the workspace.
+
 ### Get Folder
 
 ```
@@ -1656,6 +1658,7 @@ Create a new folder.
 | `name` | string | Yes | Folder name |
 | `workspace` | string | No | Target workspace |
 | `parent_id` | integer | No | Parent folder ID (for subfolders) |
+| `is_diary` | boolean | No | Create the folder as a diary, the root folder the "New diary entry" button files its dated notes into. A diary is always at the root: refused (`400`) with a parent. When a root folder of that name already exists, it becomes the diary and keeps its notes (`200`, `"converted": true`) |
 
 ```bash
 curl -X POST -u 'username:password' -H "X-User-ID: 1" \
@@ -1678,6 +1681,16 @@ curl -X POST -u 'username:password' -H "X-User-ID: 1" \
   }' \
   http://YOUR_SERVER/api/v1/folders
 ```
+
+Create a diary:
+```bash
+curl -X POST -u 'username:password' -H "X-User-ID: 1" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Journal", "workspace": "Personal", "is_diary": true}' \
+  http://YOUR_SERVER/api/v1/folders
+```
+
+Diary entries are ordinary notes filed under it, for instance with `"folder": "Journal/2026/09"` on [Create Note](#create-note).
 
 ### Rename Folder
 

@@ -362,13 +362,19 @@ class FoldersController {
             return;
         }
         
-        // Flag the legacy name-matched diary root before reading the column,
-        // so a journal that predates is_diary is reported as the diary it is.
-        getDiaryRoots($this->db, $workspace);
-
         $stmt = $this->db->prepare('SELECT id, name, parent_id, icon, icon_color, color, display_order, is_diary, created FROM folders WHERE workspace = ?');
         $stmt->execute([$workspace]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // A journal that predates the is_diary column is flagged lazily, the
+        // first time the diary itself is opened (getDiaryRoots). Until then,
+        // report it as the diary it is, without writing: a folder listing is
+        // no place to convert a folder, and a plain root folder that merely
+        // happens to be called "Journal" must stay one.
+        $legacyDiaryName = null;
+        if (!in_array(1, array_map(fn($r) => (int)($r['is_diary'] ?? 0), $rows), true)) {
+            $legacyDiaryName = getDiaryRootFolderName($this->db, $workspace);
+        }
 
         $foldersById = [];
         foreach ($rows as $r) {
@@ -382,7 +388,8 @@ class FoldersController {
                 'color' => $r['color'] ?? null,
                 'color_hex' => !empty($r['color']) ? (resolveNoteColorHex($r['color']) ?: null) : null,
                 'display_order' => (int)($r['display_order'] ?? 0),
-                'is_diary' => (int)($r['is_diary'] ?? 0) === 1,
+                'is_diary' => (int)($r['is_diary'] ?? 0) === 1
+                    || ($legacyDiaryName !== null && $r['parent_id'] === null && (string)$r['name'] === $legacyDiaryName),
                 'created' => $r['created'] ?? null,
             ];
         }
@@ -531,6 +538,14 @@ class FoldersController {
         if (($folderPath === null || $folderPath === '') && ($folderName === null || $folderName === '')) {
             $this->sendError('folder_name or folder_path is required', 400);
             return;
+        }
+
+        // The legacy name-matched journal is only flagged while no diary is
+        // flagged yet. Creating a new diary first would end that window and
+        // turn the existing journal into a plain folder, so flag it before,
+        // exactly as POST /api/v1/diary/diaries.php does.
+        if ($isDiary) {
+            getDiaryRoots($this->db, $workspace);
         }
         
         // Path-based creation
