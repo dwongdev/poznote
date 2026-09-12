@@ -325,7 +325,7 @@ Create a new note with title, content, tags, folder and workspace.
 | `entry` | string | No | Alternative field for content |
 | `tags` | string | No | Comma-separated tags |
 | `folder_id` | integer | No | Target folder ID |
-| `folder` | string | No | Target folder name |
+| `folder` | string | No | Target folder, as a name or a path such as `Projects/2026/Q3`, whose missing levels are created. A bare name matches an existing folder at any depth when only one folder of the workspace carries it; see below when several do. `folder_name` is accepted as an older spelling |
 | `workspace` | string | No | Target workspace |
 | `type` | string | No | Note type: `note` (HTML), `markdown`, `tasklist` |
 
@@ -341,6 +341,20 @@ curl -X POST -u 'username:password' -H "X-User-ID: 1" \
     "type": "markdown"
   }' \
   http://YOUR_SERVER/api/v1/notes
+```
+
+**Ambiguous folder names:** a name is not an address when several folders of the workspace carry it, for instance `08` in both `Diary/2026/08` and `Archive/2025/08`. Rather than guess, or create a third one at the root, the request is refused with `409` and the candidates, so the caller can retry with a full path or a `folder_id`. A root folder of that name, when there is one, is still used directly.
+
+```json
+{
+  "success": false,
+  "error": "Several folders are named \"08\" in this workspace. Pass the full path, or folder_id.",
+  "code": "ambiguous_folder_name",
+  "candidates": [
+    {"id": 41, "path": "Archive/2025/08"},
+    {"id": 57, "path": "Diary/2026/08"}
+  ]
+}
 ```
 
 ### Update Note
@@ -359,6 +373,7 @@ Update an existing note by ID. Only include fields you want to modify.
 | `content` | string | Updated content |
 | `tags` | string | Updated comma-separated tags |
 | `folder_id` | integer | Move to folder. When the same request changes the workspace, it must be a folder of the destination (`400` otherwise) |
+| `folder` | string | Move to folder by name or path, resolved like on [Create Note](#create-note) (ambiguous names included). An empty string moves the note to the workspace root; `folder_id` wins when both are sent |
 | `workspace` | string | Move to workspace, keeping the note's id and history. Without a folder of the destination in the same request, the note lands at that workspace's root, since its current folder belongs to the workspace it leaves. Leave it out of ordinary saves: sending the workspace you happen to have selected moves the note there |
 | `git_push` | boolean | Trigger Git sync after update |
 | `if_version` | string | Optimistic concurrency token (see below) |
@@ -1667,6 +1682,8 @@ Create a new folder.
 | `name` | string | Yes | Folder name |
 | `workspace` | string | No | Target workspace |
 | `parent_id` | integer | No | Parent folder ID (for subfolders) |
+| `folder_path` | string | No | Create a folder by path instead of by name, e.g. `Projects/2026/Q3`. Replaces `name` |
+| `create_parents` | boolean | No | With `folder_path`, create the missing levels on the way down instead of failing with `404` and the `missing_segment` |
 | `is_diary` | boolean | No | Create the folder as a diary, the root folder the "New diary entry" button files its dated notes into. A diary is always at the root: refused (`400`) with a parent. When a root folder of that name already exists, it becomes the diary and keeps its notes (`200`, `"converted": true`) |
 
 ```bash
@@ -1688,6 +1705,14 @@ curl -X POST -u 'username:password' -H "X-User-ID: 1" \
     "workspace": "Personal",
     "parent_id": 12
   }' \
+  http://YOUR_SERVER/api/v1/folders
+```
+
+Create a nested folder in one call:
+```bash
+curl -X POST -u 'username:password' -H "X-User-ID: 1" \
+  -H "Content-Type: application/json" \
+  -d '{"folder_path": "Projects/2026/Q3", "create_parents": true, "workspace": "Personal"}' \
   http://YOUR_SERVER/api/v1/folders
 ```
 
@@ -1734,8 +1759,9 @@ Move folder to a different parent or workspace.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `parent_id` | integer\|null | New parent folder ID (`null` for root) |
-| `target_workspace` | string | Target workspace (for cross-workspace move) |
+| `parent_id` | integer\|null | New parent folder ID (`null` or `0` for root). `new_parent_folder_id` is accepted as well |
+| `new_parent_folder` | string | New parent by path, when its ID is not at hand. The folder must exist; a bare name is resolved like on [Create Note](#create-note) |
+| `target_workspace` | string | Target workspace (for cross-workspace move). The folder takes its subfolders and their notes along |
 
 Move to another parent:
 ```bash
