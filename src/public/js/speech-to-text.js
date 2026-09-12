@@ -147,6 +147,50 @@
         return context;
     }
 
+    /**
+     * Where the transcript of an attachment picked in the note itself goes
+     * (js/note-attachment-menu.js): right after that attachment, whatever the
+     * caret was doing. Null when the note cannot say, and the caller then
+     * falls back to captureInsertionContext().
+     */
+    function captureContextAfter(anchor, attachmentId) {
+        var noteEntry = anchor && anchor.closest ? anchor.closest('.noteentry') : null;
+        if (!noteEntry) return null;
+        var context = { noteEntry: noteEntry, editable: null, range: null, markdownEditor: null, markdownSelection: null, ownParagraph: false };
+
+        var api = markdownApi();
+        var editor = isMarkdownEditor(noteEntry) ? noteEntry : noteEntry.querySelector('.markdown-editor');
+        if (editor && isMarkdownEditor(editor)) {
+            // The anchor is in the rendered preview: find the source line that
+            // references the attachment and start a paragraph below it
+            var source = (typeof api.getValue === 'function') ? api.getValue(editor) : '';
+            var id = String(attachmentId).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            var at = source.search(new RegExp('attachments/' + id + '|attachment=' + id));
+            if (at === -1) return null;
+            var lineEnd = source.indexOf('\n', at);
+            if (lineEnd === -1) lineEnd = source.length;
+            context.markdownEditor = editor;
+            context.markdownSelection = { start: lineEnd, end: lineEnd };
+            context.ownParagraph = true;
+            return context;
+        }
+
+        if (noteEntry.getAttribute('contenteditable') !== 'true') return null;
+        // After the top-level block holding the attachment, so a link inside a
+        // paragraph does not get the transcript spliced into its sentence
+        var block = anchor;
+        while (block.parentNode && block.parentNode !== noteEntry) {
+            block = block.parentNode;
+        }
+        if (block.parentNode !== noteEntry) return null;
+        var range = document.createRange();
+        range.setStartAfter(block);
+        range.collapse(true);
+        context.editable = noteEntry;
+        context.range = range;
+        return context;
+    }
+
     function escapeHtml(text) {
         return String(text)
             .replace(/&/g, '&amp;')
@@ -175,7 +219,9 @@
 
         // Appending to a note that already has content: start a new paragraph
         // rather than gluing the transcript onto the last word.
-        if (!selection && docLength > 0) {
+        if (context.ownParagraph) {
+            payload = '\n\n' + payload;
+        } else if (!selection && docLength > 0) {
             var tail = api.getValue(editor).slice(-2);
             payload = (tail.slice(-1) === '\n' ? (tail === '\n\n' ? '' : '\n') : '\n\n') + payload;
         }
@@ -640,13 +686,15 @@
 
     /**
      * Transcribe an audio file already attached to a note. The audio is read
-     * server-side from storage, so nothing is uploaded again.
+     * server-side from storage, so nothing is uploaded again. anchor, when
+     * given, is the attachment's element in the note: the transcript lands
+     * right after it.
      */
-    window.transcribeAttachment = function (noteId, attachmentId, filename) {
+    window.transcribeAttachment = function (noteId, attachmentId, filename, anchor) {
         if (!isAvailable() || !noteId || !attachmentId) return;
 
         var runId = ++state.runId;
-        state.context = captureInsertionContext();
+        state.context = (anchor && captureContextAfter(anchor, attachmentId)) || captureInsertionContext();
         state.noteId = noteId;
         // It is already an attachment; offering to attach it again is nonsense
         state.canKeepAudio = false;

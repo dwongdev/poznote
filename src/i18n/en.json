@@ -618,6 +618,15 @@
       "show_inline_images": "Also show images already visible in the note content",
       "all_file_types": "All types",
       "file_type_filter": "Filter by file type"
+    },
+    "context_menu": {
+      "open": "Open",
+      "download": "Download",
+      "transcribe": "Transcribe",
+      "delete": "Delete",
+      "delete_confirm_title": "Delete attachment",
+      "delete_confirm_message": "Delete \"{{filename}}\"? It is removed from the note and cannot be recovered.",
+      "delete_confirm_message_unnamed": "Delete this attachment? It is removed from the note and cannot be recovered."
     }
   },
   "modals": {

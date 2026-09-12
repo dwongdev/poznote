@@ -423,17 +423,8 @@ function deleteAttachment(attachmentId, noteId) {
                     var noteType = noteEntry.getAttribute('data-note-type') || 'note';
 
                     if (noteType === 'note') {
-                        var imgs = noteEntry.querySelectorAll('img[src*="' + attachmentId + '"]');
-                        var removedAny = false;
-                        imgs.forEach(function (img) {
-                            img._manuallyDeleted = true; // prevent MutationObserver from triggering deleteAttachment again
-                            img.parentNode.removeChild(img);
-                            removedAny = true;
-                        });
-                        if (removedAny && typeof window.markNoteAsModified === 'function') {
-                            window.markNoteAsModified();
-                        }
-                    } else if (noteType === 'markdown') {
+                        removeAttachmentFromRichTextNote(noteEntry, attachmentId);
+                    } else if (noteType === 'markdown' && !removeAttachmentFromMarkdownNote(noteEntry, noteIdToUse, attachmentId)) {
                         var editor = noteEntry.querySelector('.markdown-editor');
                         if (editor) {
                             var walker = document.createTreeWalker(editor, NodeFilter.SHOW_TEXT, null, false);
@@ -466,6 +457,89 @@ function deleteAttachment(attachmentId, noteId) {
         .catch(function (error) {
             showNotificationPopup(tr('attachments.errors.deletion_failed_generic', {}, 'Deletion failed'), 'error');
         });
+}
+
+/**
+ * Take a deleted attachment out of a rich-text note: images, links and the
+ * audio/video embeds, none of which has anything to show once the file is gone.
+ */
+function removeAttachmentFromRichTextNote(noteEntry, attachmentId) {
+    var refs = noteEntry.querySelectorAll(
+        'img[src*="' + attachmentId + '"], ' +
+        'a[href*="attachments/' + attachmentId + '"], ' +
+        'video[src*="attachments/' + attachmentId + '"], ' +
+        'iframe[src*="attachment=' + attachmentId + '"], ' +
+        'iframe[data-audio-src*="attachments/' + attachmentId + '"]'
+    );
+    var removedAny = false;
+    refs.forEach(function (ref) {
+        if (!ref.parentNode) return;
+        ref._manuallyDeleted = true; // prevent MutationObserver from triggering deleteAttachment again
+        if (ref.tagName === 'A' && ref.querySelector('img')) {
+            // A linked image belongs to its own attachment: keep it, drop the link
+            while (ref.firstChild) ref.parentNode.insertBefore(ref.firstChild, ref);
+        }
+        ref.parentNode.removeChild(ref);
+        removedAny = true;
+    });
+    if (removedAny && typeof window.markNoteAsModified === 'function') {
+        window.markNoteAsModified();
+    }
+}
+
+/**
+ * The same for a Markdown note, through its source: the editor is CodeMirror,
+ * whose highlighted spans split a reference across text nodes. Returns false
+ * when the Markdown modules are not there to do it.
+ */
+function removeAttachmentFromMarkdownNote(noteEntry, noteId, attachmentId) {
+    var editorDiv = noteEntry.querySelector('.markdown-editor');
+    if (!editorDiv || typeof window.getMarkdownContentForNote !== 'function' ||
+        typeof window.persistMarkdownImageSourceChange !== 'function') {
+        return false;
+    }
+    var content = window.getMarkdownContentForNote(noteId);
+    if (typeof content !== 'string') return false;
+    var cleaned = removeAttachmentFromMarkdownSource(content, attachmentId);
+    if (cleaned !== content) {
+        window.persistMarkdownImageSourceChange(noteEntry, editorDiv, noteEntry.querySelector('.markdown-preview'), noteId, cleaned);
+    }
+    return true;
+}
+
+/**
+ * Markdown source minus every reference to one attachment: links and images
+ * (with their {.class} suffix), and the HTML embeds the slash menu inserts. A
+ * line left empty by that goes too, along with one of the blank lines around it.
+ */
+function removeAttachmentFromMarkdownSource(content, attachmentId) {
+    var id = escapeAttachmentRegExp(attachmentId);
+    var patterns = [
+        new RegExp('!?\\[[^\\]\\n]*\\]\\([^)\\n]*attachments\\/' + id + '(?![A-Za-z0-9_-])[^)\\n]*\\)(?:\\{[^}\\n]*\\})?', 'g'),
+        new RegExp('<(iframe|video|audio)\\b[^>]*(?:attachments\\/|attachment=)' + id + '(?![A-Za-z0-9_-])[^>]*>[\\s\\S]*?<\\/\\1>', 'gi'),
+        new RegExp('<a\\b[^>]*attachments\\/' + id + '(?![A-Za-z0-9_-])[^>]*>[\\s\\S]*?<\\/a>', 'gi'),
+        new RegExp('<img\\b[^>]*attachments\\/' + id + '(?![A-Za-z0-9_-])[^>]*>', 'gi')
+    ];
+    var lines = String(content).split('\n');
+    var kept = [];
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var stripped = line;
+        patterns.forEach(function (pattern) { stripped = stripped.replace(pattern, ''); });
+        if (stripped === line) {
+            kept.push(line);
+            continue;
+        }
+        if (stripped.trim() !== '') {
+            kept.push(stripped);
+            continue;
+        }
+        // The line was only the reference: avoid leaving two blank lines behind
+        if (kept.length > 0 && kept[kept.length - 1].trim() === '' && i + 1 < lines.length && lines[i + 1].trim() === '') {
+            i++;
+        }
+    }
+    return kept.join('\n');
 }
 
 function updateAttachmentCountInMenu(noteId) {
@@ -632,7 +706,7 @@ function updateAttachmentCountInMenu(noteId) {
                                 var dlTitle = tr('attachments.actions.download', { filename: safeFilename }, 'Download {{filename}}');
                                 var linkStyle = isInline ? ' style="display: none;"' : '';
                                 var linkAttr = isInline ? ' data-is-inline-image="true"' : '';
-                                attachmentLinks.push('<a href="#" class="attachment-link"' + linkAttr + linkStyle + ' onclick="downloadAttachment(\'' + att.id + '\', \'' + noteId + '\')" title="' + dlTitle + '">' + safeFilename + '</a>');
+                                attachmentLinks.push('<a href="#" class="attachment-link"' + linkAttr + linkStyle + ' data-attachment-id="' + att.id + '" data-note-id="' + noteId + '" onclick="downloadAttachment(\'' + att.id + '\', \'' + noteId + '\')" title="' + dlTitle + '">' + safeFilename + '</a>');
                                 if (!isInline) visibleLinksCountForRow++;
                             }
                         }

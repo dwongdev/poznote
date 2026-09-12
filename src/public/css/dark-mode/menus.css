@@ -186,6 +186,11 @@ html[data-theme='dark'] .image-menu-item[data-action='delete-image'] i {
     color: var(--dm-danger-hover);
 }
 
+html[data-theme='dark'] .image-menu-item.image-menu-item-danger,
+html[data-theme='dark'] .image-menu-item.image-menu-item-danger i {
+    color: var(--dm-danger-hover);
+}
+
 html[data-theme='dark'] img.img-with-border {
     border-color: var(--dm-border);
     background: var(--dm-content-bg);

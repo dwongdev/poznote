@@ -208,6 +208,12 @@ html[data-theme='dark'] .create-note-subtitle {
     color: var(--pz-accent);
 }
 
+/* Destructive entry (attachment menu, js/note-attachment-menu.js) */
+.image-menu-item.image-menu-item-danger,
+.image-menu-item.image-menu-item-danger i {
+    color: var(--pz-danger);
+}
+
 /* Submenu styles */
 .image-menu-parent {
     position: relative;
