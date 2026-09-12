@@ -1556,7 +1556,7 @@ List all folders in a workspace.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `workspace` | string | Filter by workspace |
+| `workspace` | string | Workspace whose folders to list. When omitted, the workspace that sorts first is used, which changes as workspaces are added: always pass it from a script |
 | `tree` | boolean | Return hierarchical tree structure |
 
 ```bash

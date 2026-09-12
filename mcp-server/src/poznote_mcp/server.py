@@ -1354,22 +1354,32 @@ def list_folders(workspace: Optional[str] = None, user_id: Optional[int] = None)
     roots the "New diary entry" button files dated notes into.
 
     Args:
-        workspace: Workspace name (optional)
+        workspace: Workspace whose folders to list. Folders always belong to
+            one workspace, so omitting it means the account's default (the
+            mcp_default_workspace setting, or the only workspace there is);
+            with several workspaces and no setting, the call is refused and
+            lists them rather than silently picking whichever sorts first.
         user_id: User profile ID to access (optional, overrides default)
     """
     client, err = _get_client_or_error()
     if err:
         return err
+
+    # GET /folders without a workspace answers for getFirstWorkspaceName(),
+    # the same drifting default create_note used to fall into (#1373).
+    workspace, err = _resolve_workspace(client, workspace, user_id)
+    if err:
+        return err
+
     try:
         folders = client.list_folders(workspace=workspace, user_id=user_id)
     except Exception as exc:
         return _api_error_json(exc)
     result = {
         "count": len(folders),
+        "workspace": workspace,
         "folders": folders,
     }
-    if workspace is not None:
-        result["workspace"] = workspace
 
     return json.dumps(result, indent=2, ensure_ascii=False)
 
@@ -1989,6 +1999,9 @@ def update_app_setting(key: str, value: str, user_id: Optional[int] = None) -> s
         result = client.update_setting(key, value, user_id=user_id)
     except Exception as exc:
         return _api_error_json(exc)
+    if key == DEFAULT_WORKSPACE_SETTING:
+        # Otherwise the old default keeps being served for up to a minute.
+        _forget_default_workspace()
     return json.dumps(result, indent=2, ensure_ascii=False)
 
 
