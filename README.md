@@ -1241,18 +1241,11 @@ The AI server is called from the Poznote server, never from your browser. With a
 
 ## Transcription (speech to text)
 
-Poznote can turn voice into note text through a speech-to-text server you run yourself. It embeds no speech model: it talks to any server exposing the OpenAI audio API (`POST /v1/audio/transcriptions`), which every self-hostable Whisper distribution speaks, [Speaches](https://github.com/speaches-ai/speaches), [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and [LocalAI](https://localai.io) among them. Point it at a container on your own machine and the audio never leaves it.
+Turn voice into note text with a speech-to-text server you run yourself. Poznote embeds no speech model: it talks to any server exposing the OpenAI audio API (`POST /v1/audio/transcriptions`), such as a self-hosted Whisper, so the audio never has to leave your machine.
 
-Once configured, two things appear:
+Once an administrator enables it in **Settings → Admin Tools → Transcription**, you get **Dictate** under **Insert** in the slash menu, and a **Transcribe** button on audio attachments.
 
-- **Dictate**, in the slash menu of every note. Type `/` and pick **Dictate**, speak, stop, and the transcript comes back in a box where you can correct it before it goes into the note, at the cursor, in rich-text and Markdown notes alike. A checkbox offers to keep the recording as an attachment; unticked, which is the default, the audio is discarded once the text comes back.
-- **Transcribe**, on audio attachments. Any `mp3`, `wav`, `ogg`, `m4a` or `flac` file attached to a note gets a microphone button in the attachments dialog, which is what you want for a voice memo recorded on your phone and dropped into Poznote.
-
-To enable it, go to **Settings → Admin Tools → Transcription** (administrator only), pick a server, use **Check access and list models**, and tick the users allowed to use it. Access is granted profile by profile, and the administrator can also allow personal servers, which gives every user a **My transcription server** card in their own settings.
-
-For the full guide, covering the three server options with ready-to-run Docker commands, choosing a model, spoken language, and why the microphone needs HTTPS, see the [Transcription documentation](docs/TRANSCRIPTION.md).
-
-Recordings are uploaded to Poznote and forwarded to the transcription server from there, never from your browser. Poznote keeps no copy of the audio unless you ask it to attach the recording.
+Setting up a server, choosing a model, and everything else is in the [Transcription documentation](docs/TRANSCRIPTION.md).
 
 ## MCP Server
 

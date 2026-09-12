@@ -101,15 +101,22 @@ function sttTranscribeFile(array $config, string $path, string $filename, string
         CURLOPT_HTTPHEADER => array_merge(['Accept: application/json'], sttAuthHeaders((string)$config['api_key'])),
         CURLOPT_CONNECTTIMEOUT => 10,
         // Whisper on CPU is slow: a few minutes of audio can take longer than
-        // the audio itself. A short timeout here would look like a broken
-        // server rather than a busy one.
-        CURLOPT_TIMEOUT => 900,
+        // the audio itself, so this waits as long as the stack in front lets
+        // it. docker/nginx/default.conf gives PHP 600 seconds
+        // (fastcgi_read_timeout); giving up 30 seconds earlier returns a message
+        // the dialog can show, instead of nginx's bare 504 page.
+        CURLOPT_TIMEOUT => POZNOTE_STT_UPSTREAM_TIMEOUT_SECONDS,
     ]);
     $body = curl_exec($ch);
     $curlError = curl_error($ch);
+    $curlErrno = curl_errno($ch);
     $status = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
     curl_close($ch);
 
+    if ($curlErrno === CURLE_OPERATION_TIMEDOUT) {
+        return ['ok' => false, 'error' => 'The transcription server did not answer within '
+            . POZNOTE_STT_UPSTREAM_TIMEOUT_SECONDS . ' seconds. Try a shorter recording or a smaller model.'];
+    }
     if ($body === false || $curlError !== '' || $status < 200 || $status >= 300) {
         return ['ok' => false, 'error' => sttUpstreamError($body, $curlError, $status)];
     }
@@ -157,7 +164,15 @@ if ($action === 'test') {
         }
     }
 
-    $ch = curl_init(poznoteSttModelsUrl($testUrl));
+    $testProvider = (string)($_POST['provider'] ?? '');
+    $modelsUrl = poznoteSttModelsUrl($testUrl);
+    // Speaches lists its text-to-speech voices alongside the Whisper models;
+    // only the latter belong in the suggestions of a transcription setting
+    if ($testProvider === 'speaches') {
+        $modelsUrl .= '?task=automatic-speech-recognition';
+    }
+
+    $ch = curl_init($modelsUrl);
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER => array_merge(['Accept: application/json'], sttAuthHeaders($testKey)),
@@ -170,6 +185,13 @@ if ($action === 'test') {
     curl_close($ch);
 
     header('Content-Type: application/json');
+    // whisper.cpp has no /v1/models at all: its 404 is a server answering, which
+    // is all this check can learn from it. Every other provider does list
+    // models, so a 404 there still means the URL is wrong.
+    if ($testProvider === 'whispercpp' && $body !== false && $curlError === '' && $status === 404) {
+        echo json_encode(['success' => true, 'models' => []]);
+        exit;
+    }
     if ($body === false || $curlError !== '' || $status < 200 || $status >= 300) {
         http_response_code(502);
         echo json_encode(['success' => false, 'error' => sttUpstreamError($body, $curlError, $status)]);
@@ -304,7 +326,7 @@ foreach ($attachments as $candidate) {
 if ($attachment === null) {
     sttJsonError(404, 'Attachment not found');
 }
-if (poznoteAttachmentPreviewKind($attachment) !== 'audio') {
+if (!poznoteSttAttachmentIsTranscribable($attachment)) {
     sttJsonError(415, 'That attachment is not an audio file');
 }
 
@@ -318,13 +340,7 @@ if ((int)@filesize($localPath) > poznoteSttMaxUploadBytes()) {
 }
 
 $originalName = poznoteAttachmentOriginalFilename($attachment);
-// An attachment recorded without a type still has an audio extension, which is
-// what poznoteAttachmentPreviewKind() matched on just above; CURLFile needs
-// something concrete either way.
-$mimeType = poznoteAttachmentMimeType($attachment);
-if ($mimeType === '') {
-    $mimeType = 'application/octet-stream';
-}
+$mimeType = poznoteSttAttachmentMimeType($attachment);
 $result = sttTranscribeFile($sttConfig, $localPath, $originalName, $mimeType, $language);
 
 header('Content-Type: application/json');

@@ -34,6 +34,7 @@
         TXT.deleteTxt = body.getAttribute('data-txt-delete') || 'Delete';
         TXT.openNewTab = body.getAttribute('data-txt-open-new-tab') || 'Open in new tab';
         TXT.download = body.getAttribute('data-txt-download') || 'Download';
+        TXT.transcribe = body.getAttribute('data-txt-transcribe') || 'Transcribe into the note';
         TXT.pdfLabel = body.getAttribute('data-txt-pdf-label') || 'PDF';
         TXT.deletedSuccess = body.getAttribute('data-txt-deleted-success') || 'Attachment deleted successfully';
         TXT.deleteFailedPrefix = body.getAttribute('data-txt-delete-failed-prefix') || 'Deletion failed: {{error}}';
@@ -302,6 +303,48 @@
             });
     }
 
+    // Speech to text is offered only when this profile has a transcription
+    // server (attachments.php puts the flag in #poznote-config).
+    function canTranscribe() {
+        return !!(window.POZNOTE_CONFIG && window.POZNOTE_CONFIG.speechToText);
+    }
+
+    // Mirrors poznoteSttAttachmentIsTranscribable() in src/stt_config.php. An
+    // audio extension wins over the recorded type: Windows uploads a Voice
+    // Recorder .m4a as video/mp4. A .webm or .mp4 only counts when its type
+    // says audio, since the extension cannot tell a voice note from a film.
+    function isTranscribableAttachment(attachment) {
+        var name = String(getAttachmentFilename(attachment) || '').toLowerCase();
+        if (/\.(mp3|wav|ogg|oga|opus|m4a|flac|aac)$/.test(name)) return true;
+        var type = String(attachment.file_type || attachment.mime_type || attachment.type || '').toLowerCase();
+        return type.indexOf('audio/') === 0;
+    }
+
+    /**
+     * There is no editor on this page, so nothing to put the text into. Hand the
+     * job to the note instead: js/speech-to-text.js picks it up on arrival and
+     * runs the same transcribe, review and insert dialog as the slash menu, which
+     * saves through the editor like any typing. Writing the note from here would
+     * have to redo the file on disk, the edit lock and the autosave by hand.
+     */
+    function transcribeIntoNote(attachmentId, fileName) {
+        try {
+            sessionStorage.setItem('poznote.pendingTranscription', JSON.stringify({
+                noteId: String(noteId),
+                attachmentId: String(attachmentId),
+                filename: String(fileName || ''),
+                createdAt: Date.now()
+            }));
+        } catch (e) {
+            // Private mode or storage disabled: the note would never learn what to do
+            console.debug('attachments-page: transcribeIntoNote() failed:', e);
+            return;
+        }
+        var back = document.querySelector('.poznote-back-to-note-btn');
+        var href = back && back.getAttribute('href');
+        window.location.href = href || ('index.php?note=' + encodeURIComponent(noteId));
+    }
+
     // Display attachments
     function displayAttachments(attachments, noteContent) {
         var container = document.getElementById('attachmentsList');
@@ -388,6 +431,15 @@
                 '<path d="M5 21h14"></path>' +
                 '</svg>' +
                 '</button>' +
+                (canTranscribe() && isTranscribableAttachment(attachment)
+                    ? '<button type="button" data-action="transcribe" data-attachment-id="' + safeId + '" class="btn-icon btn-transcribe" title="' + escapeHtml(TXT.transcribe) + '" aria-label="' + escapeHtml(TXT.transcribe) + '">' +
+                      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                      '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>' +
+                      '<path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>' +
+                      '<line x1="12" x2="12" y1="19" y2="22"></line>' +
+                      '</svg>' +
+                      '</button>'
+                    : '') +
                 '<button type="button" data-action="delete" data-attachment-id="' + safeId + '" class="btn-icon btn-delete" title="' + escapeHtml(TXT.deleteTxt) + '">' +
                 '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
                 '<polyline points="3,6 5,6 21,6"></polyline>' +
@@ -671,6 +723,10 @@
             case 'download':
                 event.preventDefault();
                 downloadAttachment(attachmentId);
+                break;
+            case 'transcribe':
+                event.preventDefault();
+                transcribeIntoNote(attachmentId, fileName);
                 break;
             case 'delete':
                 event.preventDefault();

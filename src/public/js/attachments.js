@@ -351,7 +351,9 @@ function isAudioAttachment(attachment) {
     var type = String(attachment.file_type || attachment.mime_type || attachment.type || '').toLowerCase();
     if (type.indexOf('audio/') === 0) return true;
     var name = String(attachment.original_filename || attachment.filename || '').toLowerCase();
-    return /\.(mp3|wav|ogg|m4a|flac)$/.test(name);
+    // Same extensions as poznoteSttAttachmentIsTranscribable() in src/stt_config.php,
+    // so a button offered here is never refused by the endpoint
+    return /\.(mp3|wav|ogg|oga|opus|m4a|flac|aac)$/.test(name);
 }
 
 /**

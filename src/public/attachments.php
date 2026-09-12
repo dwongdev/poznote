@@ -135,6 +135,7 @@ if (!$note) {
       data-txt-delete="<?php echo t_h('attachments.actions.delete', [], 'Delete'); ?>"
       data-txt-open-new-tab="<?php echo t_h('attachments.page.open_in_new_tab', [], 'Open in new tab'); ?>"
       data-txt-download="<?php echo t_h('common.download', [], 'Download'); ?>"
+      data-txt-transcribe="<?php echo t_h('stt.attachment.transcribe_into_note', [], 'Transcribe into the note'); ?>"
       data-txt-pdf-label="<?php echo t_h('attachments.page.pdf_label', [], 'PDF'); ?>"
       data-txt-deleted-success="<?php echo t_h('attachments.messages.deleted_success', [], 'Attachment deleted successfully'); ?>"
       data-txt-delete-failed-prefix="<?php echo t_h('attachments.errors.deletion_failed', ['error' => '{{error}}'], 'Deletion failed: {{error}}'); ?>"
@@ -151,10 +152,17 @@ if (!$note) {
     <?php include __DIR__ . '/../icon_sidebar.php'; ?>
     
     <!-- Global configuration (CSP compliant) -->
+    <?php
+    // Speech to text, resolved as on the notes page: a mic button on audio
+    // attachments (js/attachments-page.js) only when this profile can use it.
+    require_once __DIR__ . '/../stt_config.php';
+    $attachmentsSttAvailable = poznoteResolveSttConfig($con, (int)(getAuthenticatedUserId() ?? 0))['available'];
+    ?>
     <script type="application/json" id="poznote-config"><?php
         echo json_encode([
             'gitSyncAutoPush' => ($showGitSync && $gitSync->isAutoPushEnabled()),
-            'dateTimeFormat' => getUserDateTimeFormat()
+            'dateTimeFormat' => getUserDateTimeFormat(),
+            'speechToText' => $attachmentsSttAvailable
         ], JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP) ?: '{}';
     ?></script>
     <script src="js/error-handler.js?v=<?php echo $v; ?>"></script>

@@ -381,6 +381,16 @@
         if (keepBox) keepBox.checked = false;
         var timer = el('dictateTimer');
         if (timer) timer.textContent = '0:00';
+        // The limit comes from the administrator's setting (index.php hands it
+        // over in POZNOTE_CONFIG); shown next to the elapsed time so the
+        // automatic stop never comes as a surprise.
+        var limit = el('dictateTimerLimit');
+        if (limit) limit.textContent = formatElapsed(maxSeconds());
+        var hint = el('dictateHint');
+        if (hint) {
+            hint.textContent = t('stt.modal.recording_hint', { minutes: Math.round(maxSeconds() / 60) },
+                'Speak, then stop the recording to have it transcribed. It stops on its own after {{minutes}} min.');
+        }
         var bar = el('dictateLevelBar');
         if (bar) bar.style.width = '0%';
         showPanel(mode);
@@ -572,6 +582,16 @@
             return;
         }
 
+        // A note open elsewhere is locked for this tab: the editor would take the
+        // text and the save would then be refused, losing it without a word.
+        // Refuse up front instead, and leave the text in the box to copy.
+        var targetNoteId = context && context.noteEntry ? context.noteEntry.getAttribute('data-note-id') : null;
+        var publicReadonly = !!(document.body && document.body.classList.contains('public-workspace-readonly'));
+        if (publicReadonly || (targetNoteId && typeof window.isNoteEditingLocked === 'function' && window.isNoteEditingLocked(targetNoteId))) {
+            showError(t('stt.errors.note_locked', null, 'This note cannot be edited from here right now, so the text was not inserted. Copy it from the box above.'));
+            return;
+        }
+
         if (!insertTranscript(context, text)) {
             showError(t('stt.errors.no_note', null, 'Open a note first: there is nowhere to put the text.'));
             return;
@@ -687,5 +707,64 @@
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape' && modal.style.display === 'flex') closeModal();
         });
+
+        resumePendingTranscription();
     });
+
+    /**
+     * The attachments page has no editor, so its Transcribe button stores the
+     * job and comes back to the note (js/attachments-page.js). Pick it up here
+     * and run the ordinary attachment flow, which puts the text right after the
+     * attachment when the note references it and at the end otherwise.
+     *
+     * One shot: the entry is removed as soon as it is read, so a reload never
+     * transcribes twice, and a job older than ten minutes is ignored.
+     */
+    function resumePendingTranscription() {
+        var job = null;
+        try {
+            var raw = sessionStorage.getItem('poznote.pendingTranscription');
+            if (!raw) return;
+            sessionStorage.removeItem('poznote.pendingTranscription');
+            job = JSON.parse(raw);
+        } catch (e) {
+            console.debug('speech-to-text: resumePendingTranscription() failed:', e);
+            return;
+        }
+        if (!job || !job.noteId || !job.attachmentId || !isAvailable()) return;
+        if (!job.createdAt || Date.now() - job.createdAt > 10 * 60 * 1000) return;
+
+        var noteId = String(job.noteId);
+        var attachmentId = String(job.attachmentId);
+        var quote = function (value) {
+            return (window.CSS && typeof window.CSS.escape === 'function') ? window.CSS.escape(value) : value.replace(/["\\]/g, '\\$&');
+        };
+
+        // A Markdown note builds its editor after the page has loaded; wait for
+        // it (bounded) so the transcript has somewhere to go.
+        var started = Date.now();
+        (function whenReady() {
+            var noteEntry = document.getElementById('entry' + noteId)
+                || document.querySelector('.noteentry[data-note-id="' + quote(noteId) + '"]');
+            var isMarkdown = !!(noteEntry && noteEntry.getAttribute('data-note-type') === 'markdown');
+            var editorReady = !isMarkdown || !!(noteEntry && (isMarkdownEditor(noteEntry) || isMarkdownEditor(noteEntry.querySelector('.markdown-editor'))));
+            if (!noteEntry || !editorReady) {
+                if (Date.now() - started < 8000) setTimeout(whenReady, 150);
+                return;
+            }
+
+            // Where the note references the attachment, so the text lands right
+            // after it. A Markdown note is searched in its source, which only
+            // needs an element inside the note.
+            var anchor = isMarkdown ? noteEntry : noteEntry.querySelector(
+                '[data-attachment-id="' + quote(attachmentId) + '"], ' +
+                'a[href*="attachments/' + quote(attachmentId) + '"], ' +
+                'iframe[src*="attachment=' + quote(attachmentId) + '"], ' +
+                'iframe[data-audio-src*="attachments/' + quote(attachmentId) + '"], ' +
+                'audio[src*="attachments/' + quote(attachmentId) + '"], ' +
+                'video[src*="attachments/' + quote(attachmentId) + '"]'
+            );
+            window.transcribeAttachment(noteId, attachmentId, job.filename || '', anchor || undefined);
+        })();
+    }
 })();

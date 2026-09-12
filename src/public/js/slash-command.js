@@ -2228,6 +2228,7 @@
                             insertDate();
                         }
                     },
+                    common.dictate,
                     common.excalidraw,
                     common.emoji,
                     {
@@ -2252,7 +2253,6 @@
                     }
                 ]
             },
-            common.dictate,
             {
                 id: 'link-menu',
                 icon: 'lucide-link',
@@ -2568,6 +2568,7 @@
                             insertDateMarkdown();
                         }
                     },
+                    common.dictate,
                     common.excalidraw,
                     common.emoji,
                     {
@@ -2588,7 +2589,6 @@
                     }
                 ]
             },
-            common.dictate,
             {
                 id: 'link-menu',
                 icon: 'lucide-link',

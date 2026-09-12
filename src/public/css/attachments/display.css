@@ -198,6 +198,19 @@
     color: var(--pz-text-inverse);
 }
 
+/* Transcribe into the note (audio only, when a transcription server is set).
+   Neutral rather than a fourth hue: blue, green and red are taken, and white
+   on the warning yellow does not read. */
+.btn-icon.btn-transcribe {
+    background: var(--pz-neutral);
+    color: var(--pz-text-inverse);
+}
+
+.btn-icon.btn-transcribe:hover {
+    background: var(--pz-neutral-hover);
+    transform: translateY(-1px);
+}
+
 /* Prevent modal global rules from making .btn-icon full width */
 .modal .btn-icon {
     display: inline-flex !important;
