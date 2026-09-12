@@ -1,3 +1,15 @@
+<!-- lang-selector -->
+<p align="center">
+  <a href="README.md"><img src="images/flags/gb.svg" alt="English" title="English" width="24"></a>&nbsp;
+  <a href="README.fr.md"><img src="images/flags/fr.svg" alt="Français" title="Français" width="24"></a>&nbsp;
+  <a href="README.de.md"><img src="images/flags/de.svg" alt="Deutsch" title="Deutsch" width="24"></a>&nbsp;
+  <a href="README.es.md"><img src="images/flags/es.svg" alt="Español" title="Español" width="24"></a>&nbsp;
+  <a href="README.pt.md"><img src="images/flags/br.svg" alt="Português" title="Português" width="24"></a>&nbsp;
+  <a href="README.ru.md"><img src="images/flags/ru.svg" alt="Русский" title="Русский" width="24"></a>&nbsp;
+  <a href="README.zh-cn.md"><img src="images/flags/cn.svg" alt="简体中文" title="简体中文" width="24"></a>
+</p>
+<!-- /lang-selector -->
+
 
 <p align="center">
   <img src="images/poznote-logo-text.png" alt="Poznote Logo" width="400">
@@ -593,7 +605,7 @@ Poznote supports two primary note formats, each tailored for different workflows
 *   **Editor:** Markdown syntax editor with real-time preview.
 *   **Storage:** Saved as `.md` files in the user data directory.
 *   **Exclusive Features:**
-    *   **Mermaid Diagrams:** </strong> Native support for generating diagrams (flowcharts, sequence, etc.) via ` ```mermaid ` code blocks.
+    *   **Mermaid Diagrams:** Native support for generating diagrams (flowcharts, sequence, etc.) via ` ```mermaid ` code blocks.
     *   **Math Equations:** Robust LaTeX support for mathematical formulas using `$ inline $` and `$$ block $$` syntax.
     *   **Portability:** Standard Markdown format compatible with any external editor or static site generator.
 </details>
