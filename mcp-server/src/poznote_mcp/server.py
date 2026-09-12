@@ -1733,15 +1733,16 @@ def move_folder(
     """Move a folder under another parent and/or into another workspace
 
     Its subfolders and every note inside them move with it, keeping their ids.
-    Pass neither parent argument to put the folder at the root of its
-    destination.
+    Moving to another workspace without a parent puts the folder at the root
+    of that workspace; to move it to the root of its own workspace, pass
+    new_parent_folder_id=0.
 
     Args:
         folder_id: ID of the folder to move
         target_workspace: Workspace to move the folder to (optional; it stays
             in its own workspace when omitted)
         new_parent_folder_id: ID of the folder it becomes a child of. Must be
-            in the destination workspace.
+            in the destination workspace. 0 means the root.
         new_parent_folder: Path of that parent folder, when its id is not at
             hand. The folder must already exist.
         user_id: User profile ID to access (optional, overrides default)

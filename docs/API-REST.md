@@ -349,8 +349,8 @@ Update an existing note by ID. Only include fields you want to modify.
 | `heading` | string | Updated title |
 | `content` | string | Updated content |
 | `tags` | string | Updated comma-separated tags |
-| `folder_id` | integer | Move to folder |
-| `workspace` | string | Move to workspace |
+| `folder_id` | integer | Move to folder. When the same request changes the workspace, it must be a folder of the destination (`400` otherwise) |
+| `workspace` | string | Move to workspace, keeping the note's id and history. Without a folder of the destination in the same request, the note lands at that workspace's root, since its current folder belongs to the workspace it leaves. Leave it out of ordinary saves: sending the workspace you happen to have selected moves the note there |
 | `git_push` | boolean | Trigger Git sync after update |
 | `if_version` | string | Optimistic concurrency token (see below) |
 | `state_hash` | string | Fingerprint of the editor state being saved, used by the web editor's draft recovery. `GET /notes/{id}` returns it as `state_hash` until the note is written again by anyone, `null` otherwise. Other API clients can leave it out. |

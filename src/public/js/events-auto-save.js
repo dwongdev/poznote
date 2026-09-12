@@ -565,7 +565,9 @@ function emergencySave(noteId) {
         tags: tags,
         folder: folder,
         folder_id: folder_id,
-        workspace: (window.selectedWorkspace || getSelectedWorkspace()),
+        // No workspace, as in saveNoteToServer(): this save runs on the way
+        // out, typically right after a workspace switch has already changed
+        // selectedWorkspace, and a workspace in a PATCH moves the note.
         state_hash: stateHash,
         editor_session_id: (typeof window.getCurrentEditorSessionId === 'function') ? window.getCurrentEditorSessionId() : ''
     };

@@ -317,7 +317,10 @@ function saveNoteToServer(options) {
         content: ent,
         tags: tags,
         folder_id: folderId,
-        workspace: selectedWorkspace || getSelectedWorkspace(),
+        // No workspace: in a PATCH it means "move the note there", and the
+        // selected workspace can already be another one while this note is
+        // still on screen (workspace switch, browser back). A save must never
+        // move a note; the API keeps the note's own workspace when it is absent.
         editor_session_id: editorSessionId
     };
 
