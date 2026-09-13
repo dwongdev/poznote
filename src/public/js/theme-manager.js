@@ -311,7 +311,10 @@
         for (var i = 0; i < toggles.length; i++) {
             var toggleIcon = toggles[i].querySelector('i');
             if (toggleIcon) {
-                toggleIcon.className = toggleIconClass;
+                // Keep the colour picked for the rail's theme button
+                // (js/icon-sidebar-colors.js).
+                var colored = toggleIcon.classList.contains('icon-sidebar-icon-colored');
+                toggleIcon.className = toggleIconClass + (colored ? ' icon-sidebar-icon-colored' : '');
             }
             if (title) {
                 toggles[i].setAttribute('title', title);

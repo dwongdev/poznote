@@ -644,7 +644,7 @@ Poznote prend en charge deux formats de notes principaux, chacun adapté à une 
 &nbsp;
 
 *   **Usage :** écrivez une note par jour, façon journal intime, depuis un tableau Journal dédié.
-*   **Fonctionnement :** le bouton « Note du jour » ouvre la note du jour en la créant si nécessaire, avec la date du jour pour titre, et la range automatiquement dans une arborescence de dossiers `Diary/YYYY/MM`.
+*   **Fonctionnement :** le bouton « Créer la note du jour » crée la note du jour (il devient « Aller à la note du jour » une fois la note créée), avec la date du jour pour titre, et la range automatiquement dans une arborescence de dossiers `Diary/YYYY/MM`.
 *   **Vue tableau :** les entrées s'affichent sous forme de cartes regroupées par mois, les plus récentes en premier, avec un filtre pour retrouver rapidement les entrées passées.
 *   **Vue en fil continu :** le bouton en forme de parchemin, à côté des réglages d'affichage, passe à une seule colonne de lecture : chaque entrée avec son contenu complet, les plus récentes en premier, chargées au fil du défilement. Le filtre s'y applique aussi.
 *   **Format :** les nouvelles entrées sont créées en notes HTML ou Markdown, selon le réglage « Format des entrées de journal » dans **Paramètres > Comportement**.
@@ -675,7 +675,7 @@ Dans **Paramètres > Affichage**, vous pouvez configurer :
 - **Couleurs des notes :** choisissez la palette proposée pour colorer une note
 - **Icônes par type de note :** donnez aux listes de tâches et aux notes Markdown leur propre icône dans la liste des notes
 - **Taille des icônes (Index) :** redimensionnez les icônes de l'index des notes
-- **Ordre de la barre d'icônes :** réorganisez les boutons de la barre d'icônes de gauche
+- **Ordre de la barre d'icônes :** réorganisez les boutons de la barre d'icônes de gauche et changez leur couleur (un clic droit sur un bouton de la barre ouvre aussi le choix de couleur)
 - **Largeur du contenu de la note :** définissez la largeur maximale de la zone d'édition des notes
 - **Aperçus des pièces jointes :** affichez les pièces jointes sous forme d'aperçus dans la note
 - **Bordure par défaut des images :** encadrez les images insérées sans ajouter de marge intérieure
@@ -790,6 +790,8 @@ Deux tokens plutôt qu'un, car un *remplissage* et un *libellé* ne peuvent pas 
 ```
 
 Les icônes sont des masques CSS peints avec `background-color: currentColor` : `color` suffit donc. `!important` est nécessaire ici car quelques-unes de ces icônes ont déjà leur propre couleur (l'étoile quand une note est en favori, l'icône de partage quand elle est publiée, le trombone quand elle a des pièces jointes).
+
+Pour colorer une seule icône, pas besoin de CSS : faites un clic droit dessus dans la barre d'outils de la note ou dans la barre d'icônes, puis choisissez une couleur. Ces couleurs sont enregistrées par utilisateur et laissent intactes les couleurs d'état ci-dessus.
 
 **Réchauffer toute l'interface**
 

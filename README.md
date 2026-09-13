@@ -644,7 +644,7 @@ Poznote supports two primary note formats, each tailored for different workflows
 &nbsp;
 
 *   **Usage:** Write one note per day, journal-style, from a dedicated Diary board.
-*   **Workflow:** The "Today's entry" button opens today's note, creating it if needed, titled with the current date and stored automatically in a `Diary/YYYY/MM` folder structure.
+*   **Workflow:** The "Create today's entry" button creates today's note (it reads "Go to today's entry" once the note exists), titled with the current date and stored automatically in a `Diary/YYYY/MM` folder structure.
 *   **Board View:** Entries are displayed as cards grouped by month, newest first, with a filter to quickly find past entries.
 *   **Journal View:** The scroll button next to the view controls switches to one reading column: every entry with its full content, newest first, loaded as you scroll. The filter works there too.
 *   **Format:** New entries are created as HTML or Markdown notes, depending on the "Diary entry format" setting under **Settings > Behavior**.
@@ -675,7 +675,7 @@ Under **Settings > Display**, you can configure:
 - **Note colors:** choose the palette offered when colouring a note
 - **Icons by note type:** give task lists and Markdown notes their own icon in the notes list
 - **Index icon scaling:** resize icons in the note index
-- **Icon sidebar order:** reorder the buttons of the left icon rail
+- **Icon sidebar order:** reorder the buttons of the left icon rail and change their colors (a right-click on a button of the rail also opens the color picker)
 - **Note content width:** control the max width of the note editor area
 - **Attachment previews:** show attachments as previews inside the note
 - **Default image border:** frame inserted images without adding padding
@@ -790,6 +790,8 @@ Two tokens rather than one because a *fill* and a *label* cannot be the same col
 ```
 
 Icons are CSS masks painted with `background-color: currentColor`, so `color` is all you need. `!important` is needed here because a few of those icons already carry a colour of their own (the star when a note is a favourite, the share icon when it is published, the paperclip when it has attachments).
+
+No CSS needed to colour a single icon: right-click it in the note toolbar or in the icon rail and pick a colour. Those colours are saved per user and leave the state colours above alone.
 
 **Warm up the whole interface**
 

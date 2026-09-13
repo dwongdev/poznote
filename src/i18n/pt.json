@@ -506,7 +506,7 @@
       "note_nav_shortcuts": "Vá para a nota anterior ou seguinte da pasta atual com Alt + ↑/↓.",
       "ctrl_s_save": "Salve imediatamente a nota atual com Ctrl + S (Cmd + S no Mac).",
       "ui_customization": "Oculte os elementos da interface que você não usa.",
-      "icon_sidebar_order": "Altere a ordem dos botões da barra de ícones e coloque separadores entre eles.",
+      "icon_sidebar_order": "Altere a ordem e a cor dos botões da barra de ícones e coloque separadores entre eles.",
       "users_admin": "Crie, edite e gerencie contas de usuário.",
       "oidc_config": "Configure o login único com um provedor OpenID Connect.",
       "smtp_config": "Configure o servidor SMTP usado para enviar e-mails como lembretes.",
@@ -1362,9 +1362,8 @@
     },
     "icon_sidebar_order": {
       "title": "Ordem da barra de ícones",
-      "description": "Arraste as entradas para alterar a ordem dos botões da barra de ícones. Os separadores desenham uma linha fina entre dois grupos de botões. Os botões de conta na parte inferior da barra permanecem no lugar.",
-      "move_up": "Mover para cima",
-      "move_down": "Mover para baixo",
+      "description": "Arraste as entradas para alterar a ordem dos botões da barra de ícones. Os separadores desenham uma linha fina entre dois grupos de botões. Os botões de conta na parte inferior da barra permanecem no lugar. Clique num ícone para alterar a sua cor. Também pode clicar com o botão direito em qualquer botão diretamente na barra.",
+      "change_color": "Alterar a cor do ícone",
       "reset": "Repor a ordem",
       "divider": "Separador",
       "add_divider": "Adicionar um separador",
@@ -4517,10 +4516,10 @@
   },
   "diary": {
     "title": "Diário",
-    "today_button": "Entrada de hoje",
-    "today_button_title": "Abrir a entrada de hoje (criar se necessário)",
+    "today_button_go": "Ir para a entrada de hoje",
+    "today_button_create": "Criar a entrada de hoje",
     "today_badge": "Hoje",
-    "empty": "Ainda não há entradas no diário. Clique em \"Entrada de hoje\" para escrever a primeira. Ela será guardada em {{folder}}.",
+    "empty": "Ainda não há entradas no diário. Clique em \"Criar a entrada de hoje\" para escrever a primeira. Ela será guardada em {{folder}}.",
     "create_error": "Não foi possível criar a entrada do diário.",
     "create_card_title": "Entrada de diário",
     "folder_name": "Diário",
@@ -4537,7 +4536,9 @@
     "delete_error": "Não foi possível excluir o diário.",
     "journal_trash": "Mover para a lixeira",
     "journal_trash_confirm": "Mover \"{{title}}\" para a lixeira?",
-    "journal_trash_error": "Não foi possível mover esta entrada para a lixeira."
+    "journal_trash_error": "Não foi possível mover esta entrada para a lixeira.",
+    "rename_title": "Renomear diário",
+    "rename_error": "Não foi possível renomear o diário."
   },
   "new_user_email": {
     "subject": "Novo utilizador Poznote: {{user}}",

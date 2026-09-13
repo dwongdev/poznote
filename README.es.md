@@ -644,7 +644,7 @@ Poznote admite dos formatos principales de notas, cada uno adaptado a una forma 
 &nbsp;
 
 *   **Uso:** escribe una nota al día, al estilo de un diario, desde un tablero de Diario dedicado.
-*   **Flujo de trabajo:** el botón «Entrada de hoy» abre la nota del día, creándola si hace falta, con la fecha actual como título y guardada automáticamente en una estructura de carpetas `Diary/YYYY/MM`.
+*   **Flujo de trabajo:** el botón «Crear la entrada de hoy» crea la nota del día (pasa a llamarse «Ir a la entrada de hoy» cuando ya existe), con la fecha actual como título y guardada automáticamente en una estructura de carpetas `Diary/YYYY/MM`.
 *   **Vista de tablero:** las entradas se muestran como tarjetas agrupadas por mes, de la más reciente a la más antigua, con un filtro para encontrar rápidamente entradas pasadas.
 *   **Vista continua:** el botón con forma de pergamino, junto a los controles de vista, cambia a una sola columna de lectura: cada entrada con su contenido completo, de la más reciente a la más antigua, cargadas a medida que te desplazas. El filtro también funciona ahí.
 *   **Formato:** las nuevas entradas se crean como notas HTML o Markdown, según el ajuste «Formato de las entradas del diario» de **Configuración > Comportamiento**.
@@ -675,7 +675,7 @@ En **Configuración > Pantalla** puedes configurar:
 - **Colores de notas:** elige la paleta que se ofrece al colorear una nota
 - **Iconos por tipo de nota:** da a las listas de tareas y a las notas Markdown su propio icono en la lista de notas
 - **Escalado de iconos del índice:** cambia el tamaño de los iconos del índice de notas
-- **Orden de la barra de iconos:** reordena los botones de la barra de iconos de la izquierda
+- **Orden de la barra de iconos:** reordena los botones de la barra de iconos de la izquierda y cambia su color (un clic derecho en un botón de la barra también abre el selector de color)
 - **Ancho del contenido de la nota:** controla el ancho máximo del área del editor de notas
 - **Vistas previas de adjuntos:** muestra los adjuntos como vistas previas dentro de la nota
 - **Borde de imagen por defecto:** enmarca las imágenes insertadas sin añadir relleno
@@ -790,6 +790,8 @@ Dos tokens en lugar de uno porque un *relleno* y una *etiqueta* no pueden tener 
 ```
 
 Los iconos son máscaras CSS pintadas con `background-color: currentColor`, así que basta con `color`. Aquí hace falta `!important` porque algunos de esos iconos ya tienen un color propio (la estrella cuando una nota es favorita, el icono de compartir cuando está publicada, el clip cuando tiene adjuntos).
+
+Para colorear un solo icono no hace falta CSS: haga clic derecho sobre él en la barra de herramientas de la nota o en la barra de iconos y elija un color. Estos colores se guardan por usuario y no afectan a los colores de estado anteriores.
 
 **Dar un tono cálido a toda la interfaz**
 

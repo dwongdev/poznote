@@ -195,7 +195,7 @@
       "note_nav_shortcuts": "Switch to the previous or next note in the current folder with Alt + ↑/↓.",
       "ctrl_s_save": "Save the current note immediately with Ctrl + S (Cmd + S on Mac).",
       "ui_customization": "Hide interface elements you do not use.",
-      "icon_sidebar_order": "Change the order of the buttons in the icon sidebar and place separators between them.",
+      "icon_sidebar_order": "Change the order and the color of the buttons in the icon sidebar and place separators between them.",
       "users_admin": "Create, edit and manage user accounts.",
       "oidc_config": "Configure single sign-on with an OpenID Connect provider.",
       "smtp_config": "Configure the SMTP server used to send emails such as reminders.",
@@ -864,9 +864,8 @@
     },
     "icon_sidebar_order": {
       "title": "Icon sidebar order",
-      "description": "Drag the entries to change the order of the buttons in the icon sidebar. Separators draw a thin line between two groups of buttons. The account buttons at the bottom of the sidebar stay in place.",
-      "move_up": "Move up",
-      "move_down": "Move down",
+      "description": "Drag the entries to change the order of the buttons in the icon sidebar. Separators draw a thin line between two groups of buttons. The account buttons at the bottom of the sidebar stay in place. Click an icon to change its color. You can also right-click any button directly in the sidebar.",
+      "change_color": "Change icon color",
       "reset": "Reset order",
       "divider": "Separator",
       "add_divider": "Add separator",
@@ -4165,10 +4164,10 @@
   },
   "diary": {
     "title": "Diary",
-    "today_button": "Today's entry",
-    "today_button_title": "Open today's entry (create it if needed)",
+    "today_button_go": "Go to today's entry",
+    "today_button_create": "Create today's entry",
     "today_badge": "Today",
-    "empty": "No diary entries yet. Click \"Today's entry\" to write your first one. It will be stored in {{folder}}.",
+    "empty": "No diary entries yet. Click \"Create today's entry\" to write your first one. It will be stored in {{folder}}.",
     "create_error": "Could not create the diary entry.",
     "create_card_title": "Diary entry",
     "folder_name": "Diary",
@@ -4185,7 +4184,9 @@
     "delete_error": "Could not delete the diary.",
     "journal_trash": "Move to trash",
     "journal_trash_confirm": "Move \"{{title}}\" to the trash?",
-    "journal_trash_error": "Could not move this entry to the trash."
+    "journal_trash_error": "Could not move this entry to the trash.",
+    "rename_title": "Rename diary",
+    "rename_error": "Could not rename the diary."
   },
   "new_user_email": {
     "subject": "New Poznote user: {{user}}",

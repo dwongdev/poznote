@@ -80,7 +80,7 @@
     background: var(--pz-accent-hover);
 }
 
-/* Diary switcher: one pill per diary, shown when the workspace has several */
+/* Diary switcher: one pill per diary (a lone diary too, so its name shows) */
 .diary-switcher {
     display: flex;
     flex-wrap: wrap;
@@ -227,6 +227,82 @@
     color: var(--pz-danger);
 }
 
+/* Desktop renames and deletes a diary from the pill's right-click menu, so
+   the pill shows its name only; phones, without right-click, keep the button. */
+@media (min-width: 801px) {
+    .diary-switch-btn {
+        padding-right: 0;
+    }
+
+    .diary-switch-link {
+        padding-right: 14px;
+    }
+
+    .diary-switch-delete {
+        display: none;
+    }
+}
+
+.diary-context-menu {
+    position: fixed;
+    z-index: 10001;
+    min-width: 160px;
+    padding: 4px 0;
+    background: var(--pz-bg);
+    border: 1px solid var(--pz-border);
+    border-radius: var(--pz-radius-lg);
+    box-shadow: 0 4px 16px rgba(var(--pz-shadow-rgb), 0.15);
+}
+
+.diary-context-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 9px 14px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    color: var(--pz-text);
+    text-align: left;
+    cursor: pointer;
+}
+
+.diary-context-menu-item .lucide {
+    width: 15px;
+    height: 15px;
+}
+
+.diary-context-menu-item:hover,
+.diary-context-menu-item:focus-visible {
+    background: var(--pz-surface-hover);
+    outline: none;
+}
+
+.diary-context-menu-item.danger,
+.diary-context-menu-item.danger [class*="lucide-"] {
+    color: var(--pz-danger);
+}
+
+html[data-theme='dark'] .diary-context-menu {
+    border-color: var(--dm-border);
+    box-shadow: 0 4px 16px rgba(var(--pz-shadow-rgb), 0.4);
+}
+
+html[data-theme='dark'] .diary-context-menu-item {
+    color: var(--dm-text-bright);
+}
+
+html[data-theme='dark'] .diary-context-menu-item:hover,
+html[data-theme='dark'] .diary-context-menu-item:focus-visible {
+    background: var(--dm-surface-hover);
+}
+
+html[data-theme='dark'] .diary-context-menu-item.danger,
+html[data-theme='dark'] .diary-context-menu-item.danger [class*="lucide-"] {
+    color: var(--pz-danger);
+}
+
 /* The diary's destructive confirmations (move an entry to the trash, delete
    a diary) have a red confirm button: css/modal-alerts.css paints the cancel
    button red too, so here it is neutral grey to leave one red choice. */
@@ -307,17 +383,8 @@ body:not(.diary-journal-active) :is(.diary-outline-handle, #outline-panel, #outl
     margin-top: 0;
 }
 
-/* Phones have no edge handle (css/outline.css hides it): this button opens
-   the panel instead, in journal mode only. */
-.diary-outline-mobile-btn {
-    display: none;
-}
-
-@media (max-width: 800px) {
-    .diary-journal-active .diary-outline-mobile-btn {
-        display: inline-flex;
-    }
-}
+/* Phones have no edge handle (css/outline.css hides it): the panel opens
+   with a right-to-left swipe on the journal (js/diary-page.js). */
 
 .diary-journal {
     max-width: 760px;

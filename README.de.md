@@ -644,7 +644,7 @@ Poznote unterstützt zwei Hauptformate für Notizen, die jeweils auf unterschied
 &nbsp;
 
 *   **Verwendung:** Schreiben Sie wie in einem Tagebuch eine Notiz pro Tag, über ein eigenes Tagebuch-Board.
-*   **Arbeitsablauf:** Die Schaltfläche „Heutiger Eintrag“ öffnet die Notiz des heutigen Tages und legt sie bei Bedarf an. Sie trägt das aktuelle Datum als Titel und wird automatisch in einer Ordnerstruktur `Diary/YYYY/MM` abgelegt.
+*   **Arbeitsablauf:** Die Schaltfläche „Heutigen Eintrag erstellen“ legt die Notiz des heutigen Tages an (sobald sie existiert, heißt sie „Zum heutigen Eintrag“). Sie trägt das aktuelle Datum als Titel und wird automatisch in einer Ordnerstruktur `Diary/YYYY/MM` abgelegt.
 *   **Board-Ansicht:** Einträge werden als Karten angezeigt, nach Monat gruppiert und die neuesten zuerst, mit einem Filter, um frühere Einträge schnell zu finden.
 *   **Journalansicht:** Die Schriftrollen-Schaltfläche neben den Ansichtseinstellungen wechselt zu einer einzigen Lesespalte: jeder Eintrag mit seinem vollständigen Inhalt, die neuesten zuerst, nachgeladen beim Scrollen. Der Filter wirkt auch hier.
 *   **Format:** Neue Einträge werden als HTML- oder Markdown-Notizen angelegt, je nach der Einstellung „Format der Tagebucheinträge“ unter **Einstellungen > Verhalten**.
@@ -675,7 +675,7 @@ Unter **Einstellungen > Anzeige** können Sie Folgendes konfigurieren:
 - **Notizfarben:** die Palette wählen, die beim Einfärben einer Notiz angeboten wird
 - **Symbole nach Notiztyp:** Aufgabenlisten und Markdown-Notizen in der Notizliste ein eigenes Symbol geben
 - **Skalierung der Index-Symbole:** die Größe der Symbole im Notizindex ändern
-- **Reihenfolge der Icon-Seitenleiste:** die Schaltflächen der linken Symbolleiste neu anordnen
+- **Reihenfolge der Icon-Seitenleiste:** die Schaltflächen der linken Symbolleiste neu anordnen und ihre Farbe ändern (ein Rechtsklick auf eine Schaltfläche der Leiste öffnet ebenfalls die Farbauswahl)
 - **Breite des Notizinhalts:** die maximale Breite des Notizeditors festlegen
 - **Anhangsvorschauen:** Anhänge als Vorschau in der Notiz anzeigen
 - **Standard-Bildrahmen:** eingefügte Bilder ohne zusätzlichen Innenabstand einrahmen
@@ -790,6 +790,8 @@ Zwei Tokens statt einem, weil eine *Füllung* und eine *Beschriftung* nicht dies
 ```
 
 Symbole sind CSS-Masken, die mit `background-color: currentColor` gezeichnet werden, daher genügt `color`. `!important` ist hier nötig, weil einige dieser Symbole bereits eine eigene Farbe tragen (der Stern, wenn eine Notiz ein Favorit ist, das Teilen-Symbol, wenn sie veröffentlicht ist, die Büroklammer, wenn sie Anhänge hat).
+
+Für ein einzelnes Symbol braucht es kein CSS: Klicken Sie es in der Notiz-Symbolleiste oder in der Icon-Seitenleiste mit der rechten Maustaste an und wählen Sie eine Farbe. Diese Farben werden pro Benutzer gespeichert und lassen die oben genannten Statusfarben unverändert.
 
 **Die gesamte Oberfläche wärmer gestalten**
 

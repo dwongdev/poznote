@@ -796,7 +796,7 @@ if ($canUseUserWebhooks) {
 
             <!-- Icon Sidebar Order -->
             <div class="home-card" id="icon-sidebar-order-card">
-                <span class="setting-help" data-tooltip="<?php echo t_h('settings.card_help.icon_sidebar_order', [], 'Change the order of the buttons in the icon sidebar.'); ?>"><i class="lucide lucide-help-circle"></i></span>
+                <span class="setting-help" data-tooltip="<?php echo t_h('settings.card_help.icon_sidebar_order', [], 'Change the order and the color of the buttons in the icon sidebar and place separators between them.'); ?>"><i class="lucide lucide-help-circle"></i></span>
                 <div class="home-card-icon"><i class="lucide lucide-arrow-up-down"></i></div>
                 <div class="home-card-content">
                     <span class="home-card-title"><?php echo t_h('display.cards.icon_sidebar_order', [], 'Icon sidebar order'); ?></span>

@@ -229,6 +229,130 @@ function poznoteApplyIconSidebarOrder(array $items, array $order) {
 }
 
 /**
+ * Keep only well-formed entries of an icon colour map: a key matching
+ * $keyPattern mapped to a #rrggbb colour. Anything else is dropped rather than
+ * rejected, so a stale or hand-edited value never breaks the page. Colours are
+ * lowercased so the colour modal can match its swatches.
+ */
+function poznoteNormalizeIconColorMap($decoded, $keyPattern) {
+    $colors = [];
+    if (!is_array($decoded)) {
+        return $colors;
+    }
+    foreach ($decoded as $key => $color) {
+        if (!is_string($key) || !preg_match($keyPattern, $key)) {
+            continue;
+        }
+        if (!is_string($color) || !preg_match('/^#[0-9a-fA-F]{6}$/', $color)) {
+            continue;
+        }
+        $colors[$key] = strtolower($color);
+        if (count($colors) >= 100) {
+            break;
+        }
+    }
+    return $colors;
+}
+
+/**
+ * Icon rail colours: button ids declared in icon_sidebar.php.
+ */
+function poznoteNormalizeIconSidebarColors($decoded) {
+    return poznoteNormalizeIconColorMap($decoded, '/^[A-Za-z][A-Za-z0-9_-]{0,99}$/');
+}
+
+/**
+ * Note toolbar colours. The keys end up in CSS selectors, hence the narrow
+ * alphabet: a toolbar button class (btn-bold, mobile-more-btn...) or
+ * menu-<data-action> for a menu entry that mirrors no toolbar button.
+ */
+function poznoteNormalizeToolbarIconColors($decoded) {
+    return poznoteNormalizeIconColorMap($decoded, '/^[a-z][a-z0-9-]{0,79}$/');
+}
+
+/**
+ * User-chosen colours of the icon rail's buttons, keyed by button id. Stored
+ * under the 'icon_sidebar_colors' user setting by the colour modal of the rail
+ * (right-click on a button, or the palette button of the Icon Sidebar Order
+ * modal). A button with no entry keeps the rail's own colours.
+ */
+function poznoteGetIconSidebarColors() {
+    static $colors = null;
+
+    if ($colors === null) {
+        $colors = poznoteNormalizeIconSidebarColors(json_decode((string)getSetting('icon_sidebar_colors', '{}'), true));
+    }
+
+    return $colors;
+}
+
+/**
+ * The <i> of one rail button (or of its row in the Icon Sidebar Order modal),
+ * painted in the button's saved colour when it has one. The colour rides on the
+ * icon itself, not the button, because the rail's overflow menu clones the icon
+ * element (js/icon-sidebar-toggle.js). css/icon-sidebar.css styles
+ * .icon-sidebar-icon-colored; js/icon-sidebar-colors.js keeps it in sync.
+ */
+function poznoteRenderIconSidebarIcon($iconClass, $id, $extraClass = '') {
+    $colors = poznoteGetIconSidebarColors();
+    $class = 'lucide ' . $iconClass . ($extraClass !== '' ? ' ' . $extraClass : '');
+    $style = '';
+    if (isset($colors[$id])) {
+        $class .= ' icon-sidebar-icon-colored';
+        $style = ' style="--icon-sidebar-icon-color: ' . $colors[$id] . ';"';
+    }
+    return '<i class="' . htmlspecialchars($class, ENT_QUOTES, 'UTF-8') . '"' . $style . '></i>';
+}
+
+/**
+ * User-chosen colours of the note toolbar's icons (right-click on one, see
+ * js/toolbar-icon-colors.js), under the 'toolbar_icon_colors' user setting.
+ */
+function poznoteGetToolbarIconColors() {
+    static $colors = null;
+
+    if ($colors === null) {
+        $colors = poznoteNormalizeToolbarIconColors(json_decode((string)getSetting('toolbar_icon_colors', '{}'), true));
+    }
+
+    return $colors;
+}
+
+/**
+ * CSS painting the toolbar colours. Rules rather than inline styles because
+ * the toolbar is re-rendered each time a note opens. Mirrors buildRules() in
+ * js/toolbar-icon-colors.js, which rewrites the same <style> after a change.
+ *
+ * A button key paints the toolbar button and the ⋮ menu entry that triggers it
+ * (data-selector); a menu-<action> key paints the menu entries with that
+ * action. The state colours (favorite, shared, attachments, reminder, pending
+ * save, active format) still win: they carry information.
+ */
+function poznoteBuildToolbarIconColorRules(array $colors) {
+    $states = ':not(.is-favorite):not(.is-shared):not(.has-attachments):not(.has-reminder):not(.is-saving):not(.is-format-active)';
+    $rules = [];
+    foreach ($colors as $key => $color) {
+        $paint = ' { color: ' . $color . '; background-color: ' . $color . '; }';
+        if (strpos($key, 'menu-') === 0) {
+            $rules[] = '.note-edit-toolbar .dropdown-item[data-action="' . substr($key, 5) . '"]:not([data-selector]):not(.has-attachments) i' . $paint;
+        } else {
+            $rules[] = '.note-edit-toolbar .toolbar-btn.' . $key . $states . ' i, .note-edit-toolbar .dropdown-item[data-selector=".' . $key . '"]:not(.has-attachments) i' . $paint;
+        }
+    }
+    return implode("\n", $rules);
+}
+
+/**
+ * Emitted in index.php's <head>, so the toolbar paints in its colours from the
+ * first frame instead of when the deferred bundle runs.
+ */
+function poznoteRenderToolbarIconColorsBootstrap() {
+    $colors = poznoteGetToolbarIconColors();
+    echo '<script>window.__POZNOTE_TOOLBAR_ICON_COLORS__ = ' . json_encode((object)$colors, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) . ';</script>' . "\n";
+    echo '<style id="toolbar-icon-colors-styles">' . htmlspecialchars(poznoteBuildToolbarIconColorRules($colors), ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</style>' . "\n";
+}
+
+/**
  * Drop the separators that would draw nothing useful: one before the first
  * entry, one after the last, or two in a row. Entries the UI Customization
  * modal hides are still in the list here (they are hidden by CSS), so

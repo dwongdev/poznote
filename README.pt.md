@@ -644,7 +644,7 @@ O Poznote oferece dois formatos principais de nota, cada um pensado para um flux
 &nbsp;
 
 *   **Uso:** escreva uma nota por dia, no estilo de um diário, a partir de um quadro Diário dedicado.
-*   **Fluxo de trabalho:** o botão "Entrada de hoje" abre a nota do dia, criando-a se necessário, com a data atual como título e armazenada automaticamente em uma estrutura de pastas `Diary/YYYY/MM`.
+*   **Fluxo de trabalho:** o botão "Criar a entrada de hoje" cria a nota do dia (ele passa a se chamar "Ir para a entrada de hoje" quando a nota já existe), com a data atual como título e armazenada automaticamente em uma estrutura de pastas `Diary/YYYY/MM`.
 *   **Visualização em quadro:** as entradas são exibidas como cartões agrupados por mês, das mais recentes para as mais antigas, com um filtro para encontrar rapidamente entradas anteriores.
 *   **Vista contínua:** o botão em forma de pergaminho, ao lado dos controles de visualização, muda para uma única coluna de leitura: cada entrada com seu conteúdo completo, das mais recentes para as mais antigas, carregadas conforme você rola a página. O filtro também funciona ali.
 *   **Formato:** novas entradas são criadas como notas HTML ou Markdown, conforme a configuração "Formato das entradas do diário" em **Configurações > Comportamento**.
@@ -675,7 +675,7 @@ Em **Configurações > Tela**, você pode configurar:
 - **Cores das notas:** escolha a paleta oferecida ao colorir uma nota
 - **Ícones por tipo de nota:** dê às listas de tarefas e às notas Markdown um ícone próprio na lista de notas
 - **Escala de ícones do índice:** redimensione os ícones do índice de notas
-- **Ordem da barra de ícones:** reordene os botões da barra de ícones à esquerda
+- **Ordem da barra de ícones:** reordene os botões da barra de ícones à esquerda e altere a sua cor (um clique direito num botão da barra também abre o seletor de cor)
 - **Largura do conteúdo da nota:** controle a largura máxima da área do editor de notas
 - **Pré-visualizações de anexos:** exiba os anexos como pré-visualizações dentro da nota
 - **Borda padrão de imagem:** emoldure as imagens inseridas sem adicionar espaçamento interno
@@ -790,6 +790,8 @@ Dois tokens em vez de um porque um *preenchimento* e um *rótulo* não podem ter
 ```
 
 Os ícones são máscaras CSS pintadas com `background-color: currentColor`, então `color` é tudo de que você precisa. O `!important` é necessário aqui porque alguns desses ícones já têm uma cor própria (a estrela quando a nota é favorita, o ícone de compartilhamento quando ela está publicada, o clipe quando ela tem anexos).
+
+Para colorir um único ícone não é preciso CSS: clique com o botão direito nele na barra de ferramentas da nota ou na barra de ícones e escolha uma cor. Essas cores são salvas por usuário e não alteram as cores de estado acima.
 
 **Deixar a interface inteira com tons quentes**
 

@@ -4796,8 +4796,8 @@
     // ========== Icon Sidebar Order ==========
     // The rows are rendered server-side by modals.php from the very list
     // icon_sidebar.php used for the rail, separators included, so this only
-    // has to reorder them. The rail itself is rendered in PHP, hence the
-    // reload after saving.
+    // has to reorder them and track the icon colours picked on them. The rail
+    // itself is rendered in PHP, hence the reload after saving.
 
     // Same token as POZNOTE_ICON_SIDEBAR_DIVIDER in functions.php: the
     // data-entry-id of a separator row, repeated in the saved order for each
@@ -4861,7 +4861,6 @@
 
         order = tidyIconSidebarOrder(order);
         if (!order.length) {
-            syncIconSidebarOrderMoveButtons();
             return;
         }
 
@@ -4901,57 +4900,87 @@
         ordered.forEach(function (row) {
             list.appendChild(row);
         });
-
-        syncIconSidebarOrderMoveButtons();
     }
 
-    // A new separator lands at the bottom, ready to be dragged (or moved up)
-    // to where the line should go.
+    // A new separator lands at the bottom, ready to be dragged to where the
+    // line should go.
     function addIconSidebarDividerRow() {
         var list = getIconSidebarOrderList();
         var row = createIconSidebarDividerRow();
         if (!list || !row) return;
 
         list.appendChild(row);
-        syncIconSidebarOrderMoveButtons();
         try { row.scrollIntoView({ block: 'nearest' }); } catch (e) {
             console.debug('settings-page: addIconSidebarDividerRow() failed:', e);
         }
     }
 
-    // The first row cannot move up and the last cannot move down; disabling
-    // rather than hiding keeps the rows the same width.
-    function syncIconSidebarOrderMoveButtons() {
-        var list = getIconSidebarOrderList();
-        if (!list) return;
+    // Colours picked in this modal stay on the rows (data-icon-color) until
+    // Save, so Cancel drops them. The colour modal itself belongs to the rail
+    // (icon_sidebar.php, js/icon-sidebar-colors.js), which also paints the
+    // row's icon the way it paints the rail's.
+    function getIconSidebarColorsApi() {
+        return window.PoznoteIconSidebarColors || null;
+    }
 
-        var rows = list.querySelectorAll('.icon-sidebar-order-item');
-        rows.forEach(function (row, index) {
-            var up = row.querySelector('[data-move="up"]');
-            var down = row.querySelector('[data-move="down"]');
-            if (up) up.disabled = index === 0;
-            if (down) down.disabled = index === rows.length - 1;
+    function setIconSidebarOrderRowColor(row, color) {
+        var api = getIconSidebarColorsApi();
+        row.setAttribute('data-icon-color', color || '');
+        if (api) api.paintIcon(row.querySelector('.icon-sidebar-order-icon'), color || '');
+    }
+
+    function resetIconSidebarOrderRowColors() {
+        var list = getIconSidebarOrderList();
+        var api = getIconSidebarColorsApi();
+        if (!list || !api) return;
+
+        list.querySelectorAll('.icon-sidebar-order-item').forEach(function (row) {
+            if (!isIconSidebarDividerRow(row)) {
+                setIconSidebarOrderRowColor(row, api.getColor(row.getAttribute('data-entry-id')));
+            }
         });
     }
 
-    function moveIconSidebarOrderRow(row, direction) {
+    function openIconSidebarOrderRowColor(row) {
+        var api = getIconSidebarColorsApi();
+        if (!api || !row) return;
+
+        var icon = row.querySelector('.icon-sidebar-order-icon');
+        var label = row.querySelector('.icon-sidebar-order-label');
+        api.open(row.getAttribute('data-entry-id'), {
+            color: row.getAttribute('data-icon-color') || '',
+            icon: icon ? api.iconClassOf(icon) : '',
+            label: label ? label.textContent : '',
+            onApply: function (color) {
+                setIconSidebarOrderRowColor(row, color);
+            }
+        });
+    }
+
+    // Every saved colour, with the listed rows' pending ones on top. Starts
+    // from the saved map so the account buttons at the bottom of the rail,
+    // which the list does not show, keep theirs.
+    function getIconSidebarOrderColors() {
+        var api = getIconSidebarColorsApi();
         var list = getIconSidebarOrderList();
-        if (!list || !row) return;
+        var colors = api ? api.getColors() : {};
+        if (!list) return colors;
 
-        if (direction === 'up') {
-            var previous = row.previousElementSibling;
-            if (previous) list.insertBefore(row, previous);
-        } else {
-            var next = row.nextElementSibling;
-            if (next) list.insertBefore(next, row);
-        }
-
-        syncIconSidebarOrderMoveButtons();
+        list.querySelectorAll('.icon-sidebar-order-item').forEach(function (row) {
+            if (isIconSidebarDividerRow(row) || !row.hasAttribute('data-icon-color')) return;
+            var id = row.getAttribute('data-entry-id');
+            var color = row.getAttribute('data-icon-color');
+            if (color) {
+                colors[id] = color;
+            } else {
+                delete colors[id];
+            }
+        });
+        return colors;
     }
 
     // SortableJS is vendored but not loaded on the settings page; pull it in on
-    // first open, exactly as js/tasklist-order-drag.js does. The up/down buttons are the
-    // fallback, so a failed load costs nothing but the dragging.
+    // first open, exactly as js/tasklist-order-drag.js does.
     function initIconSidebarOrderSortable() {
         var list = getIconSidebarOrderList();
         if (!list || list.dataset.sortable === '1') return;
@@ -4973,10 +5002,7 @@
             handle: '.icon-sidebar-order-handle',
             draggable: '.icon-sidebar-order-item',
             onStart: function (evt) { evt.item.classList.add('dragging'); },
-            onEnd: function (evt) {
-                evt.item.classList.remove('dragging');
-                syncIconSidebarOrderMoveButtons();
-            }
+            onEnd: function (evt) { evt.item.classList.remove('dragging'); }
         });
 
         list.dataset.sortable = '1';
@@ -4998,23 +5024,41 @@
             }
 
             applyIconSidebarOrderToList(order);
+            resetIconSidebarOrderRowColors();
             initIconSidebarOrderSortable();
             modal.style.display = 'flex';
         });
     }
 
-    function saveIconSidebarOrder(order) {
-        setSetting('icon_sidebar_order', JSON.stringify(order), function (success) {
-            if (!success) {
-                alert(tr('display.alerts.error_saving_preference', {}, 'Error saving preference'));
-                return;
-            }
-
+    // colors is optional: Reset only clears the order.
+    function saveIconSidebarOrder(order, colors) {
+        var fail = function () {
+            alert(tr('display.alerts.error_saving_preference', {}, 'Error saving preference'));
+        };
+        var done = function () {
             try { closeModal('iconSidebarOrderModal'); } catch (e) {
                 console.debug('settings-page: saveIconSidebarOrder() failed:', e);
             }
             reloadOpener();
             reloadCurrentSettingsPage();
+        };
+
+        setSetting('icon_sidebar_order', JSON.stringify(order), function (success) {
+            if (!success) {
+                fail();
+                return;
+            }
+            if (!colors) {
+                done();
+                return;
+            }
+            setSetting('icon_sidebar_colors', JSON.stringify(colors), function (colorsSaved) {
+                if (colorsSaved) {
+                    done();
+                } else {
+                    fail();
+                }
+            });
         });
     }
 
@@ -5027,15 +5071,14 @@
         var list = getIconSidebarOrderList();
         if (list) {
             list.addEventListener('click', function (event) {
-                var button = event.target.closest('.icon-sidebar-order-move');
-                if (!button || button.disabled) return;
+                var button = event.target.closest('[data-change-color], [data-remove-divider]');
+                if (!button) return;
                 var row = button.closest('.icon-sidebar-order-item');
                 if (button.hasAttribute('data-remove-divider')) {
                     if (row) row.remove();
-                    syncIconSidebarOrderMoveButtons();
-                    return;
+                } else {
+                    openIconSidebarOrderRowColor(row);
                 }
-                moveIconSidebarOrderRow(row, button.getAttribute('data-move'));
             });
         }
 
@@ -5047,7 +5090,7 @@
         var saveBtn = document.getElementById('saveIconSidebarOrderBtn');
         if (saveBtn) {
             saveBtn.addEventListener('click', function () {
-                saveIconSidebarOrder(getIconSidebarOrderIds());
+                saveIconSidebarOrder(getIconSidebarOrderIds(), getIconSidebarOrderColors());
             });
         }
 

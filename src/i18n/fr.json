@@ -505,7 +505,7 @@
       "note_nav_shortcuts": "Passez à la note précédente ou suivante du dossier courant avec Alt + ↑/↓.",
       "ctrl_s_save": "Enregistrez immédiatement la note courante avec Ctrl + S (Cmd + S sur Mac).",
       "ui_customization": "Masquez les éléments de l'interface que vous n'utilisez pas.",
-      "icon_sidebar_order": "Modifiez l'ordre des boutons de la barre d'icônes et placez des séparateurs entre eux.",
+      "icon_sidebar_order": "Modifiez l'ordre et la couleur des boutons de la barre d'icônes et placez des séparateurs entre eux.",
       "users_admin": "Créez, modifiez et gérez les comptes utilisateurs.",
       "oidc_config": "Configurez l'authentification unique avec un fournisseur OpenID Connect.",
       "smtp_config": "Configurez le serveur SMTP utilisé pour envoyer des e-mails comme les rappels.",
@@ -1362,9 +1362,8 @@
     },
     "icon_sidebar_order": {
       "title": "Ordre de la barre d'icônes",
-      "description": "Faites glisser les entrées pour modifier l'ordre des boutons de la barre d'icônes. Les séparateurs tracent une fine ligne entre deux groupes de boutons. Les boutons de compte en bas de la barre restent en place.",
-      "move_up": "Monter",
-      "move_down": "Descendre",
+      "description": "Faites glisser les entrées pour modifier l'ordre des boutons de la barre d'icônes. Les séparateurs tracent une fine ligne entre deux groupes de boutons. Les boutons de compte en bas de la barre restent en place. Cliquez sur une icône pour changer sa couleur. Vous pouvez aussi faire un clic droit sur n'importe quel bouton directement dans la barre.",
+      "change_color": "Changer la couleur de l'icône",
       "reset": "Réinitialiser l'ordre",
       "divider": "Séparateur",
       "add_divider": "Ajouter un séparateur",
@@ -4621,10 +4620,10 @@
   },
   "diary": {
     "title": "Journal",
-    "today_button": "Note du jour",
-    "today_button_title": "Ouvrir la note du jour (la créer si besoin)",
+    "today_button_go": "Aller à la note du jour",
+    "today_button_create": "Créer la note du jour",
     "today_badge": "Aujourd'hui",
-    "empty": "Aucune note de journal pour le moment. Cliquez sur « Note du jour » pour écrire la première. Elle sera rangée dans {{folder}}.",
+    "empty": "Aucune note de journal pour le moment. Cliquez sur « Créer la note du jour » pour écrire la première. Elle sera rangée dans {{folder}}.",
     "create_error": "Impossible de créer la note du jour.",
     "create_card_title": "Note de journal",
     "folder_name": "Journal",
@@ -4641,7 +4640,9 @@
     "delete_error": "Impossible de supprimer le journal.",
     "journal_trash": "Mettre à la corbeille",
     "journal_trash_confirm": "Mettre « {{title}} » à la corbeille ?",
-    "journal_trash_error": "Impossible de mettre cette note à la corbeille."
+    "journal_trash_error": "Impossible de mettre cette note à la corbeille.",
+    "rename_title": "Renommer le journal",
+    "rename_error": "Impossible de renommer le journal."
   },
   "new_user_email": {
     "subject": "Nouvel utilisateur Poznote : {{user}}",

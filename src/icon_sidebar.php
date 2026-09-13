@@ -337,6 +337,13 @@ $iconSidebarProfileStrings = [
 window.PoznoteProfileI18n = <?php echo json_encode($iconSidebarProfileStrings, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
 </script>
 <script src="<?php echo $iconSidebarAsset('js/profile.js'); ?>" defer></script>
+<script>
+window.PoznoteIconSidebarColorsConfig = <?php echo json_encode([
+    'colors' => (object)poznoteGetIconSidebarColors(),
+    'errorSaving' => t('display.alerts.error_saving_preference', [], 'Error saving preference'),
+], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
+</script>
+<script src="<?php echo $iconSidebarAsset('js/icon-sidebar-colors.js'); ?>" defer></script>
 <script src="<?php echo $iconSidebarAsset('js/page-title-workspace-menu.js'); ?>" defer></script>
 <script>
 // Apply the collapsed state before the rail paints; js/icon-sidebar-toggle.js
@@ -360,22 +367,21 @@ try {
     <?php endif; ?>
     <?php
     $iconSidebarLabel = htmlspecialchars($iconSidebarItem['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-    $iconSidebarIcon = htmlspecialchars($iconSidebarItem['icon'], ENT_QUOTES, 'UTF-8');
     // Only the navigation entries carry a 'page'; the extras never highlight.
     $iconSidebarIsCurrent = isset($iconSidebarItem['page']) && $iconSidebarItem['page'] === $iconSidebarCurrentPage;
     $iconSidebarClass = 'icon-sidebar-btn' . ($iconSidebarIsCurrent ? ' icon-sidebar-btn-active' : '');
     ?>
     <?php if (isset($iconSidebarItem['gitAction'])): ?>
     <button type="button" id="<?php echo $iconSidebarItem['id']; ?>" class="<?php echo $iconSidebarClass; ?>" data-icon-sidebar-git-action="<?php echo htmlspecialchars($iconSidebarItem['gitAction'], ENT_QUOTES, 'UTF-8'); ?>" title="<?php echo $iconSidebarLabel; ?>" aria-label="<?php echo $iconSidebarLabel; ?>"<?php echo !empty($iconSidebarItem['hidden']) ? ' hidden' : ''; ?>>
-        <i class="lucide <?php echo $iconSidebarIcon; ?>"></i>
+        <?php echo poznoteRenderIconSidebarIcon($iconSidebarItem['icon'], $iconSidebarItem['id']); ?>
     </button>
     <?php elseif (isset($iconSidebarItem['dashboardGitAction'])): ?>
     <button type="button" id="<?php echo $iconSidebarItem['id']; ?>" class="<?php echo $iconSidebarClass; ?>" data-dashboard-git-action="<?php echo htmlspecialchars($iconSidebarItem['dashboardGitAction'], ENT_QUOTES, 'UTF-8'); ?>" title="<?php echo $iconSidebarLabel; ?>" aria-label="<?php echo $iconSidebarLabel; ?>">
-        <i class="lucide <?php echo $iconSidebarIcon; ?>"></i>
+        <?php echo poznoteRenderIconSidebarIcon($iconSidebarItem['icon'], $iconSidebarItem['id']); ?>
     </button>
     <?php elseif (isset($iconSidebarItem['action'])): ?>
     <button type="button" id="<?php echo $iconSidebarItem['id']; ?>" class="<?php echo $iconSidebarClass; ?>" data-action="<?php echo htmlspecialchars($iconSidebarItem['action'], ENT_QUOTES, 'UTF-8'); ?>" title="<?php echo $iconSidebarLabel; ?>" aria-label="<?php echo $iconSidebarLabel; ?>">
-        <i class="lucide <?php echo $iconSidebarIcon; ?>"></i>
+        <?php echo poznoteRenderIconSidebarIcon($iconSidebarItem['icon'], $iconSidebarItem['id']); ?>
     </button>
     <?php else: ?>
     <a href="<?php echo htmlspecialchars($iconSidebarItem['url'], ENT_QUOTES, 'UTF-8'); ?>"
@@ -383,7 +389,7 @@ try {
        class="<?php echo $iconSidebarClass; ?>"
        title="<?php echo $iconSidebarLabel; ?>"
        aria-label="<?php echo $iconSidebarLabel; ?>"<?php echo $iconSidebarIsCurrent ? ' aria-current="page"' : ''; ?>>
-        <i class="lucide <?php echo $iconSidebarIcon; ?>"></i>
+        <?php echo poznoteRenderIconSidebarIcon($iconSidebarItem['icon'], $iconSidebarItem['id']); ?>
         <?php if (!empty($iconSidebarItem['updateBadge'])): ?>
         <span class="update-badge update-badge-hidden"></span>
         <?php endif; ?>
@@ -404,7 +410,6 @@ try {
     <?php foreach ($iconSidebarBottomItems as $iconSidebarItem): ?>
     <?php
     $iconSidebarLabel = htmlspecialchars($iconSidebarItem['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-    $iconSidebarIcon = htmlspecialchars($iconSidebarItem['icon'], ENT_QUOTES, 'UTF-8');
     // 'activeFlag' covers the entries that share a page and split the highlight
     // by query string (Settings vs About vs My Profile); the rest match on 'page'.
     $iconSidebarIsCurrent = isset($iconSidebarItem['activeFlag'])
@@ -414,7 +419,7 @@ try {
     ?>
     <?php if (!empty($iconSidebarItem['themeToggle'])): ?>
     <button type="button" id="<?php echo $iconSidebarItem['id']; ?>" class="<?php echo $iconSidebarClass; ?>" data-theme-toggle title="<?php echo $iconSidebarLabel; ?>" aria-label="<?php echo $iconSidebarLabel; ?>">
-        <i class="lucide <?php echo $iconSidebarIcon; ?>"></i>
+        <?php echo poznoteRenderIconSidebarIcon($iconSidebarItem['icon'], $iconSidebarItem['id']); ?>
     </button>
     <?php else: ?>
     <a href="<?php echo htmlspecialchars($iconSidebarItem['url'], ENT_QUOTES, 'UTF-8'); ?>"
@@ -422,7 +427,7 @@ try {
        class="<?php echo $iconSidebarClass; ?>"
        title="<?php echo $iconSidebarLabel; ?>"
        aria-label="<?php echo $iconSidebarLabel; ?>"<?php echo $iconSidebarIsCurrent ? ' aria-current="page"' : ''; ?>>
-        <i class="lucide <?php echo $iconSidebarIcon; ?>"></i>
+        <?php echo poznoteRenderIconSidebarIcon($iconSidebarItem['icon'], $iconSidebarItem['id']); ?>
         <?php if (!empty($iconSidebarItem['updateBadge'])): ?>
         <span class="update-badge update-badge-hidden"></span>
         <?php endif; ?>
@@ -441,3 +446,20 @@ try {
 <button type="button" id="iconSidebarToggle" title="<?php echo $iconSidebarToggleLabel; ?>" aria-label="<?php echo $iconSidebarToggleLabel; ?>" aria-expanded="true" aria-controls="icon_sidebar">
     <i class="lucide lucide-chevron-left"></i>
 </button>
+<!-- Colour of one icon: right-click on a rail button, the icons of the Icon
+     Sidebar Order modal (settings.php), or a right-click on a note toolbar
+     button (js/toolbar-icon-colors.js, which is why the modal lives here, on
+     every page with the rail). The folder icon modal's palette without its icon
+     grid. Driven by js/icon-sidebar-colors.js,
+     styled by css/profile-modal.css like the rail's other modals, since half
+     the host pages do not load the modal stylesheets. -->
+<div id="iconSidebarColorModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="iconSidebarColorModalTitle">
+    <div class="modal-content">
+        <h3 id="iconSidebarColorModalTitle"><i class="lucide" data-icon-sidebar-color-preview aria-hidden="true"></i><span data-icon-sidebar-color-label></span></h3>
+<?php include __DIR__ . '/modals/icon_color_options.php'; ?>
+        <div class="modal-buttons">
+            <button type="button" class="btn-cancel" data-icon-sidebar-color-cancel><?php echo t_h('common.cancel', [], 'Cancel'); ?></button>
+            <button type="button" class="btn-primary" data-icon-sidebar-color-apply><?php echo t_h('common.apply', [], 'Apply'); ?></button>
+        </div>
+    </div>
+</div>
