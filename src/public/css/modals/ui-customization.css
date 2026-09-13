@@ -455,6 +455,9 @@ html[data-theme='dark'] .ui-custom-columns,
 /* Cap the modal and let the list be the only part that scrolls, so the Save /
    Cancel row stays reachable however many entries the rail has. */
 #iconSidebarOrderModal .modal-content {
+    /* Wide enough for Reset / Cancel / Save on one row in every language
+       (German needs ~500px of button row, the standard 420px leaves 364px). */
+    --modal-max-width: 560px;
     display: flex;
     flex-direction: column;
     max-height: 85vh;
@@ -471,6 +474,11 @@ html[data-theme='dark'] .ui-custom-columns,
    list fills the modal and leaves the buttons flush against the last row. */
 #iconSidebarOrderModal .modal-buttons {
     margin-top: 18px;
+    flex-wrap: nowrap;
+}
+
+#iconSidebarOrderModal .modal-buttons button {
+    white-space: nowrap;
 }
 
 .icon-sidebar-order-list {
