@@ -791,6 +791,8 @@ Dos tokens en lugar de uno porque un *relleno* y una *etiqueta* no pueden tener 
 
 Los iconos son máscaras CSS pintadas con `background-color: currentColor`, así que basta con `color`. Aquí hace falta `!important` porque algunos de esos iconos ya tienen un color propio (la estrella cuando una nota es favorita, el icono de compartir cuando está publicada, el clip cuando tiene adjuntos).
 
+Para colorear un solo icono no hace falta CSS: haga clic derecho sobre él en la barra de herramientas de la nota o en la barra de iconos y elija un color. Estos colores se guardan por usuario y no afectan a los colores de estado anteriores.
+
 **Dar un tono cálido a toda la interfaz**
 
 ```css

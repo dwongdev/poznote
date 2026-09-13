@@ -409,9 +409,10 @@ class SettingsController {
             return substr(trim((string) $value), 0, 1000);
         }
 
-        // Button id => #rrggbb map painted on the icon rail
-        // (poznoteNormalizeIconSidebarColors()).
-        if ($key === 'icon_sidebar_colors') {
+        // Button => #rrggbb maps painted on the icon rail
+        // (poznoteNormalizeIconSidebarColors()) and the note toolbar
+        // (poznoteNormalizeToolbarIconColors()).
+        if ($key === 'icon_sidebar_colors' || $key === 'toolbar_icon_colors') {
             $raw = is_string($value) ? trim($value) : $value;
             if ($raw === '' || $raw === null || $raw === '{}' || $raw === '[]') {
                 return '{}';
@@ -421,7 +422,9 @@ class SettingsController {
                 throw new InvalidArgumentException('value must be a JSON object of button colors', 400);
             }
             require_once __DIR__ . '/../../../functions.php';
-            $colors = poznoteNormalizeIconSidebarColors($decoded);
+            $colors = $key === 'toolbar_icon_colors'
+                ? poznoteNormalizeToolbarIconColors($decoded)
+                : poznoteNormalizeIconSidebarColors($decoded);
             return $colors ? json_encode($colors, JSON_UNESCAPED_SLASHES) : '{}';
         }
 

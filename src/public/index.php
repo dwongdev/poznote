@@ -347,6 +347,7 @@ $isPublicWorkspaceReadonly = function_exists('isPublicWorkspaceAccessActive') &&
     <link type="text/css" rel="stylesheet" href="js/katex/katex.min.css?v=<?php echo $v; ?>"/>
     <style>:root { --note-font-size: <?php echo htmlspecialchars($note_font_size, ENT_QUOTES); ?>px; --sidebar-font-size: <?php echo htmlspecialchars($sidebar_font_size, ENT_QUOTES); ?>px; --note-max-width: <?php echo htmlspecialchars($note_max_width, ENT_QUOTES); ?>; }</style>
     <?php poznoteRenderUiCustomizationBootstrap(); ?>
+    <?php poznoteRenderToolbarIconColorsBootstrap(); ?>
     <!-- Editor/toolbar modules served as one concatenated deferred bundle
          (see index_js.php). The js/*.js files stay the source of truth. -->
     <script defer src="index_js.php?group=head&v=<?php echo $v; ?>"></script>

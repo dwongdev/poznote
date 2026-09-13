@@ -1,6 +1,7 @@
 /**
  * The icon rail's own modals: My Profile and the logout confirmation
- * (js/profile.js), and the colour of a rail icon (js/icon-sidebar-colors.js).
+ * (js/profile.js), and the colour of a rail or note toolbar icon
+ * (js/icon-sidebar-colors.js).
  *
  * All three are opened from the icon rail, which is on nearly every page, while
  * css/modals/base.css is only loaded by about half of them. Everything here is

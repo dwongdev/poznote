@@ -446,9 +446,11 @@ try {
 <button type="button" id="iconSidebarToggle" title="<?php echo $iconSidebarToggleLabel; ?>" aria-label="<?php echo $iconSidebarToggleLabel; ?>" aria-expanded="true" aria-controls="icon_sidebar">
     <i class="lucide lucide-chevron-left"></i>
 </button>
-<!-- Colour of one rail button's icon: right-click on the button, or the palette
-     button of the Icon Sidebar Order modal (settings.php). The folder icon
-     modal's palette without its icon grid. Driven by js/icon-sidebar-colors.js,
+<!-- Colour of one icon: right-click on a rail button, the icons of the Icon
+     Sidebar Order modal (settings.php), or a right-click on a note toolbar
+     button (js/toolbar-icon-colors.js, which is why the modal lives here, on
+     every page with the rail). The folder icon modal's palette without its icon
+     grid. Driven by js/icon-sidebar-colors.js,
      styled by css/profile-modal.css like the rail's other modals, since half
      the host pages do not load the modal stylesheets. -->
 <div id="iconSidebarColorModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="iconSidebarColorModalTitle">

@@ -791,6 +791,8 @@ Dois tokens em vez de um porque um *preenchimento* e um *rótulo* não podem ter
 
 Os ícones são máscaras CSS pintadas com `background-color: currentColor`, então `color` é tudo de que você precisa. O `!important` é necessário aqui porque alguns desses ícones já têm uma cor própria (a estrela quando a nota é favorita, o ícone de compartilhamento quando ela está publicada, o clipe quando ela tem anexos).
 
+Para colorir um único ícone não é preciso CSS: clique com o botão direito nele na barra de ferramentas da nota ou na barra de ícones e escolha uma cor. Essas cores são salvas por usuário e não alteram as cores de estado acima.
+
 **Deixar a interface inteira com tons quentes**
 
 ```css

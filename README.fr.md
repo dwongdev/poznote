@@ -791,6 +791,8 @@ Deux tokens plutôt qu'un, car un *remplissage* et un *libellé* ne peuvent pas 
 
 Les icônes sont des masques CSS peints avec `background-color: currentColor` : `color` suffit donc. `!important` est nécessaire ici car quelques-unes de ces icônes ont déjà leur propre couleur (l'étoile quand une note est en favori, l'icône de partage quand elle est publiée, le trombone quand elle a des pièces jointes).
 
+Pour colorer une seule icône, pas besoin de CSS : faites un clic droit dessus dans la barre d'outils de la note ou dans la barre d'icônes, puis choisissez une couleur. Ces couleurs sont enregistrées par utilisateur et laissent intactes les couleurs d'état ci-dessus.
+
 **Réchauffer toute l'interface**
 
 ```css

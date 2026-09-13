@@ -791,6 +791,8 @@ Two tokens rather than one because a *fill* and a *label* cannot be the same col
 
 Icons are CSS masks painted with `background-color: currentColor`, so `color` is all you need. `!important` is needed here because a few of those icons already carry a colour of their own (the star when a note is a favourite, the share icon when it is published, the paperclip when it has attachments).
 
+No CSS needed to colour a single icon: right-click it in the note toolbar or in the icon rail and pick a colour. Those colours are saved per user and leave the state colours above alone.
+
 **Warm up the whole interface**
 
 ```css

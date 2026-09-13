@@ -147,6 +147,7 @@ function poznoteGetIndexJsGroups(): array {
         'js/snapshots.js',
         'js/ui-customization.js',
         'js/ui-customization-panel.js',
+        'js/toolbar-icon-colors.js',
         'js/paste-markdown-modal.js',
         'js/insert-markdown-modal.js',
         'js/speech-to-text.js',

@@ -1,11 +1,12 @@
 /**
- * Icon rail colours.
+ * Icon rail colours, and the icon colour modal they share with the note toolbar.
  *
  * Drives #iconSidebarColorModal, rendered by icon_sidebar.php next to the rail:
  * the folder colour palette (modals/icon_color_options.php) without the icon
  * grid. A right-click on a rail button opens it and saves the pick straight
  * away; the Icon Sidebar Order modal (js/settings-page.js) opens it with an
- * onApply callback instead and saves along with the order.
+ * onApply callback instead and saves along with the order. The note toolbar
+ * (js/toolbar-icon-colors.js) opens it through window.PoznoteIconColorModal.
  *
  * The colours are the 'icon_sidebar_colors' user setting, a button id =>
  * #rrggbb map (poznoteGetIconSidebarColors()). A coloured icon carries the
@@ -81,6 +82,26 @@
         paintIcon(modal.querySelector('[data-icon-sidebar-color-preview]'), selectedColor);
     }
 
+    // Shows the modal. current.id is the rail button to save when there is
+    // no onApply; a caller with its own onApply passes no id.
+    function show(id, color, icon, label, onApply) {
+        var modal = getModal();
+        if (!modal) return false;
+
+        var preview = modal.querySelector('[data-icon-sidebar-color-preview]');
+        if (preview) preview.className = 'lucide ' + (icon || 'lucide-circle');
+        var title = modal.querySelector('[data-icon-sidebar-color-label]');
+        if (title) title.textContent = label || '';
+
+        current = { id: id, onApply: onApply };
+        selectSwatch(color || '');
+
+        modal.style.display = 'flex';
+        var applyBtn = modal.querySelector('[data-icon-sidebar-color-apply]');
+        if (applyBtn) applyBtn.focus();
+        return true;
+    }
+
     /**
      * Open the modal for one rail button.
      * options.color    colour to preselect (defaults to the saved one)
@@ -90,26 +111,18 @@
      *                  saving it
      */
     function open(id, options) {
-        var modal = getModal();
-        if (!modal || !id) return;
+        if (!id) return;
         options = options || {};
 
         var button = document.getElementById(id);
         var buttonIcon = button ? button.querySelector('.lucide') : null;
-        var icon = options.icon || iconClassOf(buttonIcon);
-        var label = options.label || (button ? (button.getAttribute('aria-label') || button.getAttribute('title') || '') : '');
-
-        var preview = modal.querySelector('[data-icon-sidebar-color-preview]');
-        if (preview) preview.className = 'lucide ' + (icon || 'lucide-circle');
-        var title = modal.querySelector('[data-icon-sidebar-color-label]');
-        if (title) title.textContent = label;
-
-        current = { id: id, onApply: typeof options.onApply === 'function' ? options.onApply : null };
-        selectSwatch(Object.prototype.hasOwnProperty.call(options, 'color') ? options.color : (colors[id] || ''));
-
-        modal.style.display = 'flex';
-        var applyBtn = modal.querySelector('[data-icon-sidebar-color-apply]');
-        if (applyBtn) applyBtn.focus();
+        show(
+            id,
+            Object.prototype.hasOwnProperty.call(options, 'color') ? options.color : (colors[id] || ''),
+            options.icon || iconClassOf(buttonIcon),
+            options.label || (button ? (button.getAttribute('aria-label') || button.getAttribute('title') || '') : ''),
+            typeof options.onApply === 'function' ? options.onApply : null
+        );
     }
 
     function close() {
@@ -209,6 +222,16 @@
             open(button.id);
         });
     }
+
+    // Any other icon: the caller stores the colour itself.
+    // options: { color, icon, label, onApply(color) }, onApply required.
+    window.PoznoteIconColorModal = {
+        open: function (options) {
+            if (!options || typeof options.onApply !== 'function') return false;
+            return show(null, options.color, options.icon, options.label, options.onApply);
+        },
+        iconClassOf: iconClassOf
+    };
 
     window.PoznoteIconSidebarColors = {
         open: open,

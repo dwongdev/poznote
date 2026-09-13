@@ -791,6 +791,8 @@ Zwei Tokens statt einem, weil eine *Füllung* und eine *Beschriftung* nicht dies
 
 Symbole sind CSS-Masken, die mit `background-color: currentColor` gezeichnet werden, daher genügt `color`. `!important` ist hier nötig, weil einige dieser Symbole bereits eine eigene Farbe tragen (der Stern, wenn eine Notiz ein Favorit ist, das Teilen-Symbol, wenn sie veröffentlicht ist, die Büroklammer, wenn sie Anhänge hat).
 
+Für ein einzelnes Symbol braucht es kein CSS: Klicken Sie es in der Notiz-Symbolleiste oder in der Icon-Seitenleiste mit der rechten Maustaste an und wählen Sie eine Farbe. Diese Farben werden pro Benutzer gespeichert und lassen die oben genannten Statusfarben unverändert.
+
 **Die gesamte Oberfläche wärmer gestalten**
 
 ```css
